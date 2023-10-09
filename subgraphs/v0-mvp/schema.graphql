@@ -1,0 +1,40 @@
+type FranchiseRegistered @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  franchiseId: BigInt! # uint256
+  ipAssetRegistry: Bytes! # address
+  name: String! # string
+  symbol: String! # string
+  tokenURI: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IPAssetCreated @entity(immutable: true) {
+  id: Bytes!
+  franchiseId: BigInt! # uint256
+  owner: Bytes! # address
+  ipAssetRegistry: Bytes! # address
+  name: String!
+  description: String!
+  ipAssetId: BigInt! # uint256
+  ipAssetType: Int! # uint8
+  mediaUrl: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CreateLicense @entity(immutable: true) {
+  id: Bytes!
+  licenseId: BigInt! # uint256
+  ipAssetId: BigInt! # uint256
+  parentLicenseId: BigInt! # uint256
+  licenseOwner: Bytes! # address
+  uri: String! # string
+  revoker: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
