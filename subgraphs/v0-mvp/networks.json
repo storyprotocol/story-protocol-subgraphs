@@ -1,8 +1,8 @@
 {
   "goerli": {
     "FranchiseRegistry": {
-      "address": "0x912C1B747C0cC35f91a087af16ed213B891AcF4a",
-      "startBlock": 9685465
+      "address": "0x8e3B91c90561523312f32B49DAAc4AD15293De7F",
+      "startBlock": 9685466
     },
     "IPAssetRegistry": {
       "address": "0x9F3389b2c28Bb482DcE65f0cA80C60A3453344e6"

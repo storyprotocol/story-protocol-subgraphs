@@ -2,13 +2,15 @@ import {
   FranchiseRegistered as FranchiseRegisteredEvent,
 } from "../generated/FranchiseRegistry/FranchiseRegistry"
 import {
-  FranchiseRegistered,
+  Franchise, Transaction,
 } from "../generated/schema"
+import { IPAssetRegistry } from "../generated/templates"
 
 export function handleFranchiseRegistered(
   event: FranchiseRegisteredEvent
 ): void {
-  let entity = new FranchiseRegistered(
+  // Index the franchise
+  let entity = new Franchise(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.owner = event.params.owner
@@ -23,4 +25,20 @@ export function handleFranchiseRegistered(
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.owner = event.params.owner
+  transaction.franchiseId = event.params.id
+  transaction.resourceId = event.params.id
+  transaction.resourceType = "Franchise" 
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
+
+  // Index the IP Asset Registry
+  IPAssetRegistry.create(event.params.ipAssetRegistryForId)
 }

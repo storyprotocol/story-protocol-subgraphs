@@ -1,4 +1,4 @@
-type FranchiseRegistered @entity(immutable: true) {
+type Franchise @entity(immutable: true) {
   id: Bytes!
   owner: Bytes! # address
   franchiseId: BigInt! # uint256
@@ -11,7 +11,7 @@ type FranchiseRegistered @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type IPAssetCreated @entity(immutable: true) {
+type IPAsset @entity(immutable: true) {
   id: Bytes!
   franchiseId: BigInt! # uint256
   owner: Bytes! # address
@@ -19,16 +19,17 @@ type IPAssetCreated @entity(immutable: true) {
   name: String!
   description: String!
   ipAssetId: BigInt! # uint256
-  ipAssetType: Int! # uint8
+  ipAssetType: IpAssetType!
   mediaUrl: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type CreateLicense @entity(immutable: true) {
+type License @entity(immutable: true) {
   id: Bytes!
   licenseId: BigInt! # uint256
+  franchiseId: BigInt! # uint256
   ipAssetId: BigInt! # uint256
   parentLicenseId: BigInt! # uint256
   licenseOwner: Bytes! # address
@@ -37,4 +38,36 @@ type CreateLicense @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type Transaction @entity(immutable: true) {
+  id: Bytes! 
+  owner: Bytes! # address
+  franchiseId: BigInt! # uint256
+  resourceType: ResourceType!
+  resourceId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Collection @entity {
+  id: Bytes! # address
+  franchiseId: BigInt! # uint256 
+  ipAssetId: BigInt! # uint256
+  totalCollected: BigInt! # uint256
+}
+
+enum IpAssetType {
+  Unspecified
+  Story 
+  Character
+  Art
+}
+
+enum ResourceType {
+  Unspecified
+  Franchise
+  IpAsset
+  License
 }

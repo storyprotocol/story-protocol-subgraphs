@@ -6,9 +6,9 @@ dataSources:
     name: FranchiseRegistry
     network: goerli
     source:
-      address: "0x912C1B747C0cC35f91a087af16ed213B891AcF4a"
+      address: "0x8e3B91c90561523312f32B49DAAc4AD15293De7F"
       abi: FranchiseRegistry
-      startBlock: 9685465
+      startBlock: 9685466
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -44,23 +44,22 @@ dataSources:
         - event: IPAssetCreated(indexed uint256,indexed address,uint256,uint8)
           handler: handleIPAssetCreated
       file: ./src/event-emitter.ts
-  - kind: ethereum
-    name: IPAssetRegistry
+templates:
+  - name: IPAssetRegistry
+    kind: ethereum/contract
     network: goerli
     source:
-      address: "0x9F3389b2c28Bb482DcE65f0cA80C60A3453344e6"
       abi: IPAssetRegistry
-      startBlock: 9685465
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
+      file: ./src/ip-asset-registry.ts
       entities:
-        - CreateLicense
+        - IPAssetRegistry
       abis:
         - name: IPAssetRegistry
           file: ./abis/IPAssetRegistry.json
       eventHandlers:
         - event: CreateLicense(uint256,uint256,uint256,address,string,address)
           handler: handleCreateLicense
-      file: ./src/ip-asset-registry.ts
