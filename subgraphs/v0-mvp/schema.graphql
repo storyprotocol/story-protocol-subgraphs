@@ -70,4 +70,5 @@ enum ResourceType {
   Franchise
   IpAsset
   License
+  Collection
 }

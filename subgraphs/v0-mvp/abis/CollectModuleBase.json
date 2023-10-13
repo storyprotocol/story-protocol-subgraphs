@@ -1,0 +1,444 @@
+[
+    {
+      "inputs": [
+        {
+          "internaltype": "address",
+          "name": "franchiseregistry_",
+          "type": "address"
+        },
+        {
+          "internaltype": "address",
+          "name": "defaultcollectnftimpl_",
+          "type": "address"
+        }
+      ],
+      "statemutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "collectmodule_callerunauthorized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "collectmodule_collectnotyetinitialized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "collectmodule_collectunauthorized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "collectmodule_ipassetalreadyinitialized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "collectmodule_ipassetnonexistent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "collectmodule_ipassetregistrynonexistent",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internaltype": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "missingrole",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "unsupportedinterface",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internaltype": "address",
+          "name": "accesscontrol",
+          "type": "address"
+        }
+      ],
+      "name": "accesscontrolupdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internaltype": "address",
+          "name": "previousadmin",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internaltype": "address",
+          "name": "newadmin",
+          "type": "address"
+        }
+      ],
+      "name": "adminchanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internaltype": "address",
+          "name": "beacon",
+          "type": "address"
+        }
+      ],
+      "name": "beaconupgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internaltype": "uint256",
+          "name": "franchiseid_",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internaltype": "uint256",
+          "name": "ipassetid_",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internaltype": "address",
+          "name": "collector_",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internaltype": "address",
+          "name": "collectnft_",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internaltype": "uint256",
+          "name": "collectnftid_",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internaltype": "bytes",
+          "name": "collectdata_",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internaltype": "bytes",
+          "name": "collectnftdata_",
+          "type": "bytes"
+        }
+      ],
+      "name": "Collected",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internaltype": "uint8",
+          "name": "version",
+          "type": "uint8"
+        }
+      ],
+      "name": "initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internaltype": "uint256",
+          "name": "franchiseid_",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internaltype": "uint256",
+          "name": "ipassetid_",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internaltype": "address",
+          "name": "collectnft_",
+          "type": "address"
+        }
+      ],
+      "name": "NewCollectNFT",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internaltype": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "upgraded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "default_collect_nft_impl",
+      "outputs": [
+        {
+          "internaltype": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "statemutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "franchise_registry",
+      "outputs": [
+        {
+          "internaltype": "contract franchiseregistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "statemutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internaltype": "uint256",
+              "name": "franchiseid",
+              "type": "uint256"
+            },
+            {
+              "internaltype": "uint256",
+              "name": "ipassetid",
+              "type": "uint256"
+            },
+            {
+              "internaltype": "address",
+              "name": "collector",
+              "type": "address"
+            },
+            {
+              "internaltype": "bytes",
+              "name": "collectdata",
+              "type": "bytes"
+            },
+            {
+              "internaltype": "bytes",
+              "name": "collectnftinitdata",
+              "type": "bytes"
+            },
+            {
+              "internaltype": "bytes",
+              "name": "collectnftdata",
+              "type": "bytes"
+            }
+          ],
+          "internaltype": "struct collect.collectparams",
+          "name": "collectparams_",
+          "type": "tuple"
+        }
+      ],
+      "name": "collect",
+      "outputs": [
+        {
+          "internaltype": "address",
+          "name": "collectnft",
+          "type": "address"
+        },
+        {
+          "internaltype": "uint256",
+          "name": "collectnftid",
+          "type": "uint256"
+        }
+      ],
+      "statemutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getaccesscontrol",
+      "outputs": [
+        {
+          "internaltype": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "statemutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "uint256",
+          "name": "franchiseid_",
+          "type": "uint256"
+        },
+        {
+          "internaltype": "uint256",
+          "name": "ipassetid_",
+          "type": "uint256"
+        }
+      ],
+      "name": "getcollectnft",
+      "outputs": [
+        {
+          "internaltype": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "statemutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internaltype": "uint256",
+              "name": "franchiseid",
+              "type": "uint256"
+            },
+            {
+              "internaltype": "uint256",
+              "name": "ipassetid",
+              "type": "uint256"
+            },
+            {
+              "internaltype": "address",
+              "name": "collectnftimpl",
+              "type": "address"
+            },
+            {
+              "internaltype": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "internaltype": "struct collect.initcollectparams",
+          "name": "initcollectparams_",
+          "type": "tuple"
+        }
+      ],
+      "name": "initcollect",
+      "outputs": [],
+      "statemutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "address",
+          "name": "accesscontrol_",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "statemutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "proxiableuuid",
+      "outputs": [
+        {
+          "internaltype": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "statemutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "address",
+          "name": "accesscontrol_",
+          "type": "address"
+        }
+      ],
+      "name": "setaccesscontrol",
+      "outputs": [],
+      "statemutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "address",
+          "name": "newimplementation",
+          "type": "address"
+        }
+      ],
+      "name": "upgradeto",
+      "outputs": [],
+      "statemutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internaltype": "address",
+          "name": "newimplementation",
+          "type": "address"
+        },
+        {
+          "internaltype": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "upgradetoandcall",
+      "outputs": [],
+      "statemutability": "payable",
+      "type": "function"
+    }
+]
