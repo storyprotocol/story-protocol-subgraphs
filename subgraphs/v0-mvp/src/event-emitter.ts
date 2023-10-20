@@ -20,6 +20,15 @@ export function handleIPAssetCreated(event: IPAssetCreatedEvent): void {
     case 2:
         entity.ipAssetType = "Character"
         break
+    case 3:
+        entity.ipAssetType = "Art"
+        break
+    case 4:
+        entity.ipAssetType = "Group"
+        break
+    case 5:
+        entity.ipAssetType = "Location"
+        break
     default:
         log.error("Invalid ip asset type: {}", [event.params.ipAssetType.toString()])
         entity.ipAssetType = "Unspecified"  
@@ -45,7 +54,7 @@ export function handleIPAssetCreated(event: IPAssetCreatedEvent): void {
   transaction.owner = owner 
   transaction.franchiseId = event.params.franchiseId 
   transaction.resourceId = event.params.ipAssetId
-  transaction.resourceType = "IpAsset" 
+  transaction.resourceType = "IPAsset" 
 
   transaction.blockNumber = event.block.number
   transaction.blockTimestamp = event.block.timestamp

@@ -19,7 +19,7 @@ type IPAsset @entity(immutable: true) {
   name: String!
   description: String!
   ipAssetId: BigInt! # uint256
-  ipAssetType: IpAssetType!
+  ipAssetType: IPAssetType!
   mediaUrl: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -58,17 +58,19 @@ type Collection @entity {
   totalCollected: BigInt! # uint256
 }
 
-enum IpAssetType {
+enum IPAssetType {
   Unspecified
   Story 
   Character
   Art
+  Group
+  Location
 }
 
 enum ResourceType {
   Unspecified
   Franchise
-  IpAsset
+  IPAsset
   License
   Collection
 }
