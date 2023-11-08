@@ -1,7 +1,7 @@
 import {
   CreateLicense as CreateLicenseEvent,
   IPAssetRegistry,
-} from "../generated/IPAssetRegistry/IPAssetRegistry"
+} from "../generated/templates/IPAssetRegistry/IPAssetRegistry"
 import {
   License,
   Transaction,

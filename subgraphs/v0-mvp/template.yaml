@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: FranchiseRegistry
-    network: goerli
+    network: {{ network }}
     source:
-      address: "0x8e3B91c90561523312f32B49DAAc4AD15293De7F"
+      address: "{{ franchiseRegistry.address }}"
       abi: FranchiseRegistry
-      startBlock: 9685466
+      startBlock: {{ franchiseRegistry.startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -24,11 +24,11 @@ dataSources:
       file: ./src/franchise-registry.ts
   - kind: ethereum
     name: EventEmitter
-    network: goerli
+    network: {{ network }}
     source:
-      address: "0xA2Da90bB860DdD42d7a64E5C33cbA32eD30d4AaD"
+      address: "{{ eventEmitter.address }}"
       abi: EventEmitter
-      startBlock: 9685467
+      startBlock: {{ eventEmitter.startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -46,11 +46,11 @@ dataSources:
       file: ./src/event-emitter.ts
   - kind: ethereum
     name: CollectModule
-    network: goerli
+    network: {{ network }}
     source:
-      address: "0x195c7612eB2ae51EcB8A012E0E0C6c0904Db5519"
+      address: "{{ collectModule.address }}"
       abi: CollectModuleBase
-      startBlock: 9685472
+      startBlock: {{ collectModule.startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -69,7 +69,7 @@ dataSources:
 templates:
   - name: IPAssetRegistry
     kind: ethereum/contract
-    network: goerli
+    network: {{ network }}
     source:
       abi: IPAssetRegistry
     mapping:
