@@ -1,0 +1,18 @@
+{
+    "$schema": "https://turborepo.org/schema.json",
+    "pipeline": {
+      "codegen": {
+        "outputs": [
+          "generated",
+          "subgraph.yaml"
+        ]
+      },
+      "build": {
+        "outputs": ["build/**"],
+        "dependsOn": ["codegen"]
+      },
+      "test": {
+        "outputs": []
+      }
+    }
+  }

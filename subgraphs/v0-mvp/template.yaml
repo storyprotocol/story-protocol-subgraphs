@@ -1,0 +1,87 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: FranchiseRegistry
+    network: {{ network }}
+    source:
+      address: "{{ franchiseRegistry.address }}"
+      abi: FranchiseRegistry
+      startBlock: {{ franchiseRegistry.startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - FranchiseRegistered
+      abis:
+        - name: FranchiseRegistry
+          file: ./abis/FranchiseRegistry.json
+      eventHandlers:
+        - event: FranchiseRegistered(address,uint256,address,string,string,string)
+          handler: handleFranchiseRegistered
+      file: ./src/franchise-registry.ts
+  - kind: ethereum
+    name: EventEmitter
+    network: {{ network }}
+    source:
+      address: "{{ eventEmitter.address }}"
+      abi: EventEmitter
+      startBlock: {{ eventEmitter.startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPAssetCreated
+      abis:
+        - name: EventEmitter
+          file: ./abis/EventEmitter.json
+        - name: IPAssetRegistry
+          file: ./abis/IPAssetRegistry.json
+      eventHandlers:
+        - event: IPAssetCreated(indexed uint256,indexed address,uint256,uint8)
+          handler: handleIPAssetCreated
+      file: ./src/event-emitter.ts
+  - kind: ethereum
+    name: CollectModule
+    network: {{ network }}
+    source:
+      address: "{{ collectModule.address }}"
+      abi: CollectModuleBase
+      startBlock: {{ collectModule.startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Collection
+      abis:
+        - name: CollectModuleBase
+          file: ./abis/CollectModuleBase.json
+        - name: CollectNFTBase
+          file: ./abis/CollectNFTBase.json
+      eventHandlers:
+        - event: Collected(indexed uint256,indexed uint256,indexed address,address,uint256,bytes,bytes)
+          handler: handleCollected
+      file: ./src/collect-module.ts
+templates:
+  - name: IPAssetRegistry
+    kind: ethereum/contract
+    network: {{ network }}
+    source:
+      abi: IPAssetRegistry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/ip-asset-registry.ts
+      entities:
+        - IPAssetRegistry
+      abis:
+        - name: IPAssetRegistry
+          file: ./abis/IPAssetRegistry.json
+      eventHandlers:
+        - event: CreateLicense(uint256,uint256,uint256,address,string,address)
+          handler: handleCreateLicense
