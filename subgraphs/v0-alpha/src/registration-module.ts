@@ -19,7 +19,7 @@ export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
   entity.owner = event.params.owner_
   entity.name = event.params.name_
   entity.ipAssetType = event.params.ipAssetType_
-  entity.hash = event.params.hash_
+  entity.contentHash = event.params.hash_
   entity.mediaUrl = event.params.mediaUrl_
 
   entity.blockNumber = event.block.number

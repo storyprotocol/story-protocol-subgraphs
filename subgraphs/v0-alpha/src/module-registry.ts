@@ -5,14 +5,14 @@ import {
   ModuleRemoved as ModuleRemovedEvent
 } from "../generated/ModuleRegistry/ModuleRegistry"
 import {
-  ModuleAdded,
+  ModuleRegisterred,
   ModuleConfigured,
   ModuleExecuted,
   ModuleRemoved
 } from "../generated/schema"
 
 export function handleModuleAdded(event: ModuleAddedEvent): void {
-  let entity = new ModuleAdded(
+  let entity = new ModuleRegisterred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.ipOrgId = event.params.ipOrg

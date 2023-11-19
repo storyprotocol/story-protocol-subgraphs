@@ -37,7 +37,7 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - ModuleAdded
+        - ModuleRegisterred
         - ModuleConfigured
         - ModuleExecuted
         - ModuleRemoved
