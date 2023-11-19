@@ -132,3 +132,7 @@ dist
 
 # The graph's build
 build
+generated
+
+#turbo
+.turbo
