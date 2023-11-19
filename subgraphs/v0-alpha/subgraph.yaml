@@ -70,7 +70,7 @@ dataSources:
         - LicenseNftBoundedToIpa
         - LicenseRegistered
         - LicenseRevoked
-        - Transfer
+        - LicenseTransferred
       abis:
         - name: LicenseRegistry
           file: ./abis/LicenseRegistry.json

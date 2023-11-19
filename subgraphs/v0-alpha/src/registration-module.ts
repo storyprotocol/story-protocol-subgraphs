@@ -13,14 +13,14 @@ export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
   let entity = new IPAssetRegistered(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.ipAssetId_ = event.params.ipAssetId_
-  entity.ipOrg_ = event.params.ipOrg_
-  entity.ipOrgAssetId_ = event.params.ipOrgAssetId_
-  entity.owner_ = event.params.owner_
-  entity.name_ = event.params.name_
-  entity.ipAssetType_ = event.params.ipAssetType_
-  entity.hash_ = event.params.hash_
-  entity.mediaUrl_ = event.params.mediaUrl_
+  entity.ipAssetId = event.params.ipAssetId_
+  entity.ipOrgId = event.params.ipOrg_
+  entity.ipOrgAssetId = event.params.ipOrgAssetId_
+  entity.owner = event.params.owner_
+  entity.name = event.params.name_
+  entity.ipAssetType = event.params.ipAssetType_
+  entity.hash = event.params.hash_
+  entity.mediaUrl = event.params.mediaUrl_
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -33,11 +33,11 @@ export function handleIPAssetTransferred(event: IPAssetTransferredEvent): void {
   let entity = new IPAssetTransferred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.ipAssetId_ = event.params.ipAssetId_
-  entity.ipOrg_ = event.params.ipOrg_
-  entity.ipOrgAssetId_ = event.params.ipOrgAssetId_
-  entity.prevOwner_ = event.params.prevOwner_
-  entity.newOwner_ = event.params.newOwner_
+  entity.ipAssetId = event.params.ipAssetId_
+  entity.ipOrgId = event.params.ipOrg_
+  entity.ipOrgAssetId = event.params.ipOrgAssetId_
+  entity.prevOwner = event.params.prevOwner_
+  entity.newOwner = event.params.newOwner_
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -50,9 +50,9 @@ export function handleMetadataUpdated(event: MetadataUpdatedEvent): void {
   let entity = new MetadataUpdated(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.ipOrg_ = event.params.ipOrg_
-  entity.baseURI_ = event.params.baseURI_
-  entity.contractURI_ = event.params.contractURI_
+  entity.ipOrgId = event.params.ipOrg_
+  entity.baseURI = event.params.baseURI_
+  entity.contractURI = event.params.contractURI_
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

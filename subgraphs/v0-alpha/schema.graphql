@@ -1,9 +1,9 @@
 type IPOrgRegistered @entity(immutable: true) {
   id: Bytes!
-  owner_: Bytes! # address
-  ipAssetOrg_: Bytes! # address
-  name_: String! # string
-  symbol_: String! # string
+  owner: Bytes! # address
+  ipOrgId: Bytes! # address
+  name: String! # string
+  symbol: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -11,9 +11,9 @@ type IPOrgRegistered @entity(immutable: true) {
 
 type IPOrgTransferred @entity(immutable: true) {
   id: Bytes!
-  ipOrg_: Bytes! # address
-  prevOwner_: Bytes! # address
-  newOwner_: Bytes! # address
+  ipOrgId: Bytes! # address
+  prevOwner: Bytes! # address
+  newOwner: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -21,9 +21,9 @@ type IPOrgTransferred @entity(immutable: true) {
 
 type ModuleAdded @entity(immutable: true) {
   id: Bytes!
-  ipOrg: Bytes! # address
+  ipOrgId: Bytes! # address
   moduleKey: String! # string
-  module: Bytes! # address
+  moduleId: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -31,7 +31,7 @@ type ModuleAdded @entity(immutable: true) {
 
 type ModuleConfigured @entity(immutable: true) {
   id: Bytes!
-  ipOrg: Bytes! # address
+  ipOrgId: Bytes! # address
   moduleKey: String! # string
   caller: Bytes! # address
   params: Bytes! # bytes
@@ -42,7 +42,7 @@ type ModuleConfigured @entity(immutable: true) {
 
 type ModuleExecuted @entity(immutable: true) {
   id: Bytes!
-  ipOrg: Bytes! # address
+  ipOrgId: Bytes! # address
   moduleKey: String! # string
   caller: Bytes! # address
   selfParams: Bytes! # bytes
@@ -55,9 +55,9 @@ type ModuleExecuted @entity(immutable: true) {
 
 type ModuleRemoved @entity(immutable: true) {
   id: Bytes!
-  ipOrg: Bytes! # address
+  ipOrgId: Bytes! # address
   moduleKey: String! # string
-  module: Bytes! # address
+  moduleId: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -74,15 +74,15 @@ type LicenseActivated @entity(immutable: true) {
 type LicenseNftBoundedToIpa @entity(immutable: true) {
   id: Bytes!
   licenseId: BigInt! # uint256
-  ipaId: BigInt! # uint256
+  ipAssetId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type LicenseRegistered @entity(immutable: true) {
+type LicenseRegisterred @entity(immutable: true) {
   id: Bytes!
-  LicenseRegistry_id: BigInt! # uint256
+  licenseId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -96,7 +96,7 @@ type LicenseRevoked @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type Transfer @entity(immutable: true) {
+type LicenseTransferred @entity(immutable: true) {
   id: Bytes!
   from: Bytes! # address
   to: Bytes! # address
@@ -108,14 +108,14 @@ type Transfer @entity(immutable: true) {
 
 type IPAssetRegistered @entity(immutable: true) {
   id: Bytes!
-  ipAssetId_: BigInt! # uint256
-  ipOrg_: Bytes! # address
-  ipOrgAssetId_: BigInt! # uint256
-  owner_: Bytes! # address
-  name_: String! # string
-  ipAssetType_: BigInt! # uint64
-  hash_: Bytes! # bytes32
-  mediaUrl_: String! # string
+  ipAssetId: BigInt! # uint256
+  ipOrgId: Bytes! # address
+  ipOrgAssetId: BigInt! # uint256
+  owner: Bytes! # address
+  name: String! # string
+  ipAssetType: BigInt! # uint64
+  hash: Bytes! # bytes32
+  mediaUrl: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -123,11 +123,11 @@ type IPAssetRegistered @entity(immutable: true) {
 
 type IPAssetTransferred @entity(immutable: true) {
   id: Bytes!
-  ipAssetId_: BigInt! # uint256
-  ipOrg_: Bytes! # address
-  ipOrgAssetId_: BigInt! # uint256
-  prevOwner_: Bytes! # address
-  newOwner_: Bytes! # address
+  ipAssetId: BigInt! # uint256
+  ipOrgId: Bytes! # address
+  ipOrgAssetId: BigInt! # uint256
+  prevOwner: Bytes! # address
+  newOwner: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -135,9 +135,9 @@ type IPAssetTransferred @entity(immutable: true) {
 
 type MetadataUpdated @entity(immutable: true) {
   id: Bytes!
-  ipOrg_: Bytes! # address
-  baseURI_: String! # string
-  contractURI_: String! # string
+  ipOrgId: Bytes! # address
+  baseURI: String! # string
+  contractURI: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -159,7 +159,7 @@ type RelationshipCreated @entity(immutable: true) {
 type RelationshipTypeSet @entity(immutable: true) {
   id: Bytes!
   relType: Bytes! # string
-  ipOrg: Bytes! # address
+  ipOrgId: Bytes! # address
   src: Bytes! # address
   srcRelatable: Int! # uint8
   srcSubtypesMask: BigInt! # uint256
@@ -174,7 +174,7 @@ type RelationshipTypeSet @entity(immutable: true) {
 type RelationshipTypeUnset @entity(immutable: true) {
   id: Bytes!
   relType: Bytes! # string
-  ipOrg: Bytes! # address
+  ipOrgId: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

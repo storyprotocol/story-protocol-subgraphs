@@ -36,7 +36,7 @@ export function handleRelationshipTypeSet(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.relType = event.params.relType
-  entity.ipOrg = event.params.ipOrg
+  entity.ipOrgId = event.params.ipOrg
   entity.src = event.params.src
   entity.srcRelatable = event.params.srcRelatable
   entity.srcSubtypesMask = event.params.srcSubtypesMask
@@ -58,7 +58,7 @@ export function handleRelationshipTypeUnset(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.relType = event.params.relType
-  entity.ipOrg = event.params.ipOrg
+  entity.ipOrgId = event.params.ipOrg
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

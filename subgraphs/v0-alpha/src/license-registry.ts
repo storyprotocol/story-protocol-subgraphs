@@ -8,9 +8,9 @@ import {
 import {
   LicenseActivated,
   LicenseNftBoundedToIpa,
-  LicenseRegistered,
+  LicenseRegisterred,
   LicenseRevoked,
-  Transfer
+  LicenseTransferred
 } from "../generated/schema"
 
 export function handleLicenseActivated(event: LicenseActivatedEvent): void {
@@ -33,7 +33,7 @@ export function handleLicenseNftBoundedToIpa(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.licenseId = event.params.licenseId
-  entity.ipaId = event.params.ipaId
+  entity.ipAssetId = event.params.ipaId
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -43,10 +43,10 @@ export function handleLicenseNftBoundedToIpa(
 }
 
 export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
-  let entity = new LicenseRegistered(
+  let entity = new LicenseRegisterred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.LicenseRegistry_id = event.params.id
+  entity.licenseId = event.params.id
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -69,7 +69,7 @@ export function handleLicenseRevoked(event: LicenseRevokedEvent): void {
 }
 
 export function handleTransfer(event: TransferEvent): void {
-  let entity = new Transfer(
+  let entity = new LicenseTransferred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.from = event.params.from
