@@ -12,9 +12,8 @@ import {
 } from "../generated/schema"
 
 export function handleModuleAdded(event: ModuleAddedEvent): void {
-  let entity = new ModuleRegisterred(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  const id = event.params.ipOrg.toHexString() + ":" + event.params.moduleKey
+  let entity = new ModuleRegisterred(id)
   entity.ipOrgId = event.params.ipOrg
   entity.moduleKey = event.params.moduleKey
   entity.moduleId = event.params.module

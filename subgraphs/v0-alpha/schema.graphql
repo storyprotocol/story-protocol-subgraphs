@@ -23,7 +23,7 @@ type IPOrgTransferred @entity(immutable: true) {
 }
 
 type ModuleRegisterred @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   ipOrgId: Bytes! # address
   moduleKey: String! # string
   moduleId: Bytes! # address

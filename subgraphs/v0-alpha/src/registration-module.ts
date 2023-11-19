@@ -6,6 +6,7 @@ import {
 import {
   IPAssetRegistered,
   IPAssetTransferred,
+  IPOrgRegistered,
   MetadataUpdated,
 } from "../generated/schema"
 
@@ -47,16 +48,8 @@ export function handleIPAssetTransferred(event: IPAssetTransferredEvent): void {
 }
 
 export function handleMetadataUpdated(event: MetadataUpdatedEvent): void {
-  let entity = new MetadataUpdated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.ipOrgId = event.params.ipOrg_
-  entity.baseURI = event.params.baseURI_
-  entity.contractURI = event.params.contractURI_
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  const ipOrgRecord = IPOrgRegistered.load(event.params.ipOrg_)!
+  ipOrgRecord.baseURI = event.params.baseURI_
+  ipOrgRecord.contractURI = event.params.contractURI_
+  ipOrgRecord.save()
 }
