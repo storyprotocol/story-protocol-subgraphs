@@ -3,16 +3,9 @@ import {
   IPOrgTransferred as IPOrgTransferredEvent,
 } from "../generated/IPOrgController/IPOrgController"
 import {
- ModuleRegisterred 
-} from "../generated/schema"
-import {
-  RegistrationModule 
-} from "../generated/IPOrgController/RegistrationModule"
-import {
   IPOrgRegistered,
   IPOrgTransferred,
 } from "../generated/schema"
-import { Address } from "@graphprotocol/graph-ts"
 
 export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
   let entity = new IPOrgRegistered(
@@ -22,11 +15,7 @@ export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
   entity.ipOrgId = event.params.ipAssetOrg_
   entity.name = event.params.name_
   entity.symbol = event.params.symbol_
-
-  let registrationModuleRecord = ModuleRegisterred.load(entity.ipOrgId.toHexString() + ":" + "REGISTRATION_MODULE")
-  let registrationModuleContract = RegistrationModule.bind(Address.fromBytes(registrationModuleRecord!.moduleId))
-  let ipAssetTypes = registrationModuleContract.getIPAssetTypes(Address.fromBytes(entity.ipOrgId))
-  entity.ipAssetTypes = ipAssetTypes
+  entity.ipAssetTypes = new Array<string>() // Temporarily set to empty
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
