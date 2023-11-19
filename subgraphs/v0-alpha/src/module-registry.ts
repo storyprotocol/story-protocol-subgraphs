@@ -1,32 +1,15 @@
 import {
-  AccessControlUpdated as AccessControlUpdatedEvent,
   ModuleAdded as ModuleAddedEvent,
   ModuleConfigured as ModuleConfiguredEvent,
   ModuleExecuted as ModuleExecutedEvent,
   ModuleRemoved as ModuleRemovedEvent
 } from "../generated/ModuleRegistry/ModuleRegistry"
 import {
-  AccessControlUpdated,
   ModuleAdded,
   ModuleConfigured,
   ModuleExecuted,
   ModuleRemoved
 } from "../generated/schema"
-
-export function handleAccessControlUpdated(
-  event: AccessControlUpdatedEvent
-): void {
-  let entity = new AccessControlUpdated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.accessControl = event.params.accessControl
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
 
 export function handleModuleAdded(event: ModuleAddedEvent): void {
   let entity = new ModuleAdded(

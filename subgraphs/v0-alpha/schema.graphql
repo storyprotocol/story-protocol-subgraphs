@@ -1,37 +1,3 @@
-type AccessControlUpdated @entity(immutable: true) {
-  id: Bytes!
-  accessControl: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type AdminChanged @entity(immutable: true) {
-  id: Bytes!
-  previousAdmin: Bytes! # address
-  newAdmin: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type BeaconUpgraded @entity(immutable: true) {
-  id: Bytes!
-  beacon: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type IPOrgPendingOwnerSet @entity(immutable: true) {
-  id: Bytes!
-  ipOrg_: Bytes! # address
-  pendingOwner_: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type IPOrgRegistered @entity(immutable: true) {
   id: Bytes!
   owner_: Bytes! # address
@@ -48,29 +14,6 @@ type IPOrgTransferred @entity(immutable: true) {
   ipOrg_: Bytes! # address
   prevOwner_: Bytes! # address
   newOwner_: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Initialized @entity(immutable: true) {
-  id: Bytes!
-  version: Int! # uint8
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Upgraded @entity(immutable: true) {
-  id: Bytes!
-  implementation: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-type ModuleRegistryAccessControlUpdated @entity(immutable: true) {
-  id: Bytes!
-  accessControl: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -119,25 +62,6 @@ type ModuleRemoved @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
-type Approval @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  approved: Bytes! # address
-  tokenId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type ApprovalForAll @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  operator: Bytes! # address
-  approved: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
 
 type LicenseActivated @entity(immutable: true) {
   id: Bytes!
@@ -181,32 +105,6 @@ type Transfer @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
-type RegistrationModuleAccessControlUpdated @entity(immutable: true) {
-  id: Bytes!
-  accessControl: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type HooksCleared @entity(immutable: true) {
-  id: Bytes!
-  hType: Int! # uint8
-  registryKey: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type HooksRegistered @entity(immutable: true) {
-  id: Bytes!
-  hType: Int! # uint8
-  registryKey: Bytes! # bytes32
-  hook: [Bytes!]! # address[]
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
 
 type IPAssetRegistered @entity(immutable: true) {
   id: Bytes!
@@ -245,48 +143,6 @@ type MetadataUpdated @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type RequestCompleted @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type RequestPending @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-type RelationshipModuleAccessControlUpdated @entity(immutable: true) {
-  id: Bytes!
-  accessControl: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type RelationshipModuleHooksCleared @entity(immutable: true) {
-  id: Bytes!
-  hType: Int! # uint8
-  registryKey: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type RelationshipModuleHooksRegistered @entity(immutable: true) {
-  id: Bytes!
-  hType: Int! # uint8
-  registryKey: Bytes! # bytes32
-  hook: [Bytes!]! # address[]
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type RelationshipCreated @entity(immutable: true) {
   id: Bytes!
   relationshipId: BigInt! # uint256
@@ -319,22 +175,6 @@ type RelationshipTypeUnset @entity(immutable: true) {
   id: Bytes!
   relType: Bytes! # string
   ipOrg: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type RelationshipModuleRequestCompleted @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type RelationshipModuleRequestPending @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
