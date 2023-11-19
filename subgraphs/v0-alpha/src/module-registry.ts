@@ -8,7 +8,8 @@ import {
   ModuleRegisterred,
   ModuleConfigured,
   ModuleExecuted,
-  ModuleRemoved
+  ModuleRemoved,
+  Transaction,
 } from "../generated/schema"
 
 export function handleModuleAdded(event: ModuleAddedEvent): void {
@@ -23,6 +24,20 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.initiator = event.transaction.from 
+  transaction.ipOrgId = event.params.ipOrg
+  transaction.resourceId = event.params.module.toHexString()
+  transaction.resourceType = "Module" 
+  transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
 }
 
 export function handleModuleConfigured(event: ModuleConfiguredEvent): void {

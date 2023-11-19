@@ -8,6 +8,7 @@ import {
   IPAssetTransferred,
   IPOrgRegistered,
   MetadataUpdated,
+  Transaction,
 } from "../generated/schema"
 
 export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
@@ -28,6 +29,20 @@ export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.initiator = event.params.owner_ 
+  transaction.ipOrgId = event.params.ipOrg_
+  transaction.resourceId = event.params.ipAssetId_.toString()
+  transaction.resourceType = "IPAsset" 
+  transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
 }
 
 export function handleIPAssetTransferred(event: IPAssetTransferredEvent): void {

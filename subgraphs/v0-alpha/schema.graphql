@@ -198,7 +198,7 @@ type Transaction @entity(immutable: true) {
   initiator: Bytes! # address
   ipOrgId: Bytes! # address
   resourceType: ResourceType!
-  resourceId: BigInt! # uint256
+  resourceId: String!
   actionType: ActionType!
   blockNumber: BigInt!
   blockTimestamp: BigInt!

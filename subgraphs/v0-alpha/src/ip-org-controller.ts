@@ -5,6 +5,7 @@ import {
 import {
   IPOrgRegistered,
   IPOrgTransferred,
+  Transaction,
 } from "../generated/schema"
 
 export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
@@ -22,6 +23,20 @@ export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.initiator = event.params.owner_ 
+  transaction.ipOrgId = event.params.ipAssetOrg_
+  transaction.resourceId = event.params.ipAssetOrg_.toHexString()
+  transaction.resourceType = "IPOrg" 
+  transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
 }
 
 export function handleIPOrgTransferred(event: IPOrgTransferredEvent): void {

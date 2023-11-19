@@ -1,3 +1,4 @@
+import { Bytes } from "@graphprotocol/graph-ts"
 import {
   LicenseActivated as LicenseActivatedEvent,
   LicenseNftBoundedToIpa as LicenseNftBoundedToIpaEvent,
@@ -10,7 +11,8 @@ import {
   LicenseNftBoundedToIpa,
   LicenseRegisterred,
   LicenseRevoked,
-  LicenseTransferred
+  LicenseTransferred,
+  Transaction,
 } from "../generated/schema"
 
 export function handleLicenseActivated(event: LicenseActivatedEvent): void {
@@ -53,6 +55,20 @@ export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.initiator = event.transaction.from 
+  transaction.ipOrgId = new Bytes(0) 
+  transaction.resourceId = event.params.id.toString()
+  transaction.resourceType = "License" 
+  transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
 }
 
 export function handleLicenseRevoked(event: LicenseRevokedEvent): void {

@@ -1,3 +1,4 @@
+import { Bytes } from "@graphprotocol/graph-ts"
 import {
   RelationshipCreated as RelationshipCreatedEvent,
   RelationshipTypeSet as RelationshipTypeSetEvent,
@@ -7,6 +8,7 @@ import {
   RelationshipCreated,
   RelationshipTypeSet,
   RelationshipTypeUnset,
+  Transaction,
 } from "../generated/schema"
 
 export function handleRelationshipCreated(
@@ -27,6 +29,20 @@ export function handleRelationshipCreated(
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.initiator = event.transaction.from 
+  transaction.ipOrgId = new Bytes(0) 
+  transaction.resourceId = event.params.relationshipId.toString()
+  transaction.resourceType = "Relationship" 
+  transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
 }
 
 export function handleRelationshipTypeSet(
@@ -49,6 +65,20 @@ export function handleRelationshipTypeSet(
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  transaction.initiator = event.transaction.from 
+  transaction.ipOrgId = new Bytes(0) 
+  transaction.resourceId = event.params.relType.toString()
+  transaction.resourceType = "RelationshipType" 
+  transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
 }
 
 export function handleRelationshipTypeUnset(
