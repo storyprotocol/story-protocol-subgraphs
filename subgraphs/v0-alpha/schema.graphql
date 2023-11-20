@@ -101,7 +101,7 @@ type LicenseRegisterred @entity(immutable: true) {
   licenseeType: Int! #uint8 enum
   ipAssetId: BigInt # uint256
   parentLicenseId: BigInt! # uint256
-  termIds: [String!]!
+  termIds: [Bytes!]!
   termsData: [Bytes!]!
   blockNumber: BigInt!
   blockTimestamp: BigInt!

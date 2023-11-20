@@ -4,7 +4,8 @@ import {
   LicenseNftBoundedToIpa as LicenseNftBoundedToIpaEvent,
   LicenseRegistered as LicenseRegisteredEvent,
   LicenseRevoked as LicenseRevokedEvent,
-  Transfer as TransferEvent
+  Transfer as TransferEvent,
+  LicenseRegistry,
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import {
   LicenseActivated,
@@ -49,6 +50,20 @@ export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.licenseId = event.params.id
+
+  let contract = LicenseRegistry.bind(event.address)
+  let licenseData = contract.getLicense(event.params.id)
+
+  entity.isCommercial = licenseData.isCommercial
+  entity.status = licenseData.status
+  entity.licensor = licenseData.licensor
+  entity.revoker = licenseData.revoker
+  entity.ipOrgId = licenseData.ipOrg
+  entity.licenseeType = licenseData.licenseeType
+  entity.ipAssetId = licenseData.ipaId
+  entity.parentLicenseId = licenseData.parentLicenseId
+  entity.termIds = licenseData.termIds
+  entity.termsData = licenseData.termsData
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
