@@ -71,6 +71,9 @@ type HookRegistered @entity(immutable: true) {
   moduleId: Bytes! # address
   registryKey: Bytes!
   type: Int! 
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
 type LicenseActivated @entity(immutable: true) {

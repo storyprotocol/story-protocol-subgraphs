@@ -14,6 +14,11 @@ import { Bytes } from "@graphprotocol/graph-ts"
         entity.moduleId = event.address
         entity.registryKey = event.params.registryKey
         entity.type = event.params.hType
+
+        entity.blockNumber = event.block.number
+        entity.blockTimestamp = event.block.timestamp
+        entity.transactionHash = event.transaction.hash
+
         entity.save()
 
         let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
