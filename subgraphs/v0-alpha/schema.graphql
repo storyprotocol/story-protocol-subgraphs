@@ -1,4 +1,4 @@
-type IPOrgRegistered @entity(immutable: true) {
+type IPOrgRegistered @entity {
   id: Bytes!
   owner: Bytes! # address
   ipOrgId: Bytes! # address
@@ -64,6 +64,13 @@ type ModuleRemoved @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type HookRegistered @entity(immutable: true) {
+  id: Bytes! # address
+  moduleId: Bytes! # address
+  registryKey: Bytes!
+  type: Int! 
 }
 
 type LicenseActivated @entity(immutable: true) {

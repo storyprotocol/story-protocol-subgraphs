@@ -142,3 +142,22 @@ dataSources:
         - event: RelationshipTypeUnset(indexed string,address)
           handler: handleRelationshipTypeUnset
       file: ./src/relationship-module.ts
+templates:
+  - name: HookRegistry
+    kind: ethereum/contract
+    network: sepolia
+    source:
+      abi: HookRegistry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/hook-registry.ts
+      entities:
+        - HookRegistry
+      abis:
+        - name: HookRegistry
+          file: ./abis/HookRegistry.json
+      eventHandlers:
+        - event: HooksRegistered(indexed uint8,indexed bytes32,address[])
+          handler: handleHooksRegistered

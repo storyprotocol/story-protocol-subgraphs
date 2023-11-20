@@ -11,6 +11,7 @@ import {
   ModuleRemoved,
   Transaction,
 } from "../generated/schema"
+import { HookRegistry } from "../generated/templates"
 
 export function handleModuleAdded(event: ModuleAddedEvent): void {
   const id = event.params.ipOrg.toHexString() + ":" + event.params.moduleKey
@@ -38,6 +39,8 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
   transaction.transactionHash = event.transaction.hash
 
   transaction.save()
+
+  HookRegistry.create(event.params.module)
 }
 
 export function handleModuleConfigured(event: ModuleConfiguredEvent): void {
