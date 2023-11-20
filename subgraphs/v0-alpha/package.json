@@ -2,7 +2,7 @@
   "name": "storyprotocol-v0-alpha",
   "license": "UNLICENSED",
   "scripts": {
-    "codegen": "graph codegen",
+    "codegen": "mustache .env.js template.yaml > subgraph.yaml && graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ edisonz0718/storyprotocol-v0-alpha",
     "create-local": "graph create --node http://localhost:8020/ edisonz0718/storyprotocol-v0-alpha",
