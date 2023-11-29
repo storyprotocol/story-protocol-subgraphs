@@ -36,7 +36,7 @@ export function handleLicenseNftBoundedToIpa(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.licenseId = event.params.licenseId
-  entity.ipAssetId = event.params.ipaId
+  entity.ipAssetId = event.params.ipAssetId
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

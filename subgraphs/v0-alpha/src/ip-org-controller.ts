@@ -10,13 +10,13 @@ import {
 
 export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
   let entity = new IPOrgRegistered(
-    event.params.ipAssetOrg_
+    event.params.ipAssetOrg
   )
-  entity.owner = event.params.owner_
-  entity.ipOrgId = event.params.ipAssetOrg_
-  entity.name = event.params.name_
-  entity.symbol = event.params.symbol_
-  entity.ipAssetTypes = new Array<string>() // Temporarily set to empty
+  entity.owner = event.params.owner
+  entity.ipOrgId = event.params.ipAssetOrg
+  entity.name = event.params.name
+  entity.symbol = event.params.symbol
+  entity.ipAssetTypes = event.params.ipAssetTypes 
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -26,9 +26,9 @@ export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
 
   // Index the transaction
   let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  transaction.initiator = event.params.owner_ 
-  transaction.ipOrgId = event.params.ipAssetOrg_
-  transaction.resourceId = event.params.ipAssetOrg_.toHexString()
+  transaction.initiator = event.params.owner
+  transaction.ipOrgId = event.params.ipAssetOrg
+  transaction.resourceId = event.params.ipAssetOrg.toHexString()
   transaction.resourceType = "IPOrg" 
   transaction.actionType = "Register"
 
@@ -41,11 +41,11 @@ export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
 
 export function handleIPOrgTransferred(event: IPOrgTransferredEvent): void {
   let entity = new IPOrgTransferred(
-    event.params.ipOrg_
+    event.params.ipOrg
   )
-  entity.ipOrgId = event.params.ipOrg_
-  entity.prevOwner = event.params.prevOwner_
-  entity.newOwner = event.params.newOwner_
+  entity.ipOrgId = event.params.ipOrg
+  entity.prevOwner = event.params.prevOwner
+  entity.newOwner = event.params.newOwner
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

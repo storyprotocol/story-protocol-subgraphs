@@ -28,23 +28,51 @@
         "name": "params_",
         "type": "tuple"
       },
-      { "internalType": "address", "name": "accessControl_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
     "inputs": [
-      { "internalType": "uint8", "name": "hookType", "type": "uint8" }
+      {
+        "internalType": "uint8",
+        "name": "hookType",
+        "type": "uint8"
+      }
     ],
     "name": "BaseModule_HooksParamsLengthMismatch",
     "type": "error"
   },
-  { "inputs": [], "name": "BaseModule_OnlyModuleRegistry", "type": "error" },
-  { "inputs": [], "name": "BaseModule_ZeroIpaRegistry", "type": "error" },
-  { "inputs": [], "name": "BaseModule_ZeroLicenseRegistry", "type": "error" },
-  { "inputs": [], "name": "BaseModule_ZeroModuleRegistry", "type": "error" },
-  { "inputs": [], "name": "HookRegistry_CallerNotIPOrgOwner", "type": "error" },
+  {
+    "inputs": [],
+    "name": "BaseModule_OnlyModuleRegistry",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BaseModule_ZeroIpaRegistry",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BaseModule_ZeroLicenseRegistry",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BaseModule_ZeroModuleRegistry",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "HookRegistry_CallerNotIPOrgOwner",
+    "type": "error"
+  },
   {
     "inputs": [],
     "name": "HookRegistry_HooksConfigLengthMismatch",
@@ -52,12 +80,20 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "hooksIndex", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "hooksIndex",
+        "type": "uint256"
+      }
     ],
     "name": "HookRegistry_IndexOutOfBounds",
     "type": "error"
   },
-  { "inputs": [], "name": "HookRegistry_MaxHooksExceeded", "type": "error" },
+  {
+    "inputs": [],
+    "name": "HookRegistry_MaxHooksExceeded",
+    "type": "error"
+  },
   {
     "inputs": [],
     "name": "HookRegistry_RegisteringDuplicatedHook",
@@ -68,16 +104,23 @@
     "name": "HookRegistry_RegisteringZeroAddressHook",
     "type": "error"
   },
-  { "inputs": [], "name": "LibUintArrayMask_EmptyArray", "type": "error" },
   {
     "inputs": [],
-    "name": "LibUintArrayMask_UndefinedArrayElement",
+    "name": "LibUintArrayMask_EmptyArray",
     "type": "error"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "MissingRole",
     "type": "error"
@@ -97,7 +140,11 @@
     "name": "RelationshipModule_InvalidDstAddress",
     "type": "error"
   },
-  { "inputs": [], "name": "RelationshipModule_InvalidDstId", "type": "error" },
+  {
+    "inputs": [],
+    "name": "RelationshipModule_InvalidDstId",
+    "type": "error"
+  },
   {
     "inputs": [],
     "name": "RelationshipModule_InvalidRelatable",
@@ -108,20 +155,48 @@
     "name": "RelationshipModule_InvalidSrcAddress",
     "type": "error"
   },
-  { "inputs": [], "name": "RelationshipModule_InvalidSrcId", "type": "error" },
+  {
+    "inputs": [],
+    "name": "RelationshipModule_InvalidSrcId",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RelationshipModule_IpOrgRelatableCannotBeProtocolLevel",
+    "type": "error"
+  },
   {
     "inputs": [
-      { "internalType": "string", "name": "relType", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "relType",
+        "type": "string"
+      }
     ],
     "name": "RelationshipModule_RelTypeNotSet",
     "type": "error"
   },
   {
-    "inputs": [{ "internalType": "string", "name": "name", "type": "string" }],
+    "inputs": [],
+    "name": "RelationshipModule_UnsupportedIpOrgIndexType",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
     "name": "UnsupportedInterface",
     "type": "error"
   },
-  { "inputs": [], "name": "ZeroAddress", "type": "error" },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -172,7 +247,7 @@
       {
         "indexed": false,
         "internalType": "address[]",
-        "name": "hook",
+        "name": "hooks",
         "type": "address[]"
       }
     ],
@@ -325,7 +400,13 @@
   {
     "inputs": [],
     "name": "INDEX_NOT_FOUND",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -371,7 +452,13 @@
   {
     "inputs": [],
     "name": "MAX_HOOKS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -400,7 +487,11 @@
         "name": "ipOrg_",
         "type": "address"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      }
     ],
     "name": "clearHooks",
     "outputs": [],
@@ -414,11 +505,25 @@
         "name": "ipOrg_",
         "type": "address"
       },
-      { "internalType": "address", "name": "caller_", "type": "address" },
-      { "internalType": "bytes", "name": "params_", "type": "bytes" }
+      {
+        "internalType": "address",
+        "name": "caller_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "params_",
+        "type": "bytes"
+      }
     ],
     "name": "configure",
-    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -429,8 +534,16 @@
         "name": "ipOrg_",
         "type": "address"
       },
-      { "internalType": "address", "name": "caller_", "type": "address" },
-      { "internalType": "bytes", "name": "moduleParams_", "type": "bytes" },
+      {
+        "internalType": "address",
+        "name": "caller_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "moduleParams_",
+        "type": "bytes"
+      },
       {
         "internalType": "bytes[]",
         "name": "preHookParams_",
@@ -443,7 +556,13 @@
       }
     ],
     "name": "execute",
-    "outputs": [{ "internalType": "bytes", "name": "result", "type": "bytes" }],
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "result",
+        "type": "bytes"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -459,7 +578,11 @@
     "outputs": [
       {
         "components": [
-          { "internalType": "string", "name": "relType", "type": "string" },
+          {
+            "internalType": "string",
+            "name": "relType",
+            "type": "string"
+          },
           {
             "internalType": "address",
             "name": "srcAddress",
@@ -470,8 +593,16 @@
             "name": "dstAddress",
             "type": "address"
           },
-          { "internalType": "uint256", "name": "srcId", "type": "uint256" },
-          { "internalType": "uint256", "name": "dstId", "type": "uint256" }
+          {
+            "internalType": "uint256",
+            "name": "srcId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dstId",
+            "type": "uint256"
+          }
         ],
         "internalType": "struct LibRelationship.Relationship",
         "name": "",
@@ -485,7 +616,11 @@
     "inputs": [
       {
         "components": [
-          { "internalType": "string", "name": "relType", "type": "string" },
+          {
+            "internalType": "string",
+            "name": "relType",
+            "type": "string"
+          },
           {
             "internalType": "address",
             "name": "srcAddress",
@@ -496,8 +631,16 @@
             "name": "dstAddress",
             "type": "address"
           },
-          { "internalType": "uint256", "name": "srcId", "type": "uint256" },
-          { "internalType": "uint256", "name": "dstId", "type": "uint256" }
+          {
+            "internalType": "uint256",
+            "name": "srcId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dstId",
+            "type": "uint256"
+          }
         ],
         "internalType": "struct LibRelationship.Relationship",
         "name": "rel_",
@@ -505,26 +648,48 @@
       }
     ],
     "name": "getRelationshipId",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" },
-      { "internalType": "string", "name": "relType_", "type": "string" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "relType_",
+        "type": "string"
+      }
     ],
     "name": "getRelationshipType",
     "outputs": [
       {
         "components": [
-          { "internalType": "address", "name": "src", "type": "address" },
+          {
+            "internalType": "address",
+            "name": "src",
+            "type": "address"
+          },
           {
             "internalType": "uint256",
             "name": "srcSubtypesMask",
             "type": "uint256"
           },
-          { "internalType": "address", "name": "dst", "type": "address" },
+          {
+            "internalType": "address",
+            "name": "dst",
+            "type": "address"
+          },
           {
             "internalType": "uint256",
             "name": "dstSubtypesMask",
@@ -546,11 +711,25 @@
         "name": "hookType_",
         "type": "uint8"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" },
-      { "internalType": "uint256", "name": "index_", "type": "uint256" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index_",
+        "type": "uint256"
+      }
     ],
     "name": "hookAt",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -561,11 +740,25 @@
         "name": "hookType_",
         "type": "uint8"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" },
-      { "internalType": "uint256", "name": "index_", "type": "uint256" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index_",
+        "type": "uint256"
+      }
     ],
     "name": "hookConfigAt",
-    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -576,11 +769,25 @@
         "name": "hookType_",
         "type": "uint8"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" },
-      { "internalType": "address", "name": "hook_", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "hook_",
+        "type": "address"
+      }
     ],
     "name": "hookIndex",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -591,11 +798,25 @@
         "name": "hookType_",
         "type": "uint8"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" },
-      { "internalType": "address", "name": "hook_", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "hook_",
+        "type": "address"
+      }
     ],
     "name": "isRegistered",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -611,9 +832,21 @@
         "name": "ipOrg_",
         "type": "address"
       },
-      { "internalType": "string", "name": "relType_", "type": "string" },
-      { "internalType": "address[]", "name": "hooks_", "type": "address[]" },
-      { "internalType": "bytes[]", "name": "hooksConfig_", "type": "bytes[]" }
+      {
+        "internalType": "string",
+        "name": "relType_",
+        "type": "string"
+      },
+      {
+        "internalType": "address[]",
+        "name": "hooks_",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "hooksConfig_",
+        "type": "bytes[]"
+      }
     ],
     "name": "registerHooks",
     "outputs": [],
@@ -632,9 +865,21 @@
         "name": "ipOrg_",
         "type": "address"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" },
-      { "internalType": "address[]", "name": "hooks_", "type": "address[]" },
-      { "internalType": "bytes[]", "name": "hooksConfig_", "type": "bytes[]" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address[]",
+        "name": "hooks_",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "hooksConfig_",
+        "type": "bytes[]"
+      }
     ],
     "name": "registerHooks",
     "outputs": [],
@@ -645,7 +890,11 @@
     "inputs": [
       {
         "components": [
-          { "internalType": "string", "name": "relType", "type": "string" },
+          {
+            "internalType": "string",
+            "name": "relType",
+            "type": "string"
+          },
           {
             "internalType": "address",
             "name": "srcAddress",
@@ -656,8 +905,16 @@
             "name": "dstAddress",
             "type": "address"
           },
-          { "internalType": "uint256", "name": "srcId", "type": "uint256" },
-          { "internalType": "uint256", "name": "dstId", "type": "uint256" }
+          {
+            "internalType": "uint256",
+            "name": "srcId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dstId",
+            "type": "uint256"
+          }
         ],
         "internalType": "struct LibRelationship.Relationship",
         "name": "rel_",
@@ -665,13 +922,23 @@
       }
     ],
     "name": "relationshipExists",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "accessControl_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
     ],
     "name": "setAccessControl",
     "outputs": [],
@@ -685,10 +952,20 @@
         "name": "hookType_",
         "type": "uint8"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      }
     ],
     "name": "totalHooks",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -699,10 +976,20 @@
         "name": "hookType_",
         "type": "uint8"
       },
-      { "internalType": "bytes32", "name": "registryKey_", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "registryKey_",
+        "type": "bytes32"
+      }
     ],
     "name": "totalHooksConfig",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   }

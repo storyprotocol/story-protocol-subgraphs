@@ -7,7 +7,6 @@ import {
   IPAssetRegistered,
   IPAssetTransferred,
   IPOrgRegistered,
-  MetadataUpdated,
   Transaction,
 } from "../generated/schema"
 
@@ -20,7 +19,7 @@ export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
   entity.ipOrgAssetId = event.params.ipOrgAssetId_
   entity.owner = event.params.owner_
   entity.name = event.params.name_
-  entity.ipAssetType = event.params.ipAssetType_
+  entity.ipAssetType = event.params.ipOrgAssetType_
   entity.contentHash = event.params.hash_
   entity.mediaUrl = event.params.mediaUrl_
 

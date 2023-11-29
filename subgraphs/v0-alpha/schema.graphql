@@ -136,7 +136,7 @@ type IPAssetRegistered @entity(immutable: true) {
   ipOrgAssetId: BigInt! # uint256
   owner: Bytes! # address
   name: String! # string
-  ipAssetType: BigInt! # uint64
+  ipAssetType: Int! # uint8
   contentHash: Bytes! # bytes32
   mediaUrl: String! # string
   blockNumber: BigInt!

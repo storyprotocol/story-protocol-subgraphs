@@ -10,7 +10,11 @@
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
-  { "inputs": [], "name": "IPOrgController_IPOrgNonExistent", "type": "error" },
+  {
+    "inputs": [],
+    "name": "IPOrgController_IPOrgNonExistent",
+    "type": "error"
+  },
   {
     "inputs": [],
     "name": "IPOrgController_InvalidIPOrgOwner",
@@ -28,18 +32,36 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "MissingRole",
     "type": "error"
   },
   {
-    "inputs": [{ "internalType": "string", "name": "name", "type": "string" }],
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
     "name": "UnsupportedInterface",
     "type": "error"
   },
-  { "inputs": [], "name": "ZeroAddress", "type": "error" },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -91,13 +113,13 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "ipOrg_",
+        "name": "ipOrg",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "pendingOwner_",
+        "name": "pendingOwner",
         "type": "address"
       }
     ],
@@ -110,26 +132,32 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "owner_",
+        "name": "owner",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "ipAssetOrg_",
+        "name": "ipAssetOrg",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "name_",
+        "name": "name",
         "type": "string"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "symbol_",
+        "name": "symbol",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[]",
+        "name": "ipAssetTypes",
+        "type": "string[]"
       }
     ],
     "name": "IPOrgRegistered",
@@ -141,19 +169,19 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "ipOrg_",
+        "name": "ipOrg",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "prevOwner_",
+        "name": "prevOwner",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "newOwner_",
+        "name": "newOwner",
         "type": "address"
       }
     ],
@@ -189,20 +217,36 @@
   {
     "inputs": [],
     "name": "IP_ORG_IMPL",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "MODULE_REGISTRY",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      }
     ],
     "name": "acceptOwnerTransfer",
     "outputs": [],
@@ -211,7 +255,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      }
     ],
     "name": "cancelOwnerTransfer",
     "outputs": [],
@@ -221,13 +269,23 @@
   {
     "inputs": [],
     "name": "getAccessControl",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "accessControl_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
     ],
     "name": "initialize",
     "outputs": [],
@@ -236,29 +294,57 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      }
     ],
     "name": "isIpOrg",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      }
     ],
     "name": "ownerOf",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      }
     ],
     "name": "pendingOwnerOf",
     "outputs": [
-      { "internalType": "address", "name": "pendingOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "pendingOwner",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -266,15 +352,33 @@
   {
     "inputs": [],
     "name": "proxiableUUID",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "owner_", "type": "address" },
-      { "internalType": "string", "name": "name_", "type": "string" },
-      { "internalType": "string", "name": "symbol_", "type": "string" },
+      {
+        "internalType": "address",
+        "name": "owner_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "symbol_",
+        "type": "string"
+      },
       {
         "internalType": "string[]",
         "name": "ipAssetTypes_",
@@ -283,14 +387,22 @@
     ],
     "name": "registerIpOrg",
     "outputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "accessControl_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
     ],
     "name": "setAccessControl",
     "outputs": [],
@@ -299,8 +411,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "ipOrg_", "type": "address" },
-      { "internalType": "address", "name": "newOwner_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "newOwner_",
+        "type": "address"
+      }
     ],
     "name": "transferOwner",
     "outputs": [],
@@ -327,7 +447,11 @@
         "name": "newImplementation",
         "type": "address"
       },
-      { "internalType": "bytes", "name": "data", "type": "bytes" }
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
     ],
     "name": "upgradeToAndCall",
     "outputs": [],

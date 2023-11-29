@@ -22,7 +22,7 @@ dataSources:
         - name: RegistrationModule
           file: ./abis/RegistrationModule.json 
       eventHandlers:
-        - event: IPOrgRegistered(address,address,string,string)
+        - event: IPOrgRegistered(address,address,string,string,string[])
           handler: handleIPOrgRegistered
         - event: IPOrgTransferred(address,address,address)
           handler: handleIPOrgTransferred
@@ -108,7 +108,7 @@ dataSources:
           file: ./abis/RegistrationModule.json
       eventHandlers:
         - event: IPAssetRegistered(uint256,indexed address,uint256,indexed address,string,indexed
-            uint64,bytes32,string)
+            uint8,bytes32,string)
           handler: handleIPAssetRegistered
         - event: IPAssetTransferred(indexed uint256,indexed address,uint256,address,address)
           handler: handleIPAssetTransferred
