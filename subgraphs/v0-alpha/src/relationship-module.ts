@@ -33,7 +33,6 @@ export function handleRelationshipCreated(
   // Index the transaction
   let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
   transaction.initiator = event.transaction.from 
-  transaction.ipOrgId = new Bytes(0) 
   transaction.resourceId = event.params.relationshipId.toString()
   transaction.resourceType = "Relationship" 
   transaction.actionType = "Register"
@@ -69,7 +68,6 @@ export function handleRelationshipTypeSet(
   // Index the transaction
   let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
   transaction.initiator = event.transaction.from 
-  transaction.ipOrgId = new Bytes(0) 
   transaction.resourceId = event.params.relType.toString()
   transaction.resourceType = "RelationshipType" 
   transaction.actionType = "Register"

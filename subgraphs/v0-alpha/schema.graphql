@@ -206,7 +206,7 @@ type RelationshipTypeUnset @entity(immutable: true) {
 type Transaction @entity(immutable: true) {
   id: Bytes! 
   initiator: Bytes! # address
-  ipOrgId: Bytes! # address
+  ipOrgId: Bytes # address
   resourceType: ResourceType!
   resourceId: String!
   actionType: ActionType!
