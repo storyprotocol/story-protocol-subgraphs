@@ -132,3 +132,8 @@ dist
 
 # The graph's build
 build
+generated
+subgraph.yaml
+
+#turbo
+.turbo

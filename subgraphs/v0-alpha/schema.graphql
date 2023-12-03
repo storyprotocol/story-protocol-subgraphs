@@ -1,0 +1,235 @@
+type IPOrgRegistered @entity {
+  id: Bytes!
+  owner: Bytes! # address
+  ipOrgId: Bytes! # address
+  name: String! # string
+  symbol: String! # string
+  ipAssetTypes: [String!]!
+  baseURI: String # string
+  contractURI: String # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IPOrgTransferred @entity(immutable: true) {
+  id: Bytes!
+  ipOrgId: Bytes! # address
+  prevOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ModuleRegisterred @entity(immutable: true) {
+  id: String!
+  ipOrgId: Bytes! # address
+  moduleKey: String! # string
+  moduleId: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ModuleConfigured @entity(immutable: true) {
+  id: Bytes!
+  ipOrgId: Bytes! # address
+  moduleKey: String! # string
+  caller: Bytes! # address
+  params: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ModuleExecuted @entity(immutable: true) {
+  id: Bytes!
+  ipOrgId: Bytes! # address
+  moduleKey: String! # string
+  caller: Bytes! # address
+  selfParams: Bytes! # bytes
+  preHookParams: [Bytes!]! # bytes[]
+  postHookParams: [Bytes!]! # bytes[]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ModuleRemoved @entity(immutable: true) {
+  id: Bytes!
+  ipOrgId: Bytes! # address
+  moduleKey: String! # string
+  moduleId: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HookRegistered @entity(immutable: true) {
+  id: Bytes! # address
+  moduleId: Bytes! # address
+  registryKey: Bytes!
+  type: Int! 
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LicenseActivated @entity(immutable: true) {
+  id: Bytes!
+  licenseId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LicenseNftBoundedToIpa @entity(immutable: true) {
+  id: Bytes!
+  licenseId: BigInt! # uint256
+  ipAssetId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LicenseRegisterred @entity(immutable: true) {
+  id: Bytes!
+  licenseId: BigInt! # uint256
+  isCommercial: Boolean! 
+  status: Int! # uint8 enum;
+  licensor: Bytes! # address
+  revoker: Bytes! # address
+  ipOrgId: Bytes! # address
+  licenseeType: Int! #uint8 enum
+  ipAssetId: BigInt # uint256
+  parentLicenseId: BigInt! # uint256
+  termIds: [Bytes!]!
+  termsData: [Bytes!]!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LicenseRevoked @entity(immutable: true) {
+  id: Bytes!
+  licenseId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LicenseTransferred @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IPAssetRegistered @entity(immutable: true) {
+  id: Bytes!
+  ipAssetId: BigInt! # uint256
+  ipOrgId: Bytes! # address
+  ipOrgAssetId: BigInt! # uint256
+  owner: Bytes! # address
+  name: String! # string
+  ipAssetType: Int! # uint8
+  contentHash: Bytes! # bytes32
+  mediaUrl: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IPAssetTransferred @entity(immutable: true) {
+  id: Bytes!
+  ipAssetId: BigInt! # uint256
+  ipOrgId: Bytes! # address
+  ipOrgAssetId: BigInt! # uint256
+  prevOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MetadataUpdated @entity(immutable: true) {
+  id: Bytes!
+  ipOrgId: Bytes! # address
+  baseURI: String! # string
+  contractURI: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RelationshipCreated @entity(immutable: true) {
+  id: Bytes!
+  relationshipId: BigInt! # uint256
+  relType: Bytes! # string
+  srcAddress: Bytes! # address
+  srcId: BigInt! # uint256
+  dstAddress: Bytes! # address
+  dstId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RelationshipTypeSet @entity(immutable: true) {
+  id: Bytes!
+  relType: Bytes! # string
+  ipOrgId: Bytes! # address
+  src: Bytes! # address
+  srcRelatable: Int! # uint8
+  srcSubtypesMask: BigInt! # uint256
+  dst: Bytes! # address
+  dstRelatable: Int! # uint8
+  dstSubtypesMask: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RelationshipTypeUnset @entity(immutable: true) {
+  id: Bytes!
+  relType: Bytes! # string
+  ipOrgId: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transaction @entity(immutable: true) {
+  id: Bytes! 
+  initiator: Bytes! # address
+  ipOrgId: Bytes # address
+  resourceType: ResourceType!
+  resourceId: String!
+  actionType: ActionType!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+enum ResourceType {
+  Unspecified
+  IPOrg
+	IPAsset
+	License
+	Relationship
+	RelationshipType
+	Module
+	Hook
+	Dispute
+}
+
+enum ActionType {
+  Unspecified
+	Register
+	Unregister
+	Configure
+}

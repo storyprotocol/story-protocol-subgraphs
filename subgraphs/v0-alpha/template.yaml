@@ -1,0 +1,163 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: IPOrgController
+    network: {{ network }}
+    source:
+      address: "{{ ipOrgController.address }}"
+      abi: IPOrgController
+      startBlock: {{ ipOrgController.startBlock }} 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPOrgRegistered
+        - IPOrgTransferred
+      abis:
+        - name: IPOrgController
+          file: ./abis/IPOrgController.json
+        - name: RegistrationModule
+          file: ./abis/RegistrationModule.json 
+      eventHandlers:
+        - event: IPOrgRegistered(address,address,string,string,string[])
+          handler: handleIPOrgRegistered
+        - event: IPOrgTransferred(address,address,address)
+          handler: handleIPOrgTransferred
+      file: ./src/ip-org-controller.ts
+  - kind: ethereum
+    name: ModuleRegistry
+    network: {{ network }}
+    source:
+      address: "{{ moduleRegistry.address }}" 
+      abi: ModuleRegistry
+      startBlock: {{ moduleRegistry.startBlock }} 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ModuleRegisterred
+        - ModuleConfigured
+        - ModuleExecuted
+        - ModuleRemoved
+      abis:
+        - name: ModuleRegistry
+          file: ./abis/ModuleRegistry.json
+      eventHandlers:
+        - event: ModuleAdded(indexed address,string,indexed address)
+          handler: handleModuleAdded
+        - event: ModuleConfigured(indexed address,string,indexed address,bytes)
+          handler: handleModuleConfigured
+        - event: ModuleExecuted(indexed address,string,indexed address,bytes,bytes[],bytes[])
+          handler: handleModuleExecuted
+        - event: ModuleRemoved(indexed address,string,indexed address)
+          handler: handleModuleRemoved
+      file: ./src/module-registry.ts
+  - kind: ethereum
+    name: LicenseRegistry
+    network: {{ network }}
+    source:
+      address: "{{ licenseRegistry.address }}" 
+      abi: LicenseRegistry
+      startBlock: {{ licenseRegistry.startBlock }} 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - LicenseActivated
+        - LicenseNftBoundedToIpa
+        - LicenseRegistered
+        - LicenseRevoked
+        - LicenseTransferred
+      abis:
+        - name: LicenseRegistry
+          file: ./abis/LicenseRegistry.json
+      eventHandlers:
+        - event: LicenseActivated(indexed uint256)
+          handler: handleLicenseActivated
+        - event: LicenseNftBoundedToIpa(indexed uint256,indexed uint256)
+          handler: handleLicenseNftBoundedToIpa
+        - event: LicenseRegistered(indexed uint256)
+          handler: handleLicenseRegistered
+        - event: LicenseRevoked(indexed uint256)
+          handler: handleLicenseRevoked
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/license-registry.ts
+  - kind: ethereum
+    name: RegistrationModule
+    network: {{ network }}
+    source:
+      address: "{{ registrationModule.address }}" 
+      abi: RegistrationModule
+      startBlock: {{ registrationModule.startBlock }} 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPAssetRegistered
+        - IPAssetTransferred
+        - MetadataUpdated
+      abis:
+        - name: RegistrationModule
+          file: ./abis/RegistrationModule.json
+      eventHandlers:
+        - event: IPAssetRegistered(uint256,indexed address,uint256,indexed address,string,indexed
+            uint8,bytes32,string)
+          handler: handleIPAssetRegistered
+        - event: IPAssetTransferred(indexed uint256,indexed address,uint256,address,address)
+          handler: handleIPAssetTransferred
+        - event: MetadataUpdated(indexed address,string,string)
+          handler: handleMetadataUpdated
+      file: ./src/registration-module.ts
+  - kind: ethereum
+    name: RelationshipModule
+    network: {{ network }}
+    source:
+      address: "{{ relationshipModule.address }}" 
+      abi: RelationshipModule
+      startBlock: {{ relationshipModule.startBlock }} 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - RelationshipCreated
+        - RelationshipTypeSet
+        - RelationshipTypeUnset
+      abis:
+        - name: RelationshipModule
+          file: ./abis/RelationshipModule.json
+      eventHandlers:
+        - event: RelationshipCreated(indexed uint256,indexed string,address,uint256,address,uint256)
+          handler: handleRelationshipCreated
+        - event: RelationshipTypeSet(indexed string,indexed
+            address,address,uint8,uint256,address,uint8,uint256)
+          handler: handleRelationshipTypeSet
+        - event: RelationshipTypeUnset(indexed string,address)
+          handler: handleRelationshipTypeUnset
+      file: ./src/relationship-module.ts
+templates:
+  - name: HookRegistry
+    kind: ethereum/contract
+    network: {{ network }}
+    source:
+      abi: HookRegistry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/hook-registry.ts
+      entities:
+        - HookRegistry
+      abis:
+        - name: HookRegistry
+          file: ./abis/HookRegistry.json
+      eventHandlers:
+        - event: HooksRegistered(indexed uint8,indexed bytes32,address[])
+          handler: handleHooksRegistered

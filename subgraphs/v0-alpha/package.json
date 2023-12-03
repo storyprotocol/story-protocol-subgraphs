@@ -1,0 +1,18 @@
+{
+  "name": "storyprotocol-v0-alpha",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "mustache .env.js template.yaml > subgraph.yaml && graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ edisonz0718/storyprotocol-v0-alpha",
+    "create-local": "graph create --node http://localhost:8020/ edisonz0718/storyprotocol-v0-alpha",
+    "remove-local": "graph remove --node http://localhost:8020/ edisonz0718/storyprotocol-v0-alpha",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 edisonz0718/storyprotocol-v0-alpha",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.54.0",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
+}
