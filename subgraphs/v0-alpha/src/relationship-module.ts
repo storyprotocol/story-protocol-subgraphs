@@ -68,7 +68,8 @@ export function handleRelationshipTypeSet(
   // Index the transaction
   let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
   transaction.initiator = event.transaction.from 
-  transaction.resourceId = event.params.relType.toString()
+  transaction.resourceId = event.params.relType.toHexString()
+  transaction.ipOrgId = event.params.ipOrg
   transaction.resourceType = "RelationshipType" 
   transaction.actionType = "Register"
 
