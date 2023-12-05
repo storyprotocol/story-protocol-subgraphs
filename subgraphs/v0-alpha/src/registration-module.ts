@@ -2,6 +2,7 @@ import {
   IPAssetRegistered as IPAssetRegisteredEvent,
   IPAssetTransferred as IPAssetTransferredEvent,
   MetadataUpdated as MetadataUpdatedEvent,
+  RegistrationModule,
 } from "../generated/RegistrationModule/RegistrationModule"
 import {
   IPAssetRegistered,
@@ -19,13 +20,17 @@ export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
   entity.ipOrgAssetId = event.params.ipOrgAssetId_
   entity.owner = event.params.owner_
   entity.name = event.params.name_
-  entity.ipAssetType = event.params.ipOrgAssetType_
+  entity.ipAssetTypeIndex = event.params.ipOrgAssetType_
   entity.contentHash = event.params.hash_
   entity.mediaUrl = event.params.mediaUrl_
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
+
+  let contract = RegistrationModule.bind(event.address)
+  let ipAssetTypes = contract.getIpOrgAssetTypes(event.params.ipOrg_)
+  entity.ipAssetTypeValue = ipAssetTypes[event.params.ipOrgAssetType_]
 
   entity.save()
 
