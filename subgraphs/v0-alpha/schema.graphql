@@ -77,7 +77,7 @@ type HookRegistered @entity(immutable: true) {
 }
 
 type LicenseRegisterred @entity(immutable: true) {
-  id: Bytes!
+  id: String! # licenseId
   licenseId: BigInt! # uint256
   status: Int! # uint8 enum;
   isReciprocal: Boolean! 
@@ -210,4 +210,5 @@ enum ActionType {
 	Register
 	Unregister
 	Configure
+  Link
 }

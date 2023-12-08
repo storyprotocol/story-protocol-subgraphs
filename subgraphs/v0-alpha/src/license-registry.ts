@@ -1,5 +1,6 @@
 import {
-  LicenseRegistered as LicenseRegisteredEvent,
+  LicenseRegistered as LicenseRegisteredEvent, 
+  LicenseNftLinkedToIpa as LicenseNftLinkedToIpaEvent, 
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import {
   LicenseRegisterred,
@@ -8,7 +9,7 @@ import {
 
 export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
   let entity = new LicenseRegisterred(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.params.id.toString()
   )
   entity.licenseId = event.params.id
   entity.derivativesAllowed = event.params.licenseData.derivativesAllowed
@@ -31,9 +32,29 @@ export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
   let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.transaction.from 
   transaction.ipOrgId = event.params.licenseData.ipOrg
-  transaction.resourceId = event.params.id.toHexString()
+  transaction.resourceId = event.params.id.toString()
   transaction.resourceType = "License" 
   transaction.actionType = "Register"
+
+  transaction.blockNumber = event.block.number
+  transaction.blockTimestamp = event.block.timestamp
+  transaction.transactionHash = event.transaction.hash
+
+  transaction.save()
+}
+
+export function handleLicenseLinkedToIpa(event: LicenseNftLinkedToIpaEvent): void {
+  const licenseRegistered = LicenseRegisterred.load(event.params.licenseId.toString())! 
+  licenseRegistered.ipAssetId = event.params.ipAssetId 
+  licenseRegistered.save()
+
+  // Index the transaction
+  let transaction = new Transaction(event.transaction.hash)
+  transaction.initiator = event.transaction.from 
+  transaction.ipOrgId = licenseRegistered.ipOrgId 
+  transaction.resourceId = event.params.licenseId.toString() 
+  transaction.resourceType = "License" 
+  transaction.actionType = "Link"
 
   transaction.blockNumber = event.block.number
   transaction.blockTimestamp = event.block.timestamp

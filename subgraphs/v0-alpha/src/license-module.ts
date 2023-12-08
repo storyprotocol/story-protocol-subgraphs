@@ -31,7 +31,7 @@ export function handleIpOrgLicenseParamSet(event: IpOrgLicensingFrameworkSetEven
   let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.transaction.from 
   transaction.ipOrgId = event.params.ipOrg
-  transaction.resourceId = event.params.ipOrg.toString()
+  transaction.resourceId = event.params.ipOrg.toHexString()
   transaction.resourceType = "License" 
   transaction.actionType = "Configure"
 
