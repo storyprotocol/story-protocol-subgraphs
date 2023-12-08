@@ -11,6 +11,7 @@ export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.licenseId = event.params.id
+  entity.derivativesAllowed = event.params.licenseData.derivativesAllowed
   entity.isReciprocal = event.params.licenseData.isReciprocal
   entity.derivativeNeedsApproval = event.params.licenseData.derivativeNeedsApproval
   entity.status = event.params.licenseData.status

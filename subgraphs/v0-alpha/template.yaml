@@ -73,7 +73,7 @@ dataSources:
         - name: LicenseRegistry
           file: ./abis/LicenseRegistry.json
       eventHandlers:
-        - event: LicenseRegistered(indexed uint256,(uint8,bool,bool,address,address,address,bytes32,uint256,uint256))
+        - event: LicenseRegistered(indexed uint256,(uint8,bool,bool,bool,address,address,address,bytes32,uint256,uint256))
           handler: handleLicenseRegistered
       file: ./src/license-registry.ts
   - kind: ethereum

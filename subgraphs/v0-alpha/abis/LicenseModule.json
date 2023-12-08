@@ -132,6 +132,11 @@
     },
     {
       "inputs": [],
+      "name": "LicensingModule_DerivativeNotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
       "name": "LicensingModule_DuplicateParam",
       "type": "error"
     },

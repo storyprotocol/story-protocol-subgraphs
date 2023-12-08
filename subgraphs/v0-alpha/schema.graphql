@@ -82,6 +82,7 @@ type LicenseRegisterred @entity(immutable: true) {
   status: Int! # uint8 enum;
   isReciprocal: Boolean! 
   derivativeNeedsApproval: Boolean!
+  derivativesAllowed: Boolean!
   revoker: Bytes! # address
   licensor: Bytes! # address
   ipOrgId: Bytes! # address
@@ -97,6 +98,7 @@ type IPOrgLicenseParam @entity(immutable: true) {
   frameworkId: String!
   url: String!
 	licensorConfig: Int! # uint8 enum
+  length: Int!
   paramTags: [String!]!
   paramValues: [Bytes!]!
   blockNumber: BigInt!

@@ -15,7 +15,8 @@ export function handleIpOrgLicenseParamSet(event: IpOrgLicensingFrameworkSetEven
   entity.licensorConfig = event.params.licensorConfig
   entity.paramTags = []
   entity.paramValues = []
-  for (let i = 0; i< event.params.values.length; i++) {
+  entity.length = event.params.values.length
+  for (let i = 0; i < event.params.values.length; i++) {
     entity.paramTags.push(event.params.values[i].tag.toHexString())
     entity.paramValues.push(event.params.values[i].value)
   }
