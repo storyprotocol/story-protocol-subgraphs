@@ -92,6 +92,18 @@ type LicenseRegisterred @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
+type IPOrgLicenseParam @entity(immutable: true) {
+  id: Bytes! # ipOrg address
+  frameworkId: String!
+  url: String!
+	licensorConfig: Int! # uint8 enum
+  paramTags: [String!]!
+  paramValues: [Bytes!]!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
 type IPAssetRegistered @entity(immutable: true) {
   id: Bytes!
   ipAssetId: BigInt! # uint256

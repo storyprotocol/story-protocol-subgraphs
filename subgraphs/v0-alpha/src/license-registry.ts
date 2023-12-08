@@ -1,7 +1,5 @@
-import { Bytes } from "@graphprotocol/graph-ts"
 import {
   LicenseRegistered as LicenseRegisteredEvent,
-  LicenseRegistry,
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import {
   LicenseRegisterred,
@@ -32,7 +30,7 @@ export function handleLicenseRegistered(event: LicenseRegisteredEvent): void {
   let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.transaction.from 
   transaction.ipOrgId = event.params.licenseData.ipOrg
-  transaction.resourceId = event.params.id.toString()
+  transaction.resourceId = event.params.id.toHexString()
   transaction.resourceType = "License" 
   transaction.actionType = "Register"
 

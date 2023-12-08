@@ -77,6 +77,26 @@ dataSources:
           handler: handleLicenseRegistered
       file: ./src/license-registry.ts
   - kind: ethereum
+    name: LicenseModule
+    network: {{ network }}
+    source:
+      address: "{{ licenseModule.address }}" 
+      abi: LicenseModule
+      startBlock: {{ licenseModule.startBlock }} 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPOrgLicenseParam
+      abis:
+        - name: LicenseModule
+          file: ./abis/LicenseModule.json
+      eventHandlers:
+        - event: IpOrgLicensingFrameworkSet(indexed address,string,string,uint8,(bytes32,bytes)[])
+          handler: handleIpOrgLicenseParamSet
+      file: ./src/license-module.ts
+  - kind: ethereum
     name: RegistrationModule
     network: {{ network }}
     source:
