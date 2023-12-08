@@ -21,7 +21,7 @@ import { Bytes } from "@graphprotocol/graph-ts"
 
         entity.save()
 
-        let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+        let transaction = new Transaction(event.transaction.hash)
         transaction.initiator = event.transaction.from
         transaction.ipOrgId = new Bytes(0) 
         transaction.resourceId = hooks[i].toHexString() 

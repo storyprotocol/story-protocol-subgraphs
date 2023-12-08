@@ -76,54 +76,17 @@ type HookRegistered @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type LicenseActivated @entity(immutable: true) {
-  id: Bytes!
-  licenseId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type LicenseNftBoundedToIpa @entity(immutable: true) {
-  id: Bytes!
-  licenseId: BigInt! # uint256
-  ipAssetId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type LicenseRegisterred @entity(immutable: true) {
   id: Bytes!
   licenseId: BigInt! # uint256
-  isCommercial: Boolean! 
   status: Int! # uint8 enum;
-  licensor: Bytes! # address
+  isReciprocal: Boolean! 
+  derivativeNeedsApproval: Boolean!
   revoker: Bytes! # address
+  licensor: Bytes! # address
   ipOrgId: Bytes! # address
-  licenseeType: Int! #uint8 enum
-  ipAssetId: BigInt # uint256
-  parentLicenseId: BigInt! # uint256
-  termIds: [Bytes!]!
-  termsData: [Bytes!]!
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type LicenseRevoked @entity(immutable: true) {
-  id: Bytes!
-  licenseId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type LicenseTransferred @entity(immutable: true) {
-  id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  tokenId: BigInt! # uint256
+  ipAssetId : BigInt # uint256
+  parentLicenseId : BigInt # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -170,7 +133,7 @@ type MetadataUpdated @entity(immutable: true) {
 type RelationshipCreated @entity(immutable: true) {
   id: Bytes!
   relationshipId: BigInt! # uint256
-  relType: Bytes! # string
+  relType: String! # string
   srcAddress: Bytes! # address
   srcId: BigInt! # uint256
   dstAddress: Bytes! # address
@@ -182,7 +145,7 @@ type RelationshipCreated @entity(immutable: true) {
 
 type RelationshipTypeSet @entity(immutable: true) {
   id: Bytes!
-  relType: Bytes! # string
+  relType: String! # string
   ipOrgId: Bytes! # address
   src: Bytes! # address
   srcRelatable: Int! # uint8
@@ -197,7 +160,7 @@ type RelationshipTypeSet @entity(immutable: true) {
 
 type RelationshipTypeUnset @entity(immutable: true) {
   id: Bytes!
-  relType: Bytes! # string
+  relType: String! # string
   ipOrgId: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!

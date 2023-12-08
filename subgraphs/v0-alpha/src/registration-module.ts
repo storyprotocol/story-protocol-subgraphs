@@ -15,30 +15,30 @@ export function handleIPAssetRegistered(event: IPAssetRegisteredEvent): void {
   let entity = new IPAssetRegistered(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.ipAssetId = event.params.ipAssetId_
-  entity.ipOrgId = event.params.ipOrg_
-  entity.ipOrgAssetId = event.params.ipOrgAssetId_
-  entity.owner = event.params.owner_
-  entity.name = event.params.name_
-  entity.ipAssetTypeIndex = event.params.ipOrgAssetType_
-  entity.contentHash = event.params.hash_
-  entity.mediaUrl = event.params.mediaUrl_
+  entity.ipAssetId = event.params.ipAssetId
+  entity.ipOrgId = event.params.ipOrg
+  entity.ipOrgAssetId = event.params.ipOrgAssetId
+  entity.owner = event.params.owner
+  entity.name = event.params.name
+  entity.ipAssetTypeIndex = event.params.ipOrgAssetType
+  entity.contentHash = event.params.hash
+  entity.mediaUrl = event.params.mediaUrl
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
   let contract = RegistrationModule.bind(event.address)
-  let ipAssetTypes = contract.getIpOrgAssetTypes(event.params.ipOrg_)
-  entity.ipAssetTypeValue = ipAssetTypes[event.params.ipOrgAssetType_]
+  let ipAssetTypes = contract.getIpOrgAssetTypes(event.params.ipOrg)
+  entity.ipAssetTypeValue = ipAssetTypes[event.params.ipOrgAssetType]
 
   entity.save()
 
   // Index the transaction
-  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  transaction.initiator = event.params.owner_ 
-  transaction.ipOrgId = event.params.ipOrg_
-  transaction.resourceId = event.params.ipAssetId_.toString()
+  let transaction = new Transaction(event.transaction.hash)
+  transaction.initiator = event.params.owner 
+  transaction.ipOrgId = event.params.ipOrg
+  transaction.resourceId = event.params.ipAssetId.toString()
   transaction.resourceType = "IPAsset" 
   transaction.actionType = "Register"
 
@@ -53,11 +53,11 @@ export function handleIPAssetTransferred(event: IPAssetTransferredEvent): void {
   let entity = new IPAssetTransferred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.ipAssetId = event.params.ipAssetId_
-  entity.ipOrgId = event.params.ipOrg_
-  entity.ipOrgAssetId = event.params.ipOrgAssetId_
-  entity.prevOwner = event.params.prevOwner_
-  entity.newOwner = event.params.newOwner_
+  entity.ipAssetId = event.params.ipAssetId
+  entity.ipOrgId = event.params.ipOrg
+  entity.ipOrgAssetId = event.params.ipOrgAssetId
+  entity.prevOwner = event.params.prevOwner
+  entity.newOwner = event.params.newOwner
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -67,8 +67,8 @@ export function handleIPAssetTransferred(event: IPAssetTransferredEvent): void {
 }
 
 export function handleMetadataUpdated(event: MetadataUpdatedEvent): void {
-  const ipOrgRecord = IPOrgRegistered.load(event.params.ipOrg_)!
-  ipOrgRecord.baseURI = event.params.baseURI_
-  ipOrgRecord.contractURI = event.params.contractURI_
+  const ipOrgRecord = IPOrgRegistered.load(event.params.ipOrg)!
+  ipOrgRecord.baseURI = event.params.baseURI
+  ipOrgRecord.contractURI = event.params.contractURI
   ipOrgRecord.save()
 }

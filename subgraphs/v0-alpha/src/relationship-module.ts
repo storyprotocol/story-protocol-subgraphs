@@ -1,4 +1,3 @@
-import { Bytes } from "@graphprotocol/graph-ts"
 import {
   RelationshipCreated as RelationshipCreatedEvent,
   RelationshipTypeSet as RelationshipTypeSetEvent,
@@ -31,7 +30,7 @@ export function handleRelationshipCreated(
   entity.save()
 
   // Index the transaction
-  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.transaction.from 
   transaction.resourceId = event.params.relationshipId.toString()
   transaction.resourceType = "Relationship" 
@@ -66,9 +65,9 @@ export function handleRelationshipTypeSet(
   entity.save()
 
   // Index the transaction
-  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.transaction.from 
-  transaction.resourceId = event.params.relType.toHexString()
+  transaction.resourceId = event.params.relType
   transaction.ipOrgId = event.params.ipOrg
   transaction.resourceType = "RelationshipType" 
   transaction.actionType = "Register"

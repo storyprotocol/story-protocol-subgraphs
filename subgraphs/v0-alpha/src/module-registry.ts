@@ -27,7 +27,7 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
   entity.save()
 
   // Index the transaction
-  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.transaction.from 
   transaction.ipOrgId = event.params.ipOrg
   transaction.resourceId = event.params.module.toHexString()

@@ -68,25 +68,13 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - LicenseActivated
-        - LicenseNftBoundedToIpa
         - LicenseRegistered
-        - LicenseRevoked
-        - LicenseTransferred
       abis:
         - name: LicenseRegistry
           file: ./abis/LicenseRegistry.json
       eventHandlers:
-        - event: LicenseActivated(indexed uint256)
-          handler: handleLicenseActivated
-        - event: LicenseNftBoundedToIpa(indexed uint256,indexed uint256)
-          handler: handleLicenseNftBoundedToIpa
-        - event: LicenseRegistered(indexed uint256)
+        - event: LicenseRegistered(indexed uint256,(uint8,bool,bool,address,address,address,bytes32,uint256,uint256))
           handler: handleLicenseRegistered
-        - event: LicenseRevoked(indexed uint256)
-          handler: handleLicenseRevoked
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
       file: ./src/license-registry.ts
   - kind: ethereum
     name: RegistrationModule
@@ -134,12 +122,11 @@ dataSources:
         - name: RelationshipModule
           file: ./abis/RelationshipModule.json
       eventHandlers:
-        - event: RelationshipCreated(indexed uint256,indexed string,address,uint256,address,uint256)
+        - event: RelationshipCreated(indexed uint256,string,address,uint256,address,uint256)
           handler: handleRelationshipCreated
-        - event: RelationshipTypeSet(indexed string,indexed
-            address,address,uint8,uint256,address,uint8,uint256)
+        - event: RelationshipTypeSet(string,indexed address,address,uint8,uint256,address,uint8,uint256)
           handler: handleRelationshipTypeSet
-        - event: RelationshipTypeUnset(indexed string,address)
+        - event: RelationshipTypeUnset(string,address)
           handler: handleRelationshipTypeUnset
       file: ./src/relationship-module.ts
 templates:

@@ -25,7 +25,7 @@ export function handleIPOrgRegistered(event: IPOrgRegisteredEvent): void {
   entity.save()
 
   // Index the transaction
-  let transaction = new Transaction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  let transaction = new Transaction(event.transaction.hash)
   transaction.initiator = event.params.owner
   transaction.ipOrgId = event.params.ipAssetOrg
   transaction.resourceId = event.params.ipAssetOrg.toHexString()

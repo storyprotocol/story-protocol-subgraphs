@@ -239,49 +239,49 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "ipAssetId_",
+        "name": "ipAssetId",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "ipOrg_",
+        "name": "ipOrg",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "ipOrgAssetId_",
+        "name": "ipOrgAssetId",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "owner_",
+        "name": "owner",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "name_",
+        "name": "name",
         "type": "string"
       },
       {
         "indexed": true,
         "internalType": "uint8",
-        "name": "ipOrgAssetType_",
+        "name": "ipOrgAssetType",
         "type": "uint8"
       },
       {
         "indexed": false,
         "internalType": "bytes32",
-        "name": "hash_",
+        "name": "hash",
         "type": "bytes32"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "mediaUrl_",
+        "name": "mediaUrl",
         "type": "string"
       }
     ],
@@ -294,31 +294,31 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "ipAssetId_",
+        "name": "ipAssetId",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "ipOrg_",
+        "name": "ipOrg",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "ipOrgAssetId_",
+        "name": "ipOrgAssetId",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "prevOwner_",
+        "name": "prevOwner",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "newOwner_",
+        "name": "newOwner",
         "type": "address"
       }
     ],
@@ -331,19 +331,19 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "ipOrg_",
+        "name": "ipOrg",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "baseURI_",
+        "name": "baseURI",
         "type": "string"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "contractURI_",
+        "name": "contractURI",
         "type": "string"
       }
     ],
