@@ -1,3 +1,4 @@
+import { Bytes } from "@graphprotocol/graph-ts"
 import {
   IpOrgLicensingFrameworkSet as IpOrgLicensingFrameworkSetEvent 
 } from "../generated/LicenseModule/LicenseModule"
@@ -13,13 +14,16 @@ export function handleIpOrgLicenseParamSet(event: IpOrgLicensingFrameworkSetEven
   entity.frameworkId = event.params.frameworkId
   entity.url = event.params.url
   entity.licensorConfig = event.params.licensorConfig
-  entity.paramTags = []
-  entity.paramValues = []
+
+  const paramTags: Array<string> = []
+  const paramValues: Array<Bytes> = []
   entity.length = event.params.values.length
   for (let i = 0; i < event.params.values.length; i++) {
-    entity.paramTags.push(event.params.values[i].tag.toHexString())
-    entity.paramValues.push(event.params.values[i].value)
+    paramTags.push(event.params.values[i].tag.toHexString())
+    paramValues.push(event.params.values[i].value)
   }
+  entity.paramTags = paramTags
+  entity.paramValues = paramValues
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
