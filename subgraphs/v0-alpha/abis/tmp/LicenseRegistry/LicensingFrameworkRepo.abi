@@ -1,0 +1,415 @@
+[
+  {
+    "inputs":
+    [
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingFrameworkRepo_DuplicateParamType",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingFrameworkRepo_FrameworkAlreadyAdded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingFrameworkRepo_TooManyParams",
+    "type": "error"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "MissingRole",
+    "type": "error"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "UnsupportedInterface",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "accessControl",
+        "type": "address"
+      }
+    ],
+    "name": "AccessControlUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "frameworkId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "textUrl",
+        "type": "string"
+      }
+    ],
+    "name": "FrameworkAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "frameworkId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "ShortString",
+        "name": "tag",
+        "type": "bytes32"
+      },
+      {
+        "components":
+        [
+          {
+            "internalType": "ShortString",
+            "name": "tag",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "enum Licensing.ParameterType",
+            "name": "paramType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes",
+            "name": "defaultValue",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "availableChoices",
+            "type": "bytes"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct Licensing.ParamDefinition",
+        "name": "definition",
+        "type": "tuple"
+      }
+    ],
+    "name": "ParamDefinitionAdded",
+    "type": "event"
+  },
+  {
+    "inputs":
+    [
+      {
+        "components":
+        [
+          {
+            "internalType": "string",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "textUrl",
+            "type": "string"
+          },
+          {
+            "components":
+            [
+              {
+                "internalType": "ShortString",
+                "name": "tag",
+                "type": "bytes32"
+              },
+              {
+                "internalType": "enum Licensing.ParameterType",
+                "name": "paramType",
+                "type": "uint8"
+              },
+              {
+                "internalType": "bytes",
+                "name": "defaultValue",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "availableChoices",
+                "type": "bytes"
+              }
+            ],
+            "internalType": "struct Licensing.ParamDefinition[]",
+            "name": "paramDefs",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct Licensing.SetFramework",
+        "name": "input_",
+        "type": "tuple"
+      }
+    ],
+    "name": "addFramework",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "frameworkId_",
+        "type": "string"
+      }
+    ],
+    "name": "getLicenseTextUrl",
+    "outputs":
+    [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "frameworkId_",
+        "type": "string"
+      },
+      {
+        "internalType": "ShortString",
+        "name": "tag_",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getParamDefinition",
+    "outputs":
+    [
+      {
+        "components":
+        [
+          {
+            "internalType": "ShortString",
+            "name": "tag",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "enum Licensing.ParameterType",
+            "name": "paramType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes",
+            "name": "defaultValue",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "availableChoices",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct Licensing.ParamDefinition",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "frameworkId_",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getParamDefinitionAt",
+    "outputs":
+    [
+      {
+        "components":
+        [
+          {
+            "internalType": "ShortString",
+            "name": "tag",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "enum Licensing.ParameterType",
+            "name": "paramType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes",
+            "name": "defaultValue",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "availableChoices",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct Licensing.ParamDefinition",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "frameworkId_",
+        "type": "string"
+      }
+    ],
+    "name": "getParameterDefs",
+    "outputs":
+    [
+      {
+        "components":
+        [
+          {
+            "internalType": "ShortString",
+            "name": "tag",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "enum Licensing.ParameterType",
+            "name": "paramType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes",
+            "name": "defaultValue",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "availableChoices",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct Licensing.ParamDefinition[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "frameworkId_",
+        "type": "string"
+      }
+    ],
+    "name": "getTotalParameters",
+    "outputs":
+    [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "multicall",
+    "outputs":
+    [
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
+    ],
+    "name": "setAccessControl",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

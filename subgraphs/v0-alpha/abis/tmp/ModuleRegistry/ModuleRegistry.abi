@@ -1,0 +1,715 @@
+[
+  {
+    "inputs":
+    [
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "MissingRole",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry_DependencyAlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry_DependencyNotYetRegistered",
+    "type": "error"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "hookKey",
+        "type": "string"
+      }
+    ],
+    "name": "ModuleRegistry_HookNotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry_InvalidGateway",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry_ModuleAlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry_ModuleKeyMismatch",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry_ModuleNotYetRegistered",
+    "type": "error"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "UnsupportedInterface",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "accessControl",
+        "type": "address"
+      }
+    ],
+    "name": "AccessControlUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipOrg",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "hookKey",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "hook",
+        "type": "address"
+      }
+    ],
+    "name": "HookAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipOrg",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "hookKey",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "hook",
+        "type": "address"
+      }
+    ],
+    "name": "HookRemoved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipOrg",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "moduleKey",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "module",
+        "type": "address"
+      }
+    ],
+    "name": "ModuleAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "ModuleKey",
+        "name": "key",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes4",
+        "name": "fn",
+        "type": "bytes4"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "gateway",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "grant",
+        "type": "bool"
+      }
+    ],
+    "name": "ModuleAuthorizationGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipOrg",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "moduleKey",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "params",
+        "type": "bytes"
+      }
+    ],
+    "name": "ModuleConfigured",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipOrg",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "moduleKey",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "selfParams",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes[]",
+        "name": "preHookParams",
+        "type": "bytes[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes[]",
+        "name": "postHookParams",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "ModuleExecuted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "ModuleKey",
+        "name": "key",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "module",
+        "type": "address"
+      }
+    ],
+    "name": "ModuleRemoved",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "PROTOCOL_LEVEL",
+    "outputs":
+    [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IIPOrg",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "moduleKey_",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "params_",
+        "type": "bytes"
+      }
+    ],
+    "name": "configure",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IIPOrg",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "caller_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "moduleKey_",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "params_",
+        "type": "bytes"
+      }
+    ],
+    "name": "configure",
+    "outputs":
+    [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IIPOrg",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "moduleKey_",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "moduleParams_",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "preHookParams_",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "postHookParams_",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "execute",
+    "outputs":
+    [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IIPOrg",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "caller_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "moduleKey_",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "moduleParams_",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "preHookParams_",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "postHookParams_",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "execute",
+    "outputs":
+    [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "hookKey",
+        "type": "string"
+      }
+    ],
+    "name": "hookForKey",
+    "outputs":
+    [
+      {
+        "internalType": "contract IHook",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "ModuleKey",
+        "name": "key_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "contract IGateway",
+        "name": "gateway_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes4",
+        "name": "fn_",
+        "type": "bytes4"
+      }
+    ],
+    "name": "isAuthorized",
+    "outputs":
+    [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IHook",
+        "name": "hook_",
+        "type": "address"
+      }
+    ],
+    "name": "isRegisteredHook",
+    "outputs":
+    [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "multicall",
+    "outputs":
+    [
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "key_",
+        "type": "string"
+      }
+    ],
+    "name": "protocolModule",
+    "outputs":
+    [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "ModuleKey",
+        "name": "key_",
+        "type": "bytes32"
+      }
+    ],
+    "name": "protocolModule",
+    "outputs":
+    [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IGateway",
+        "name": "gateway_",
+        "type": "address"
+      }
+    ],
+    "name": "registerProtocolGateway",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "hookKey",
+        "type": "string"
+      },
+      {
+        "internalType": "contract IHook",
+        "name": "hookAddress",
+        "type": "address"
+      }
+    ],
+    "name": "registerProtocolHook",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "ModuleKey",
+        "name": "key_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "contract IModule",
+        "name": "module_",
+        "type": "address"
+      }
+    ],
+    "name": "registerProtocolModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IGateway",
+        "name": "gateway_",
+        "type": "address"
+      }
+    ],
+    "name": "removeProtocolGateway",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "string",
+        "name": "hookKey",
+        "type": "string"
+      }
+    ],
+    "name": "removeProtocolHook",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "ModuleKey",
+        "name": "key_",
+        "type": "bytes32"
+      }
+    ],
+    "name": "removeProtocolModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "address",
+        "name": "accessControl_",
+        "type": "address"
+      }
+    ],
+    "name": "setAccessControl",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

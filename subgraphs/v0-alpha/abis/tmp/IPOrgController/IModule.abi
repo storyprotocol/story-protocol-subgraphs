@@ -1,0 +1,136 @@
+[
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RequestCompleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "RequestFailed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RequestPending",
+    "type": "event"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IIPOrg",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "caller_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "params_",
+        "type": "bytes"
+      }
+    ],
+    "name": "configure",
+    "outputs":
+    [
+      {
+        "internalType": "bytes",
+        "name": "result",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
+      {
+        "internalType": "contract IIPOrg",
+        "name": "ipOrg_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "caller_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "moduleParams_",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "preHookParams_",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "postHookParams_",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "execute",
+    "outputs":
+    [
+      {
+        "internalType": "bytes",
+        "name": "result",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "moduleKey",
+    "outputs":
+    [
+      {
+        "internalType": "ModuleKey",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]
