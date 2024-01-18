@@ -1,8 +1,10 @@
 [
   {
-    "inputs": [
+    "inputs":
+    [
       {
-        "components": [
+        "components":
+        [
           {
             "internalType": "contract IPAssetRegistry",
             "name": "ipaRegistry",
@@ -38,7 +40,8 @@
     "type": "constructor"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "uint8",
         "name": "hookType",
@@ -65,7 +68,7 @@
   },
   {
     "inputs": [],
-    "name": "BaseModule_ZeroModuleRegistry",
+    "name": "EmptyArray",
     "type": "error"
   },
   {
@@ -79,7 +82,8 @@
     "type": "error"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "uint256",
         "name": "hooksIndex",
@@ -100,17 +104,30 @@
     "type": "error"
   },
   {
+    "inputs":
+    [
+      {
+        "internalType": "address",
+        "name": "hookAddress",
+        "type": "address"
+      }
+    ],
+    "name": "HookRegistry_RegisteringNonWhitelistedHook",
+    "type": "error"
+  },
+  {
     "inputs": [],
     "name": "HookRegistry_RegisteringZeroAddressHook",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LibUintArrayMask_EmptyArray",
+    "name": "HookRegistry_ZeroModuleRegistry",
     "type": "error"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "bytes32",
         "name": "role",
@@ -166,7 +183,8 @@
     "type": "error"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "string",
         "name": "relType",
@@ -182,7 +200,8 @@
     "type": "error"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "string",
         "name": "name",
@@ -199,7 +218,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "address",
@@ -212,7 +232,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "enum HookRegistry.HookType",
@@ -231,7 +252,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "enum HookRegistry.HookType",
@@ -256,7 +278,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "uint256",
@@ -264,7 +287,7 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "string",
         "name": "relType",
         "type": "string"
@@ -299,9 +322,10 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "string",
         "name": "relType",
         "type": "string"
@@ -354,9 +378,10 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "string",
         "name": "relType",
         "type": "string"
@@ -373,7 +398,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "address",
@@ -386,7 +412,28 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "RequestFailed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "address",
@@ -400,7 +447,8 @@
   {
     "inputs": [],
     "name": "INDEX_NOT_FOUND",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "uint256",
         "name": "",
@@ -413,7 +461,8 @@
   {
     "inputs": [],
     "name": "IPA_REGISTRY",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "contract IPAssetRegistry",
         "name": "",
@@ -426,7 +475,8 @@
   {
     "inputs": [],
     "name": "IP_ORG_CONTROLLER",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "contract IPOrgController",
         "name": "",
@@ -439,7 +489,8 @@
   {
     "inputs": [],
     "name": "LICENSE_REGISTRY",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "contract LicenseRegistry",
         "name": "",
@@ -452,7 +503,8 @@
   {
     "inputs": [],
     "name": "MAX_HOOKS",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "uint256",
         "name": "",
@@ -465,7 +517,8 @@
   {
     "inputs": [],
     "name": "MODULE_REGISTRY",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "contract ModuleRegistry",
         "name": "",
@@ -476,7 +529,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -499,7 +553,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "contract IIPOrg",
         "name": "ipOrg_",
@@ -517,7 +572,8 @@
       }
     ],
     "name": "configure",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bytes",
         "name": "",
@@ -528,7 +584,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "contract IIPOrg",
         "name": "ipOrg_",
@@ -556,7 +613,8 @@
       }
     ],
     "name": "execute",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bytes",
         "name": "result",
@@ -567,7 +625,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "uint256",
         "name": "relationshipId_",
@@ -575,9 +634,11 @@
       }
     ],
     "name": "getRelationship",
-    "outputs": [
+    "outputs":
+    [
       {
-        "components": [
+        "components":
+        [
           {
             "internalType": "string",
             "name": "relType",
@@ -613,9 +674,11 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
-        "components": [
+        "components":
+        [
           {
             "internalType": "string",
             "name": "relType",
@@ -648,7 +711,8 @@
       }
     ],
     "name": "getRelationshipId",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "uint256",
         "name": "",
@@ -659,7 +723,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -672,9 +737,11 @@
       }
     ],
     "name": "getRelationshipType",
-    "outputs": [
+    "outputs":
+    [
       {
-        "components": [
+        "components":
+        [
           {
             "internalType": "address",
             "name": "src",
@@ -705,7 +772,27 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
+      {
+        "internalType": "bytes32",
+        "name": "requestId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "callbackData_",
+        "type": "bytes"
+      }
+    ],
+    "name": "handleHookCallback",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -723,7 +810,8 @@
       }
     ],
     "name": "hookAt",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "address",
         "name": "",
@@ -734,7 +822,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -752,7 +841,8 @@
       }
     ],
     "name": "hookConfigAt",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bytes",
         "name": "",
@@ -763,7 +853,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -781,7 +872,8 @@
       }
     ],
     "name": "hookIndex",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "uint256",
         "name": "",
@@ -792,7 +884,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -810,7 +903,8 @@
       }
     ],
     "name": "isRegistered",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bool",
         "name": "",
@@ -821,7 +915,22 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "moduleKey",
+    "outputs":
+    [
+      {
+        "internalType": "ModuleKey",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hType_",
@@ -854,7 +963,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -887,9 +997,11 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
-        "components": [
+        "components":
+        [
           {
             "internalType": "string",
             "name": "relType",
@@ -922,7 +1034,8 @@
       }
     ],
     "name": "relationshipExists",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bool",
         "name": "",
@@ -933,7 +1046,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "accessControl_",
@@ -946,7 +1060,29 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs":
+    [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -959,7 +1095,8 @@
       }
     ],
     "name": "totalHooks",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "uint256",
         "name": "",
@@ -970,7 +1107,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "enum HookRegistry.HookType",
         "name": "hookType_",
@@ -983,7 +1121,8 @@
       }
     ],
     "name": "totalHooksConfig",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "uint256",
         "name": "",

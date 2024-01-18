@@ -1,0 +1,8 @@
+[submodule "packages/core-sdk/protocol-contracts"]
+	path = packages/core-sdk/protocol-contracts
+	url = https://github.com/storyprotocol/protocol-contracts
+	branch = main
+[submodule "temp/protocol-contracts"]
+	path = temp/protocol-contracts
+	url = https://github.com/storyprotocol/protocol-contracts
+	branch = main

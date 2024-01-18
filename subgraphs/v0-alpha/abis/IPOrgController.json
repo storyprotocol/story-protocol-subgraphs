@@ -1,6 +1,7 @@
 [
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "moduleRegistry_",
@@ -31,7 +32,8 @@
     "type": "error"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "bytes32",
         "name": "role",
@@ -47,7 +49,8 @@
     "type": "error"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "string",
         "name": "name",
@@ -64,7 +67,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "address",
@@ -77,7 +81,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": false,
         "internalType": "address",
@@ -96,7 +101,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "address",
@@ -109,7 +115,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": false,
         "internalType": "address",
@@ -128,7 +135,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": false,
         "internalType": "address",
@@ -165,7 +173,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": false,
         "internalType": "address",
@@ -190,7 +199,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": false,
         "internalType": "uint8",
@@ -203,7 +213,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [
+    "inputs":
+    [
       {
         "indexed": true,
         "internalType": "address",
@@ -216,21 +227,9 @@
   },
   {
     "inputs": [],
-    "name": "IP_ORG_IMPL",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "MODULE_REGISTRY",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "address",
         "name": "",
@@ -241,7 +240,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -254,7 +254,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -269,7 +270,8 @@
   {
     "inputs": [],
     "name": "getAccessControl",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "address",
         "name": "",
@@ -280,7 +282,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "accessControl_",
@@ -293,7 +296,22 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "ipOrgImpl",
+    "outputs":
+    [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -301,7 +319,8 @@
       }
     ],
     "name": "isIpOrg",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bool",
         "name": "",
@@ -312,7 +331,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -320,7 +340,8 @@
       }
     ],
     "name": "ownerOf",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "address",
         "name": "",
@@ -331,7 +352,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -339,7 +361,8 @@
       }
     ],
     "name": "pendingOwnerOf",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "address",
         "name": "pendingOwner",
@@ -352,7 +375,8 @@
   {
     "inputs": [],
     "name": "proxiableUUID",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "bytes32",
         "name": "",
@@ -363,7 +387,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "owner_",
@@ -386,7 +411,8 @@
       }
     ],
     "name": "registerIpOrg",
-    "outputs": [
+    "outputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -397,7 +423,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "accessControl_",
@@ -410,7 +437,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "ipOrg_",
@@ -428,7 +456,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "newImplementation",
@@ -441,7 +470,8 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs":
+    [
       {
         "internalType": "address",
         "name": "newImplementation",
