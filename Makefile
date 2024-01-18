@@ -22,5 +22,5 @@ compile_alpha_contracts:
 	cp subgraphs/v0-alpha/abis/tmp/RelationshipModule/RelationshipModule.abi subgraphs/v0-alpha/abis/RelationshipModule.json
 
 
-	#rm -rf temp
-	#rm -rf subgraphs/v0-alpha/abis/tmp
+	rm -rf temp
+	rm -rf subgraphs/v0-alpha/abis/tmp
