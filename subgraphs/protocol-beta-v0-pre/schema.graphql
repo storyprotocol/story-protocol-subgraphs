@@ -1,0 +1,96 @@
+type IPAccountRegistered @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  implementation: Bytes! # address
+  chainId: BigInt! # uint256
+  tokenContract: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type ModuleAdded @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  module: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ModuleRemoved @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  module: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Module @entity(immutable: false) {
+  id: String!
+  name: String! # string
+  module: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  deletedAt: BigInt
+}
+
+type License @entity(immutable: true) {
+  id: String!
+  creator: Bytes! # address
+  receiver: Bytes! # address
+  licenseId: BigInt! # uint256
+  amount: BigInt! # uint256
+  licenseData: LicenseData!
+}
+
+type LicenseData @entity{
+  id: String!
+  policyId: BigInt!
+  licensorIpIds: [Bytes!]!
+}
+
+type LicenseFramework @entity(immutable: true) {
+  id: String!
+  creator: Bytes! # address
+  frameworkCreationParams: FrameworkCreationParams!
+}
+
+type FrameworkCreationParams @entity{
+  id: String!
+  mintingParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  mintingParamDefaultValues: [Bytes!]!
+  activationParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  activationParamDefaultValues: [Bytes!]!
+  defaultNeedsActivation: Boolean!
+  linkParentParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  linkParentParamDefaultValues: [Bytes!]!
+  licenseUrl: String!
+}
+
+type Policy @entity(immutable: true) {
+  id: String!
+  creator: Bytes! # address
+  policyId: BigInt!
+  policyData: PolicyData!
+}
+
+type PolicyData @entity{
+  id: String!
+  frameworkId: BigInt!
+  mintingParamValues: [Bytes!]!
+  activationParamValues: [Bytes!]!
+  needsActivation: Boolean!
+  linkParentParamValues: [Bytes!]!
+}
+
+type IPRecord @entity(immutable: false) {
+  id: String!
+  ipId: String!
+  chainId: BigInt!
+  tokenContract: Bytes!
+  tokenId: BigInt!
+  metadataResolverAddress: Bytes!
+}
