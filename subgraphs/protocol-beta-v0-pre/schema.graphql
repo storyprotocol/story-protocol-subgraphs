@@ -101,3 +101,10 @@ type IPAToPolicy @entity(immutable: true) {
   policyId: BigInt!
 }
 
+type Tag @entity(immutable: false) {
+  id: String!
+  ipId: Bytes!
+  tag: String!
+  deletedAt: BigInt
+}
+
