@@ -2,7 +2,8 @@ import { Bytes } from "@graphprotocol/graph-ts"
 import {
     LicenseFrameworkCreated,
     LicenseMinted,
-    PolicyCreated
+    PolicyCreated,
+    PolicyAddedToIpId
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import { 
     License, 
@@ -10,7 +11,8 @@ import {
     LicenseData, 
     FrameworkCreationParams,
     Policy,
-    PolicyData
+    PolicyData,
+    IPAToPolicy
 } from "../generated/schema"
 
 export function handlePolicyCreated(event: PolicyCreated): void {
@@ -116,5 +118,16 @@ export function handleLicenseFrameworkCreated(event: LicenseFrameworkCreated): v
     frameworkCreationParams.licenseUrl = event.params.frameworkCreationParams.licenseUrl;
 
     frameworkCreationParams.save()
+    entity.save()
+}
+
+export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
+    // TODO
+    let entity = new IPAToPolicy(
+        event.params.policyId.toString() + "-" + event.params.ipId.toString(),
+    )
+    entity.ipId = event.params.ipId
+    entity.policyId = event.params.policyId
+
     entity.save()
 }

@@ -94,3 +94,10 @@ type IPRecord @entity(immutable: false) {
   tokenId: BigInt!
   metadataResolverAddress: Bytes!
 }
+
+type IPAToPolicy @entity(immutable: true) {
+  id: String!
+  ipId: Bytes!
+  policyId: BigInt!
+}
+
