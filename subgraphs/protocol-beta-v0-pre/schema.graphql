@@ -28,7 +28,7 @@ type ModuleRemoved @entity(immutable: true) {
 }
 
 type Module @entity(immutable: false) {
-  id: String!
+  id: Bytes!
   name: String! # string
   module: Bytes! # address
   blockNumber: BigInt!
@@ -43,7 +43,9 @@ type License @entity(immutable: true) {
   receiver: Bytes! # address
   licenseId: BigInt! # uint256
   amount: BigInt! # uint256
-  licenseData: LicenseData!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  licenseData: LicenseData!
 }
 
 type LicenseData @entity{
@@ -55,7 +57,9 @@ type LicenseData @entity{
 type LicenseFramework @entity(immutable: true) {
   id: String!
   creator: Bytes! # address
-  frameworkCreationParams: FrameworkCreationParams!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  frameworkCreationParams: FrameworkCreationParams!
 }
 
 type FrameworkCreationParams @entity{
@@ -74,7 +78,9 @@ type Policy @entity(immutable: true) {
   id: String!
   creator: Bytes! # address
   policyId: BigInt!
-  policyData: PolicyData!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  policyData: PolicyData!
 }
 
 type PolicyData @entity{
@@ -87,24 +93,41 @@ type PolicyData @entity{
 }
 
 type IPRecord @entity(immutable: false) {
-  id: String!
-  ipId: String!
+  id: Bytes!
+  ipId: Bytes!
   chainId: BigInt!
   tokenContract: Bytes!
   tokenId: BigInt!
   metadataResolverAddress: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 
 type IPAToPolicy @entity(immutable: true) {
   id: String!
   ipId: Bytes!
   policyId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 
 type Tag @entity(immutable: false) {
   id: String!
   ipId: Bytes!
   tag: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
   deletedAt: BigInt
+}
+
+type Permission @entity(immutable: true) {
+  id: String!
+  ipAccount: Bytes!
+  signer: Bytes!
+  to: Bytes!
+  func: Bytes!
+  permission: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 

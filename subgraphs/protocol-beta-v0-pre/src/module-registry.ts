@@ -7,9 +7,9 @@ import { ModuleAdded, ModuleRemoved, Module } from "../generated/schema"
 export function handleModuleAdded(event: ModuleAddedEvent): void {
 
   let entity2 = new Module(
-      event.params.name.toString(),
+      event.params.module,
   )
-  entity2.name = event.params.name.toString()
+  entity2.name = event.params.name.toHexString()
   entity2.module = event.params.module
 
   entity2.blockNumber = event.block.number
@@ -20,10 +20,12 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
 }
 
 export function handleModuleRemoved(event: ModuleRemovedEvent): void {
-  let entity2 = Module.load(event.params.name.toString())
-  if (entity2 == null) {
+  let entity = Module.load(event.params.module)
+  if (entity == null) {
     return
   }
-  entity2.deletedAt = event.block.number
-  entity2.save()
+  entity.deletedAt = event.block.number
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.save()
 }

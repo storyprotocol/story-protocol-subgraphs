@@ -20,6 +20,9 @@ export function handlePolicyCreated(event: PolicyCreated): void {
         event.params.policyId.toString(),
     )
     entity.creator = event.params.creator
+    entity.policyId = event.params.policyId
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
 
     let subEntity = new PolicyData(event.params.policyId.toString() + "-data")
     subEntity.frameworkId = event.params.policy.frameworkId
@@ -43,8 +46,8 @@ export function handlePolicyCreated(event: PolicyCreated): void {
     }
     subEntity.linkParentParamValues = linkParentParamValues
 
-    entity.save()
     subEntity.save()
+    entity.save()
 }
 export function handleLicenseMinted(event: LicenseMinted): void {
     let entity = new License(
@@ -54,6 +57,8 @@ export function handleLicenseMinted(event: LicenseMinted): void {
     entity.receiver = event.params.receiver
     entity.licenseId = event.params.licenseId
     entity.amount = event.params.amount
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
 
     let subEntity = new LicenseData(event.params.licenseId.toString() + "-data")
     subEntity.policyId = event.params.licenseData.policyId
@@ -62,7 +67,7 @@ export function handleLicenseMinted(event: LicenseMinted): void {
     for (let i = 0; i < event.params.licenseData.licensorIpIds.length; i++) {
         licensorIpIds.push(event.params.licenseData.licensorIpIds[i])
     }
-    
+
     subEntity.licensorIpIds = licensorIpIds
 
     subEntity.save()
@@ -74,6 +79,8 @@ export function handleLicenseFrameworkCreated(event: LicenseFrameworkCreated): v
         event.params.frameworkId.toString(),
     )
     entity.creator = event.params.creator
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
 
     let frameworkCreationParams = new FrameworkCreationParams(
         event.params.frameworkId.toString() + "-data",
@@ -116,18 +123,21 @@ export function handleLicenseFrameworkCreated(event: LicenseFrameworkCreated): v
     frameworkCreationParams.linkParentParamDefaultValues = linkParentParamDefaultValues;
 
     frameworkCreationParams.licenseUrl = event.params.frameworkCreationParams.licenseUrl;
+    frameworkCreationParams.defaultNeedsActivation = event.params.frameworkCreationParams.defaultNeedsActivation;
 
     frameworkCreationParams.save()
     entity.save()
 }
 
 export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
-    // TODO
+    // // TODO
     let entity = new IPAToPolicy(
-        event.params.policyId.toString() + "-" + event.params.ipId.toString(),
+        event.params.ipId.toHexString() + "-" + event.params.policyId.toString(),
     )
     entity.ipId = event.params.ipId
     entity.policyId = event.params.policyId
+    entity.blockNumber = event.block.number
+    entity.blockTimestamp = event.block.timestamp
 
     entity.save()
 }
