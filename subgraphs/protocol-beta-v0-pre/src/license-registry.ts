@@ -23,6 +23,7 @@ export function handlePolicyCreated(event: PolicyCreated): void {
     entity.policyId = event.params.policyId
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
+    entity.frameworkId = event.params.policy.frameworkId
 
     let subEntity = new PolicyData(event.params.policyId.toString() + "-data")
     subEntity.frameworkId = event.params.policy.frameworkId

@@ -78,6 +78,7 @@ type Policy @entity(immutable: true) {
   id: String!
   creator: Bytes! # address
   policyId: BigInt!
+  frameworkId: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   #  policyData: PolicyData!
