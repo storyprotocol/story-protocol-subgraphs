@@ -1,10 +1,9 @@
 import { TagSet, TagRemoved } from "../generated/TaggingModule/TaggingModule";
 import { Tag } from "../generated/schema";
-import * as crypto from "crypto";
 
-export async function handleTagSet(event: TagSet): void {
-  const tagString = event.params.ipId + "-" + event.params.tag;
-  let tagHash = crypto.createHash(tagString).digest("hex");
+export function handleTagSet(event: TagSet): void {
+  const tagString = event.params.ipId.toHexString() + "-" + event.params.tag;
+  let tagHash = sha256(tagString);
 
   let entity = new Tag(tagHash);
 
@@ -17,8 +16,8 @@ export async function handleTagSet(event: TagSet): void {
 }
 
 export function handleTagRemoved(event: TagRemoved): void {
-  const tagString = event.params.ipId + "-" + event.params.tag;
-  let tagHash = crypto.createHash(tagString).digest("hex");
+  const tagString = event.params.ipId.toHexString() + "-" + event.params.tag;
+  let tagHash = sha256(tagString);
 
   let entity = Tag.load(tagHash);
   if (entity == null) {
@@ -30,4 +29,12 @@ export function handleTagRemoved(event: TagRemoved): void {
   entity.blockTimestamp = event.block.timestamp;
 
   entity.save();
+}
+
+function sha256(input: string): string {
+  let hash = "";
+  for (let i = 0; i < input.length; i++) {
+    hash += input.charCodeAt(i).toString(16);
+  }
+  return hash;
 }

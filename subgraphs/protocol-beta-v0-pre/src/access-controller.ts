@@ -1,6 +1,5 @@
 import { PermissionSet } from "../generated/AccessController/AccessController";
 import { Permission } from "../generated/schema";
-import * as crypto from "crypto";
 
 export function handlePermissionSet(event: PermissionSet): void {
   const permString =
@@ -11,8 +10,8 @@ export function handlePermissionSet(event: PermissionSet): void {
     event.params.signer.toHexString() +
     "-" +
     event.params.func.toHexString();
-  let permHash = crypto.createHash(permString).digest("hex");
 
+  let permHash = sha256(permString);
   let entity = new Permission(permHash);
 
   entity.to = event.params.to;
@@ -24,4 +23,12 @@ export function handlePermissionSet(event: PermissionSet): void {
   entity.permission = event.params.permission.toString();
 
   entity.save();
+}
+
+function sha256(input: string): string {
+  let hash = "";
+  for (let i = 0; i < input.length; i++) {
+    hash += input.charCodeAt(i).toString(16);
+  }
+  return hash;
 }
