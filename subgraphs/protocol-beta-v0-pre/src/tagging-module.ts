@@ -1,8 +1,8 @@
 import { TagSet, TagRemoved } from "../generated/TaggingModule/TaggingModule";
 import { Tag } from "../generated/schema";
 
-export async function handleTagSet(event: TagSet): void {
-  const tagString = event.params.ipId + "-" + event.params.tag;
+export function handleTagSet(event: TagSet): void {
+  const tagString = event.params.ipId.toHexString() + "-" + event.params.tag;
 
   let entity = new Tag(tagString);
 
@@ -15,7 +15,7 @@ export async function handleTagSet(event: TagSet): void {
 }
 
 export function handleTagRemoved(event: TagRemoved): void {
-  const tagString = event.params.ipId + "-" + event.params.tag;
+  const tagString = event.params.ipId.toHexString() + "-" + event.params.tag;
 
   let entity = Tag.load(tagString);
   if (entity == null) {
