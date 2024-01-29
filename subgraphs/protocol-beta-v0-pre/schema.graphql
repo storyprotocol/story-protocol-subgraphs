@@ -114,6 +114,7 @@ type IPAToPolicy @entity(immutable: true) {
 
 type Tag @entity(immutable: false) {
   id: String!
+  uuid: String!
   ipId: Bytes!
   tag: String!
   blockNumber: BigInt!
@@ -123,6 +124,7 @@ type Tag @entity(immutable: false) {
 
 type Permission @entity(immutable: true) {
   id: String!
+  uuid: String!
   ipAccount: Bytes!
   signer: Bytes!
   to: Bytes!
