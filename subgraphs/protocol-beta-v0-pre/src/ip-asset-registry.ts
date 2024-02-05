@@ -1,10 +1,10 @@
-import { IPRegistered, IPResolverSet } from "../generated/IPRecordRegistry/IPRecordRegistry"
-import { IPRecord } from "../generated/schema"
+import { IPRegistered, IPAccountRegistered, IPResolverSet } from "../generated/IPAssetRegistry/IPAssetRegistry"
+import { IPAsset } from "../generated/schema"
 
 export function handleIPRegistered(
     event: IPRegistered
 ): void {
-  let entity = new IPRecord(
+  let entity = new IPAsset(
       event.params.ipId
   )
 
@@ -23,7 +23,7 @@ export function handleIPResolverSet(
     event: IPResolverSet
 ): void {
 
-  let entity = IPRecord.load(event.params.ipId)
+  let entity = IPAsset.load(event.params.ipId)
   if (entity == null) {
     return
   }

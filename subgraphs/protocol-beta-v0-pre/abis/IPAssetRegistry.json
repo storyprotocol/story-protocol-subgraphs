@@ -3,12 +3,17 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "moduleRegistry",
+        "name": "accessController",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "ipAccountRegistry",
+        "name": "erc6551Registry",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "ipAccountImpl",
         "type": "address"
       }
     ],
@@ -17,36 +22,42 @@
   },
   {
     "inputs": [],
-    "name": "IPRecordRegistry_AlreadyRegistered",
+    "name": "IPAccountRegistry_InvalidIpAccountImpl",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "IPRecordRegistry_IPAccountAlreadyCreated",
+    "name": "IPAssetRegistry__AlreadyRegistered",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "IPRecordRegistry_NotYetRegistered",
+    "name": "IPAssetRegistry__InvalidAccount",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "IPRecordRegistry_ResolverInvalid",
+    "name": "IPAssetRegistry__NotYetRegistered",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "IPRecordRegistry_Unauthorized",
+    "name": "IPAssetRegistry__Unauthorized",
     "type": "error"
   },
   {
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
-        "name": "ipId",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
         "type": "address"
       },
       {
@@ -56,19 +67,19 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "address",
         "name": "tokenContract",
         "type": "address"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "uint256",
         "name": "tokenId",
         "type": "uint256"
       }
     ],
-    "name": "IPAccountSet",
+    "name": "IPAccountRegistered",
     "type": "event"
   },
   {
@@ -103,6 +114,18 @@
         "internalType": "address",
         "name": "resolver",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "metadata",
+        "type": "bytes"
       }
     ],
     "name": "IPRegistered",
@@ -128,11 +151,36 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "metadataProvider",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "metadata",
+        "type": "bytes"
+      }
+    ],
+    "name": "MetadataSet",
+    "type": "event"
+  },
+  {
     "inputs": [],
-    "name": "IP_ACCOUNT_REGISTRY",
+    "name": "ACCESS_CONTROLLER",
     "outputs": [
       {
-        "internalType": "contract IIPAccountRegistry",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -142,10 +190,49 @@
   },
   {
     "inputs": [],
-    "name": "MODULE_REGISTRY",
+    "name": "ERC6551_PUBLIC_REGISTRY",
     "outputs": [
       {
-        "internalType": "contract IModuleRegistry",
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IP_ACCOUNT_IMPL",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IP_ACCOUNT_SALT",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getIPAccountImpl",
+    "outputs": [
+      {
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -157,21 +244,21 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "chainId",
+        "name": "chainId_",
         "type": "uint256"
       },
       {
         "internalType": "address",
-        "name": "tokenContract",
+        "name": "tokenContract_",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "tokenId_",
         "type": "uint256"
       }
     ],
-    "name": "createIPAccount",
+    "name": "ipAccount",
     "outputs": [
       {
         "internalType": "address",
@@ -179,7 +266,7 @@
         "type": "address"
       }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -214,19 +301,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "chainId",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
-        "name": "tokenContract",
+        "name": "id",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
       }
     ],
     "name": "isRegistered",
@@ -248,12 +325,44 @@
         "type": "address"
       }
     ],
-    "name": "isRegistered",
+    "name": "metadata",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "bytes",
         "name": "",
-        "type": "bool"
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "id",
+        "type": "address"
+      }
+    ],
+    "name": "metadataProvider",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "metadataProvider",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -285,13 +394,47 @@
         "internalType": "bool",
         "name": "createAccount",
         "type": "bool"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
       }
     ],
     "name": "register",
     "outputs": [
       {
         "internalType": "address",
-        "name": "account",
+        "name": "id",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "chainId_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "registerIpAccount",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "ipAccountAddress",
         "type": "address"
       }
     ],
@@ -320,56 +463,35 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "chainId",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
-        "name": "tokenContract",
+        "name": "id",
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "resolver",
-    "outputs": [
-      {
         "internalType": "address",
-        "name": "",
+        "name": "provider",
         "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
       }
     ],
-    "stateMutability": "view",
+    "name": "setMetadata",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "chainId",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
-        "name": "tokenContract",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "resolverAddr",
+        "name": "newMetadataProvider",
         "type": "address"
       }
     ],
-    "name": "setResolver",
+    "name": "setMetadataProvider",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

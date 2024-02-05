@@ -2,14 +2,14 @@ import {
   ModuleAdded as ModuleAddedEvent,
   ModuleRemoved as ModuleRemovedEvent,
 } from "../generated/ModuleRegistry/ModuleRegistry"
-import { ModuleAdded, ModuleRemoved, Module } from "../generated/schema"
+import { Module } from "../generated/schema"
 
 export function handleModuleAdded(event: ModuleAddedEvent): void {
 
   let entity2 = new Module(
       event.params.module,
   )
-  entity2.name = event.params.name.toHexString()
+  entity2.name = event.params.name
   entity2.module = event.params.module
 
   entity2.blockNumber = event.block.number

@@ -1,30 +1,36 @@
-type IPAccountRegistered @entity(immutable: true) {
+type IPAsset @entity(immutable: false) {
   id: Bytes!
-  account: Bytes! # address
-  implementation: Bytes! # address
-  chainId: BigInt! # uint256
-  tokenContract: Bytes! # address
-  tokenId: BigInt! # uint256
+  ipId: Bytes!
+  chainId: BigInt!
+  tokenContract: Bytes!
+  tokenId: BigInt!
+  metadataResolverAddress: Bytes!
+  metadata: Metadata!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-type ModuleAdded @entity(immutable: true) {
-  id: Bytes!
-  name: String! # string
-  module: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  parentIpIds: [String!]!
 }
 
-type ModuleRemoved @entity(immutable: true) {
+type Metadata @entity {
   id: Bytes!
-  name: String! # string
-  module: Bytes! # address
+  name: String!
+  hash: Bytes!
+  registrationDate: BigInt!
+  registrant: String!
+  uri: String!
+}
+
+type Permission @entity(immutable: true) {
+  id: String!
+  uuid: String!
+  ipaOwner: Bytes!
+  ipAccountAddress: Bytes!
+  signer: Bytes!
+  to: Bytes!
+  func: Bytes!
+  permission: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
 }
 
 type Module @entity(immutable: false) {
@@ -37,41 +43,14 @@ type Module @entity(immutable: false) {
   deletedAt: BigInt
 }
 
-type License @entity(immutable: true) {
+type Tag @entity(immutable: false) {
   id: String!
-  creator: Bytes! # address
-  receiver: Bytes! # address
-  licenseId: BigInt! # uint256
-  amount: BigInt! # uint256
+  uuid: String!
+  ipId: Bytes!
+  tag: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  #  licenseData: LicenseData!
-}
-
-type LicenseData @entity{
-  id: String!
-  policyId: BigInt!
-  licensorIpIds: [Bytes!]!
-}
-
-type LicenseFramework @entity(immutable: true) {
-  id: String!
-  creator: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  #  frameworkCreationParams: FrameworkCreationParams!
-}
-
-type FrameworkCreationParams @entity{
-  id: String!
-  mintingParamVerifiers: [Bytes!]! # Assuming Bytes type for address
-  mintingParamDefaultValues: [Bytes!]!
-  activationParamVerifiers: [Bytes!]! # Assuming Bytes type for address
-  activationParamDefaultValues: [Bytes!]!
-  defaultNeedsActivation: Boolean!
-  linkParentParamVerifiers: [Bytes!]! # Assuming Bytes type for address
-  linkParentParamDefaultValues: [Bytes!]!
-  licenseUrl: String!
+  deletedAt: BigInt
 }
 
 type Policy @entity(immutable: true) {
@@ -93,44 +72,100 @@ type PolicyData @entity{
   linkParentParamValues: [Bytes!]!
 }
 
-type IPRecord @entity(immutable: false) {
-  id: Bytes!
-  ipId: Bytes!
-  chainId: BigInt!
-  tokenContract: Bytes!
-  tokenId: BigInt!
-  metadataResolverAddress: Bytes!
+type License @entity(immutable: false) {
+  id: String!
+  licenseId: String!
+  policyId: String!
+  licensorIpIds: String! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
+  #  licenseData: LicenseData!
 }
 
-type IPAToPolicy @entity(immutable: true) {
+type LicenseData @entity{
   id: String!
-  ipId: Bytes!
   policyId: BigInt!
+  licensorIpIds: [Bytes!]!
+}
+
+type IPAPolicy @entity(immutable: false) {
+  id: String!
+  ipId: String!
+  policyId: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
 }
 
-type Tag @entity(immutable: false) {
-  id: String!
-  uuid: String!
-  ipId: Bytes!
-  tag: String!
+type LicenseOwner @entity(immutable:false) {
+  id: Bytes!
+  licenseId: String!
+  owner: String!
+  amount: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
+}
+
+type Dispute @entity(immutable: false) {
+  id: String!
+  targetIpId: Bytes!
+  targetTag: Bytes!
+  currentTag: Bytes!
+  arbitrationPolicy: Bytes!
+  evidenceLink: String!
+  initiator: Bytes!
+  data: Bytes!
   deletedAt: BigInt
-}
-
-type Permission @entity(immutable: true) {
-  id: String!
-  uuid: String!
-  ipAccount: Bytes!
-  signer: Bytes!
-  to: Bytes!
-  func: Bytes!
-  permission: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
+}
+
+type IPRoyalty @entity(immutable: false) {
+  id: String!
+  ipId: Bytes!
+  royaltyPolicy: Bytes!
+  data: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type RoyaltyPay @entity(immutable: false) {
+  id: String!
+  payerIpId: Bytes!
+  receiverIpId: Bytes!
+  sender: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type PolicyFrameworkManager @entity(immutable: true) {
+  id: String!
+  address: Bytes! # address
+  name: String! # address
+  licenseUrl: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  frameworkCreationParams: FrameworkCreationParams!
+}
+
+type LicenseFramework @entity(immutable: true) {
+  id: String!
+  creator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  frameworkCreationParams: FrameworkCreationParams!
+}
+
+type FrameworkCreationParams @entity{
+  id: String!
+  mintingParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  mintingParamDefaultValues: [Bytes!]!
+  activationParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  activationParamDefaultValues: [Bytes!]!
+  defaultNeedsActivation: Boolean!
+  linkParentParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  linkParentParamDefaultValues: [Bytes!]!
+  licenseUrl: String!
 }
 

@@ -16,7 +16,6 @@ export function handlePermissionSet(event: PermissionSet): void {
 
   entity.uuid = hash;
   entity.to = event.params.to;
-  entity.ipAccount = event.params.ipAccount;
   entity.func = event.params.func;
   entity.signer = event.params.signer;
   entity.blockNumber = event.block.number;
