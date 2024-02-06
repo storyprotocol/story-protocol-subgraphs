@@ -74,11 +74,11 @@ type PolicyData @entity{
 
 type License @entity(immutable: false) {
   id: String!
-  licenseId: String!
   policyId: String!
-  licensorIpIds: String! # uint256
+  licensorIpId: String! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
+  deletedAt: BigInt
   #  licenseData: LicenseData!
 }
 

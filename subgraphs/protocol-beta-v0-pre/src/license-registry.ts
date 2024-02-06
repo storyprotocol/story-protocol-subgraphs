@@ -1,7 +1,8 @@
 import { Bytes } from "@graphprotocol/graph-ts"
 import {
     TransferSingle,
-    TransferBatch
+    TransferBatch,
+    LicenseRegistry
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import { 
     License,
@@ -9,12 +10,28 @@ import {
 } from "../generated/schema"
 
 export function handleLicenseTransferSingle(event: TransferSingle): void {
+    let contract = LicenseRegistry.bind(event.address)
+    let licenseData = contract.license(event.params.id)
+    
+    let entity = new License(event.params.id.toString());
+    entity.policyId = licenseData.policyId.toString();
+    entity.licensorIpId = licenseData.licensorIpId.toString();
+    entity.blockNumber = event.block.number;
+    entity.blockTimestamp = event.block.timestamp;
 
+    entity.save();
 }
 
-export function handleLicenseTransferBatch(event: TransferSingle): void {
+export function handleLicenseTransferBatch(event: TransferBatch): void {
+    for (let i = 0; i < event.params.ids.length; i++) {
+        let entity = License.load(event.params.ids[i].toString());
+        if (entity == null) {
+            return;
+        }
 
-    
+        entity.deletedAt = event.block.number;
+        entity.save();
+    }
 }
 // export function handlePolicyCreated(event: PolicyCreated): void {
 //     let entity = new Policy(
