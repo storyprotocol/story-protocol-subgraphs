@@ -200,7 +200,7 @@
         "type": "address"
       }
     ],
-    "name": "DefaultArbitrationPolicySet",
+    "name": "DefaultArbitrationPolicyUpdated",
     "type": "event"
   },
   {
@@ -769,7 +769,7 @@
         "type": "bool"
       }
     ],
-    "name": "whitelistDisputeTags",
+    "name": "whitelistDisputeTag",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

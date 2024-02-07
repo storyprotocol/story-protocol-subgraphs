@@ -1,11 +1,11 @@
-import { RoyaltyPolicySet, RoyaltyPaid } from "../generated/RoyaltyModule/RoyaltyModule";
-import { IPRoyalty, RoyaltyPay } from "../generated/schema";
-
+import { RoyaltyPolicySet, RoyaltyPaid, RoyaltyTokenWhitelistUpdated, RoyaltyPolicyWhitelistUpdated } from "../generated/RoyaltyModule/RoyaltyModule";
+import { IPRoyalty, RoyaltyPay, Transaction } from "../generated/schema";
+import { Bytes } from "@graphprotocol/graph-ts"
 export function handleRoyaltyPaid(event: RoyaltyPaid): void {
   const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
 
   let entity = new RoyaltyPay(hash);
-  
+
   entity.receiverIpId = event.params.receiverIpId;
   entity.payerIpId = event.params.payerIpId;
   entity.sender = event.params.sender;
@@ -15,10 +15,24 @@ export function handleRoyaltyPaid(event: RoyaltyPaid): void {
   entity.blockTimestamp = event.block.timestamp;
 
   entity.save();
+
+  let trx = new Transaction(event.transaction.hash.toHexString())
+
+  trx.txHash = event.transaction.hash.toHexString()
+  trx.initiator = event.transaction.from
+  trx.createdAt = event.block.timestamp
+  trx.ipId = new Bytes(0)
+  trx.resourceId = event.address
+  trx.actionType = "Pay"
+  trx.resourceType = "Royalty"
+
+  trx.save()
 }
 
 export function handleRoyaltyPolicySet(event: RoyaltyPolicySet): void {
-  let entity = new IPRoyalty(event.params.royaltyPolicy.toString())
+  const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
+
+  let entity = new IPRoyalty(hash)
 
   entity.royaltyPolicy = event.params.royaltyPolicy;
   entity.ipId = event.params.ipId;
@@ -27,8 +41,27 @@ export function handleRoyaltyPolicySet(event: RoyaltyPolicySet): void {
   entity.blockTimestamp = event.block.timestamp;
 
   entity.save();
+
+  let trx = new Transaction(event.transaction.hash.toHexString())
+
+  trx.txHash = event.transaction.hash.toHexString()
+  trx.initiator = event.transaction.from
+  trx.createdAt = event.block.timestamp
+  trx.ipId = new Bytes(0)
+  trx.resourceId = event.address
+  trx.actionType = "Set"
+  trx.resourceType = "Royalty"
+
+  trx.save()
 }
 
+export function handleRoyaltyPolicyWhitelistUpdated(event: RoyaltyPolicyWhitelistUpdated): void {
+
+}
+
+export function handleRoyaltyTokenWhitelistUpdated(event: RoyaltyTokenWhitelistUpdated): void {
+
+}
 export function takeFirst15Chars(input: string): string {
   let result: string = "";
 

@@ -5,26 +5,15 @@ type IPAsset @entity(immutable: false) {
   tokenContract: Bytes!
   tokenId: BigInt!
   metadataResolverAddress: Bytes!
-  metadata: Metadata!
+  metadata: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  parentIpIds: [String!]!
-}
-
-type Metadata @entity {
-  id: Bytes!
-  name: String!
-  hash: Bytes!
-  registrationDate: BigInt!
-  registrant: String!
-  uri: String!
+  parentIpIds: [String!]
 }
 
 type Permission @entity(immutable: true) {
   id: String!
   uuid: String!
-  ipaOwner: Bytes!
-  ipAccountAddress: Bytes!
   signer: Bytes!
   to: Bytes!
   func: Bytes!
@@ -55,12 +44,31 @@ type Tag @entity(immutable: false) {
 
 type Policy @entity(immutable: true) {
   id: String!
-  creator: Bytes! # address
+  policyFrameworkManager: Bytes! # address
   policyId: BigInt!
-  frameworkId: BigInt!
+  policy: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   #  policyData: PolicyData!
+}
+
+type UMLPolicy @entity {
+  id: String!
+  attribution: Boolean!
+  transferable: Boolean!
+  commercialUse: Boolean!
+  commercialAttribution: Boolean!
+  commercializers: [String!]!
+  commercialRevShare: BigInt!
+  derivativesAllowed: Boolean!
+  derivativesAttribution: Boolean!
+  derivativesApproval: Boolean!
+  derivativesReciprocal: Boolean!
+  derivativesRevShare: BigInt!
+  territories: [String!]!
+  distributionChannels: [String!]!
+  contentRestrictions: [String!]!
+  royaltyPolicy: Bytes!
 }
 
 type PolicyData @entity{
@@ -92,6 +100,9 @@ type IPAPolicy @entity(immutable: false) {
   id: String!
   ipId: String!
   policyId: String!
+  index: BigInt!
+  active: Boolean!
+  inherited: Boolean!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
 }
@@ -109,9 +120,9 @@ type Dispute @entity(immutable: false) {
   id: String!
   targetIpId: Bytes!
   targetTag: Bytes!
-  currentTag: Bytes!
+  currentTag: Bytes
   arbitrationPolicy: Bytes!
-  evidenceLink: String!
+  evidenceLink: Bytes!
   initiator: Bytes!
   data: Bytes!
   deletedAt: BigInt
@@ -169,3 +180,40 @@ type FrameworkCreationParams @entity{
   licenseUrl: String!
 }
 
+type Transaction @entity(immutable: true) {
+  id: String!
+  txHash: String!
+  initiator: Bytes!
+  ipId: Bytes
+  resourceId: Bytes
+  resourceType: ResourceType!
+  actionType: ActionType!
+  createdAt: BigInt!
+}
+
+enum ResourceType {
+  Unspecified
+  IPAsset
+  License
+  Policy
+  Royalty
+  Permission
+  Tag
+  Dispute
+  Module
+  Hook
+}
+
+enum ActionType {
+  Unspecified
+  Register
+  Unregister
+  Set
+  Create
+  Remove
+  Link
+  Claim
+  Pay
+  Cancel
+  Resolve
+}

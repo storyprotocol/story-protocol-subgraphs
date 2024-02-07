@@ -43,77 +43,97 @@
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__CallerNotLicensorAndPolicyNotSet",
+    "name": "LicensingModule__CallerNotLicensorAndPolicyNotSet",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__DerivativeRevShareSumExceedsMaxRNFTSupply",
+    "name": "LicensingModule__DerivativeRevShareSumExceedsMaxRNFTSupply",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__DerivativesCannotAddPolicy",
+    "name": "LicensingModule__DerivativesCannotAddPolicy",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__EmptyLicenseUrl",
+    "name": "LicensingModule__EmptyLicenseUrl",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__FrameworkNotFound",
+    "name": "LicensingModule__FrameworkNotFound",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__IncompatibleLicensorRoyaltyPolicy",
+    "name": "LicensingModule__IncompatibleLicensorCommercialPolicy",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__InvalidPolicyFramework",
+    "name": "LicensingModule__IncompatibleRoyaltyPolicyAddress",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__LicensorNotRegistered",
+    "name": "LicensingModule__IncompatibleRoyaltyPolicyDerivativeRevShare",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__LinkParentParamFailed",
+    "name": "LicensingModule__InvalidPolicyFramework",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__MintLicenseParamFailed",
+    "name": "LicensingModule__LicensorNotRegistered",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__NotLicensee",
+    "name": "LicensingModule__LinkParentParamFailed",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__ParentIdEqualThanChild",
+    "name": "LicensingModule__MintLicenseParamFailed",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__PolicyAlreadyAdded",
+    "name": "LicensingModule__MismatchBetweenCommercialRevenueShareAndMinRoyalty",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__PolicyAlreadySetForIpId",
+    "name": "LicensingModule__MismatchBetweenRoyaltyPolicy",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicenseRegistry__PolicyNotFound",
+    "name": "LicensingModule__NotLicensee",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__ParentIdEqualThanChild",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__PolicyAlreadyAdded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__PolicyAlreadySetForIpId",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__PolicyNotFound",
     "type": "error"
   },
   {
@@ -445,9 +465,9 @@
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "holder",
-        "type": "address"
+        "internalType": "uint32",
+        "name": "minRoyalty",
+        "type": "uint32"
       }
     ],
     "name": "linkIpToParents",
@@ -499,7 +519,7 @@
         "type": "string"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   },
   {

@@ -1,6 +1,6 @@
 import { TagSet, TagRemoved } from "../generated/TaggingModule/TaggingModule";
-import { Tag } from "../generated/schema";
-
+import { Tag, Transaction } from "../generated/schema";
+import { Bytes } from "@graphprotocol/graph-ts"
 export function handleTagSet(event: TagSet): void {
   const tagString = event.params.ipId.toHexString() + "-" + event.params.tag;
 
@@ -15,6 +15,18 @@ export function handleTagSet(event: TagSet): void {
   entity.blockTimestamp = event.block.timestamp;
 
   entity.save();
+
+  let trx = new Transaction(event.transaction.hash.toHexString())
+
+  trx.txHash = event.transaction.hash.toHexString()
+  trx.initiator = event.transaction.from
+  trx.createdAt = event.block.timestamp
+  trx.ipId = new Bytes(0)
+  trx.resourceId = event.address
+  trx.actionType = "Set"
+  trx.resourceType = "Tag"
+
+  trx.save()
 }
 
 export function handleTagRemoved(event: TagRemoved): void {
@@ -30,6 +42,18 @@ export function handleTagRemoved(event: TagRemoved): void {
   entity.blockTimestamp = event.block.timestamp;
 
   entity.save();
+
+  let trx = new Transaction(event.transaction.hash.toHexString())
+
+  trx.txHash = event.transaction.hash.toHexString()
+  trx.initiator = event.transaction.from
+  trx.createdAt = event.block.timestamp
+  trx.ipId = new Bytes(0)
+  trx.resourceId = event.address
+  trx.actionType = "Remove"
+  trx.resourceType = "Tag"
+
+  trx.save()
 }
 
 export function takeFirst15Chars(input: string): string {

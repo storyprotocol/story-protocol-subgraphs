@@ -1,4 +1,3 @@
-import { Bytes } from "@graphprotocol/graph-ts"
 import {
     TransferSingle,
     TransferBatch,
@@ -6,20 +5,32 @@ import {
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import { 
     License,
-    LicenseOwner
-} from "../generated/schema"
+    LicenseOwner, Transaction } from "../generated/schema";
+import { Bytes } from "@graphprotocol/graph-ts"
 
 export function handleLicenseTransferSingle(event: TransferSingle): void {
     let contract = LicenseRegistry.bind(event.address)
     let licenseData = contract.license(event.params.id)
-    
+
     let entity = new License(event.params.id.toString());
     entity.policyId = licenseData.policyId.toString();
-    entity.licensorIpId = licenseData.licensorIpId.toString();
+    entity.licensorIpId = licenseData.licensorIpId.toHexString();
     entity.blockNumber = event.block.number;
     entity.blockTimestamp = event.block.timestamp;
 
     entity.save();
+
+    let trx = new Transaction(event.transaction.hash.toHexString())
+
+    trx.txHash = event.transaction.hash.toHexString()
+    trx.initiator = event.transaction.from
+    trx.createdAt = event.block.timestamp
+    trx.ipId = new Bytes(0)
+    trx.resourceId = event.address
+    trx.actionType = "Create"
+    trx.resourceType = "License"
+
+    trx.save()
 }
 
 export function handleLicenseTransferBatch(event: TransferBatch): void {
@@ -31,6 +42,18 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
 
         entity.deletedAt = event.block.number;
         entity.save();
+
+        let trx = new Transaction(event.transaction.hash.toHexString())
+
+        trx.txHash = event.transaction.hash.toHexString()
+        trx.initiator = event.transaction.from
+        trx.createdAt = event.block.timestamp
+        trx.ipId = new Bytes(0)
+        trx.resourceId = event.address
+        trx.actionType = "Remove"
+        trx.resourceType = "License"
+
+        trx.save()
     }
 }
 // export function handlePolicyCreated(event: PolicyCreated): void {
