@@ -5,10 +5,19 @@ type IPAsset @entity(immutable: false) {
   tokenContract: Bytes!
   tokenId: BigInt!
   metadataResolverAddress: Bytes!
-  metadata: Bytes!
+  metadata: Metadata @embedded
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  parentIpIds: [String!]
+  parentIpIds: [Bytes!]
+}
+
+type Metadata @entity {
+  id: Bytes!
+  name: String!
+  hash: Bytes!
+  registrationDate: BigInt!
+  registrant: Bytes!
+  uri: String!
 }
 
 type Permission @entity(immutable: true) {
@@ -49,7 +58,7 @@ type Policy @entity(immutable: true) {
   policy: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  #  policyData: PolicyData!
+  uml: UMLPolicy @embedded
 }
 
 type UMLPolicy @entity {

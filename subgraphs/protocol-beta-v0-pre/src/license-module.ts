@@ -2,11 +2,19 @@ import {
     PolicyFrameworkRegistered,
     PolicyAddedToIpId,
     LicenseModule,
-    PolicyRegistered
+    PolicyRegistered,
+    IpIdLinkedToParents
 } from "../generated/LicenseModule/LicenseModule"
+import {
+    UMLPolicyFrameworkManager
+} from "../generated/LicenseModule/UMLPolicyFrameworkManager"
 import { 
     PolicyFrameworkManager,
-    IPAPolicy, Transaction, Policy } from "../generated/schema";
+    IPAPolicy,
+    Transaction,
+    Policy,
+    UMLPolicy,
+    IPAsset } from "../generated/schema";
 import { Bytes } from "@graphprotocol/graph-ts"
 
 export function handlePolicyRegistered(event: PolicyRegistered): void {
@@ -18,6 +26,31 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
 
+    if (entity.policyFrameworkManager.toHexString().toLowerCase() == "0xDEc23819025c761FAAbA391AC7dBB3FEDB3CDDF7".toLowerCase()) {
+        let contract = UMLPolicyFrameworkManager.bind(event.params.policyFrameworkManager)
+        let umlData = contract.getPolicy(entity.policyId)
+
+        const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
+        let umlEntity = new UMLPolicy(hash)
+        umlEntity.attribution = umlData.attribution
+        umlEntity.transferable = umlData.transferable
+        umlEntity.commercialUse = umlData.commercialUse
+        umlEntity.commercialAttribution = umlData.commercialAttribution
+        umlEntity.commercializers = umlData.commercializers
+        umlEntity.commercialRevShare = umlData.commercialRevShare
+        umlEntity.derivativesAllowed = umlData.derivativesAllowed
+        umlEntity.derivativesAttribution = umlData.derivativesAttribution
+        umlEntity.derivativesApproval = umlData.derivativesApproval
+        umlEntity.derivativesReciprocal = umlData.derivativesReciprocal
+        umlEntity.derivativesRevShare = umlData.derivativesRevShare
+        umlEntity.territories = umlData.territories
+        umlEntity.distributionChannels = umlData.distributionChannels
+        umlEntity.contentRestrictions = umlData.contentRestrictions
+        umlEntity.royaltyPolicy = umlData.royaltyPolicy
+        
+        umlEntity.save()
+        entity.uml = umlEntity.id
+    }
     entity.save()
 
     let trx = new Transaction(event.transaction.hash.toHexString())
@@ -89,6 +122,25 @@ export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
     trx.resourceType = "Policy"
 
     trx.save()
+}
+
+export function handleIpIdLinkedToParents(
+    event: IpIdLinkedToParents
+): void {
+    let entity = IPAsset.load(event.params.ipId);
+    if (entity == null) {
+        return;
+    }
+
+    let parentIpIds : Bytes[] = [];
+
+    for (let i = 0; i < event.params.parentIpIds.length; i++) {
+        parentIpIds.push(event.params.parentIpIds[i])
+        entity.parentIpIds = parentIpIds
+
+    }
+    
+    entity.save()
 }
 
 export function takeFirst15Chars(input: string): string {

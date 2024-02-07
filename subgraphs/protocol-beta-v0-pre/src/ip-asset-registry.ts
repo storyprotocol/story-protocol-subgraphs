@@ -1,6 +1,7 @@
-import { IPRegistered, IPAccountRegistered, IPResolverSet, IPAssetRegistry } from "../generated/IPAssetRegistry/IPAssetRegistry"
-import { IPAsset, Transaction } from "../generated/schema";
-import { Bytes } from "@graphprotocol/graph-ts"
+import { IPRegistered, IPResolverSet, IPAssetRegistry } from "../generated/IPAssetRegistry/IPAssetRegistry"
+import { MetadataProviderV1 } from "../generated/IPAssetRegistry/MetadataProviderV1"
+import { IPAsset, Transaction, Metadata } from "../generated/schema";
+import { Address } from "@graphprotocol/graph-ts"
 export function handleIPRegistered(
     event: IPRegistered
 ): void {
@@ -8,13 +9,20 @@ export function handleIPRegistered(
       event.params.ipId
   )
 
-  let contract = IPAssetRegistry.bind(event.address);
+  let contract = MetadataProviderV1.bind(Address.fromString("0x2F11b29C0fC7BbaF40Be6c6B2c0Bb4cADB93328d"));
   if (contract == null) {
     return;
   }
 
   let metadata = contract.metadata(event.params.ipId)
-  
+  let metadataEntity = new Metadata(event.params.ipId)
+  metadataEntity.name = metadata.name
+  metadataEntity.hash = metadata.hash
+  metadataEntity.registrant = metadata.registrant
+  metadataEntity.registrationDate = metadata.registrationDate
+  metadataEntity.uri = metadata.uri
+  metadataEntity.save()
+
   entity.ipId = event.params.ipId
   entity.chainId = event.params.chainId
   entity.tokenContract = event.params.tokenContract
@@ -22,7 +30,7 @@ export function handleIPRegistered(
   entity.metadataResolverAddress = event.params.resolver
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
-  entity.metadata = metadata
+  entity.metadata = metadataEntity.id
 
   entity.save()
 
@@ -66,3 +74,5 @@ export function handleIPResolverSet(
 
   trx.save()
 }
+
+
