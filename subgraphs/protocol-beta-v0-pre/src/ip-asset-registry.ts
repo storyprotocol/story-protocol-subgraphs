@@ -1,7 +1,7 @@
 import { IPRegistered, IPResolverSet, IPAssetRegistry } from "../generated/IPAssetRegistry/IPAssetRegistry"
 import { MetadataProviderV1 } from "../generated/IPAssetRegistry/MetadataProviderV1"
-import { IPAsset, Transaction, Metadata } from "../generated/schema";
-import { Address } from "@graphprotocol/graph-ts"
+import { IPAsset, Transaction, Metadata, Collection } from "../generated/schema";
+import { Address, BigInt } from "@graphprotocol/graph-ts"
 export function handleIPRegistered(
     event: IPRegistered
 ): void {
@@ -33,6 +33,18 @@ export function handleIPRegistered(
   entity.metadata = metadataEntity.id
 
   entity.save()
+  
+  let currentCollection = Collection.load(entity.tokenContract)
+  if (currentCollection == null) {
+    let collectionEntity = new Collection(entity.tokenContract)
+    collectionEntity.assetCount = BigInt.fromI64(1)
+    collectionEntity.blockNumber = event.block.number
+    collectionEntity.blockTimestamp = event.block.timestamp
+    collectionEntity.save()
+  } else {
+    currentCollection.assetCount = currentCollection.assetCount.plus(BigInt.fromI64(1))
+    currentCollection.save()
+  }
 
   let trx = new Transaction(event.transaction.hash.toHexString())
 

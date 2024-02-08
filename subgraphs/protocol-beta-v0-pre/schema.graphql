@@ -1,3 +1,10 @@
+type Collection @entity(immutable: false) {
+  id: Bytes!
+  assetCount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
 type IPAsset @entity(immutable: false) {
   id: Bytes!
   ipId: Bytes!
