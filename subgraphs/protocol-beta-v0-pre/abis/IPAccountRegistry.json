@@ -1,197 +1,188 @@
-{
-  "_format": "hh-sol-artifact-1",
-  "contractName": "IPAccountRegistry",
-  "sourceName": "contracts/registries/IPAccountRegistry.sol",
-  "abi": [
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "erc6551Registry_",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "accessController_",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "ipAccountImpl_",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "inputs": [],
-      "name": "NonExistIpAccountImpl",
-      "type": "error"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "implementation",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "chainId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "tokenContract",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "IPAccountRegistered",
-      "type": "event"
-    },
-    {
-      "inputs": [],
-      "name": "ACCESS_CONTROLLER",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "ERC6551_PUBLIC_REGISTRY",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "IP_ACCOUNT_IMPL",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "IP_ACCOUNT_SALT",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getIPAccountImpl",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "chainId_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "tokenContract_",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId_",
-          "type": "uint256"
-        }
-      ],
-      "name": "ipAccount",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "chainId_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "tokenContract_",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId_",
-          "type": "uint256"
-        }
-      ],
-      "name": "registerIpAccount",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "ipAccountAddress",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ],
-  "bytecode": "0x610100604052348015610010575f80fd5b506040516107a93803806107a983398101604081905261002f91610095565b6001600160a01b03811661005957604051600162022cf560e51b0319815260040160405180910390fd5b6001600160a01b039081166080525f60a05291821660c0521660e0526100d5565b80516001600160a01b0381168114610090575f80fd5b919050565b5f805f606084860312156100a7575f80fd5b6100b08461007a565b92506100be6020850161007a565b91506100cc6040850161007a565b90509250925092565b60805160a05160c05160e0516106646101455f395f818161010901526101cc01525f8181608301528181610310015261051c01525f818160d4015281816102d101526104de01525f818161013001528181610167015281816102a90152818161041e01526104b601526106645ff3fe608060405234801561000f575f80fd5b506004361061007a575f3560e01c80635796ffbc116100585780635796ffbc1461012b57806387020f951461015257806395a3dfb214610165578063db4fdb311461018b575f80fd5b80630c3c72641461007e5780631a8bb07b146100cf5780631b8b107314610104575b5f80fd5b6100a57f000000000000000000000000000000000000000000000000000000000000000081565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b6100f67f000000000000000000000000000000000000000000000000000000000000000081565b6040519081526020016100c6565b6100a57f000000000000000000000000000000000000000000000000000000000000000081565b6100a57f000000000000000000000000000000000000000000000000000000000000000081565b6100a56101603660046105ab565b61019e565b7f00000000000000000000000000000000000000000000000000000000000000006100a5565b6100a56101993660046105ab565b6101b2565b5f6101aa848484610479565b949350505050565b60405173ffffffffffffffffffffffffffffffffffffffff7f00000000000000000000000000000000000000000000000000000000000000001660248201525f908190604401604080517fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe08184030181529181526020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff167fc4d66de800000000000000000000000000000000000000000000000000000000179052517f8a54c52f00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff7f0000000000000000000000000000000000000000000000000000000000000000811660048301527f00000000000000000000000000000000000000000000000000000000000000006024830152604482018890528681166064830152608482018690529192507f000000000000000000000000000000000000000000000000000000000000000090911690638a54c52f9060a4016020604051808303815f875af1158015610358573d5f803e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061037c91906105e0565b91505f808373ffffffffffffffffffffffffffffffffffffffff16836040516103a59190610602565b5f604051808303815f865af19150503d805f81146103de576040519150601f19603f3d011682016040523d82523d5f602084013e6103e3565b606091505b5091509150816103f557805160208201fd5b6040805173ffffffffffffffffffffffffffffffffffffffff88811682526020820188905289927f0000000000000000000000000000000000000000000000000000000000000000821692918816917f5be70b68c8361762980ec7d425d79fd33f6d49cac8a498e6ddf514f995b987f7910160405180910390a45050509392505050565b6040517f246a002100000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff7f0000000000000000000000000000000000000000000000000000000000000000811660048301527f00000000000000000000000000000000000000000000000000000000000000006024830152604482018590528381166064830152608482018390525f917f00000000000000000000000000000000000000000000000000000000000000009091169063246a00219060a401602060405180830381865afa158015610563573d5f803e3d5ffd5b505050506040513d601f19601f820116820180604052508101906101aa91906105e0565b73ffffffffffffffffffffffffffffffffffffffff811681146105a8575f80fd5b50565b5f805f606084860312156105bd575f80fd5b8335925060208401356105cf81610587565b929592945050506040919091013590565b5f602082840312156105f0575f80fd5b81516105fb81610587565b9392505050565b5f82515f5b818110156106215760208186018101518583015201610607565b505f92019182525091905056fea2646970667358221220e14e21af79d7557fa78d34511b1dcc70b8c3528aa88b2624e80b77217e890f4064736f6c63430008140033",
-  "deployedBytecode": "0x608060405234801561000f575f80fd5b506004361061007a575f3560e01c80635796ffbc116100585780635796ffbc1461012b57806387020f951461015257806395a3dfb214610165578063db4fdb311461018b575f80fd5b80630c3c72641461007e5780631a8bb07b146100cf5780631b8b107314610104575b5f80fd5b6100a57f000000000000000000000000000000000000000000000000000000000000000081565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b6100f67f000000000000000000000000000000000000000000000000000000000000000081565b6040519081526020016100c6565b6100a57f000000000000000000000000000000000000000000000000000000000000000081565b6100a57f000000000000000000000000000000000000000000000000000000000000000081565b6100a56101603660046105ab565b61019e565b7f00000000000000000000000000000000000000000000000000000000000000006100a5565b6100a56101993660046105ab565b6101b2565b5f6101aa848484610479565b949350505050565b60405173ffffffffffffffffffffffffffffffffffffffff7f00000000000000000000000000000000000000000000000000000000000000001660248201525f908190604401604080517fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe08184030181529181526020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff167fc4d66de800000000000000000000000000000000000000000000000000000000179052517f8a54c52f00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff7f0000000000000000000000000000000000000000000000000000000000000000811660048301527f00000000000000000000000000000000000000000000000000000000000000006024830152604482018890528681166064830152608482018690529192507f000000000000000000000000000000000000000000000000000000000000000090911690638a54c52f9060a4016020604051808303815f875af1158015610358573d5f803e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061037c91906105e0565b91505f808373ffffffffffffffffffffffffffffffffffffffff16836040516103a59190610602565b5f604051808303815f865af19150503d805f81146103de576040519150601f19603f3d011682016040523d82523d5f602084013e6103e3565b606091505b5091509150816103f557805160208201fd5b6040805173ffffffffffffffffffffffffffffffffffffffff88811682526020820188905289927f0000000000000000000000000000000000000000000000000000000000000000821692918816917f5be70b68c8361762980ec7d425d79fd33f6d49cac8a498e6ddf514f995b987f7910160405180910390a45050509392505050565b6040517f246a002100000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff7f0000000000000000000000000000000000000000000000000000000000000000811660048301527f00000000000000000000000000000000000000000000000000000000000000006024830152604482018590528381166064830152608482018390525f917f00000000000000000000000000000000000000000000000000000000000000009091169063246a00219060a401602060405180830381865afa158015610563573d5f803e3d5ffd5b505050506040513d601f19601f820116820180604052508101906101aa91906105e0565b73ffffffffffffffffffffffffffffffffffffffff811681146105a8575f80fd5b50565b5f805f606084860312156105bd575f80fd5b8335925060208401356105cf81610587565b929592945050506040919091013590565b5f602082840312156105f0575f80fd5b81516105fb81610587565b9392505050565b5f82515f5b818110156106215760208186018101518583015201610607565b505f92019182525091905056fea2646970667358221220e14e21af79d7557fa78d34511b1dcc70b8c3528aa88b2624e80b77217e890f4064736f6c63430008140033",
-  "linkReferences": {},
-  "deployedLinkReferences": {}
-}
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "erc6551Registry_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "accessController_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "ipAccountImpl_",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "IPAccountRegistry_InvalidIpAccountImpl",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "IPAccountRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ACCESS_CONTROLLER",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ERC6551_PUBLIC_REGISTRY",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IP_ACCOUNT_IMPL",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IP_ACCOUNT_SALT",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getIPAccountImpl",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "chainId_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "ipAccount",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "chainId_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "registerIpAccount",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "ipAccountAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

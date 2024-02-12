@@ -1,0 +1,830 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "accessController",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "ipAccountRegistry",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "royaltyModule",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "registry",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipAccount",
+        "type": "address"
+      }
+    ],
+    "name": "AccessControlled__NotIpAccount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AccessControlled__ZeroAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__CallerNotLicensorAndPolicyNotSet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__DerivativeRevShareSumExceedsMaxRNFTSupply",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__DerivativesCannotAddPolicy",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__EmptyLicenseUrl",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__FrameworkNotFound",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__IncompatibleLicensorCommercialPolicy",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__IncompatibleRoyaltyPolicyAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__IncompatibleRoyaltyPolicyDerivativeRevShare",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__InvalidPolicyFramework",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__LicensorNotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__LinkParentParamFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__MintLicenseParamFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__MismatchBetweenCommercialRevenueShareAndMinRoyalty",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__MismatchBetweenRoyaltyPolicy",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__NotLicensee",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__ParentIdEqualThanChild",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__PolicyAlreadyAdded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__PolicyAlreadySetForIpId",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__PolicyNotFound",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address[]",
+        "name": "parentIpIds",
+        "type": "address[]"
+      }
+    ],
+    "name": "IpIdLinkedToParents",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      }
+    ],
+    "name": "PolicyAddedToIpId",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "framework",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "licenseTextUrl",
+        "type": "string"
+      }
+    ],
+    "name": "PolicyFrameworkRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "policyFrameworkManager",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "policy",
+        "type": "bytes"
+      }
+    ],
+    "name": "PolicyRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ACCESS_CONTROLLER",
+    "outputs": [
+      {
+        "internalType": "contract IAccessController",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IP_ACCOUNT_REGISTRY",
+    "outputs": [
+      {
+        "internalType": "contract IIPAccountRegistry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "LICENSE_REGISTRY",
+    "outputs": [
+      {
+        "internalType": "contract ILicenseRegistry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ROYALTY_MODULE",
+    "outputs": [
+      {
+        "internalType": "contract RoyaltyModule",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "polId",
+        "type": "uint256"
+      }
+    ],
+    "name": "addPolicyToIp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "indexOnIpId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "policyFramework",
+        "type": "address"
+      }
+    ],
+    "name": "isFrameworkRegistered",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "parentIpId",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "childIpId",
+        "type": "address"
+      }
+    ],
+    "name": "isParent",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isPolicyDefined",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isPolicyIdSetForIp",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isPolicyInherited",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "licenseRegistry",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "licenseIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address",
+        "name": "childIpId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "minRoyalty",
+        "type": "uint32"
+      }
+    ],
+    "name": "linkIpToParents",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "licensorIp",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "name": "mintLicense",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "licenseId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      }
+    ],
+    "name": "parentIpIds",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "name": "policy",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "policyFramework",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isLicenseTransferable",
+            "type": "bool"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct Licensing.Policy",
+        "name": "pol",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "framework",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      }
+    ],
+    "name": "policyAggregatorData",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "policyForIpAtIndex",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "policyFramework",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isLicenseTransferable",
+            "type": "bool"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct Licensing.Policy",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "policyIdForIpAtIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      }
+    ],
+    "name": "policyIdsForIp",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "policyIds",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "name": "policyStatus",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isLicenseTransferable",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "registerPolicy",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "manager",
+        "type": "address"
+      }
+    ],
+    "name": "registerPolicyFrameworkManager",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      }
+    ],
+    "name": "totalParentsForIpId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalPolicies",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isInherited",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      }
+    ],
+    "name": "totalPoliciesForIp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,11 +1,28 @@
 [
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "governance",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
     "inputs": [],
     "name": "AccessController__CallerIsNotIPAccount",
     "type": "error"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipAccount",
+        "type": "address"
+      }
+    ],
     "name": "AccessController__IPAccountIsNotValid",
     "type": "error"
   },
@@ -15,14 +32,95 @@
     "type": "error"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ipAccount",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "signer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes4",
+        "name": "func",
+        "type": "bytes4"
+      }
+    ],
+    "name": "AccessController__PermissionDenied",
+    "type": "error"
+  },
+  {
     "inputs": [],
     "name": "AccessController__PermissionIsNotValid",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      }
+    ],
+    "name": "AccessController__RecipientIsNotRegisteredModule",
     "type": "error"
   },
   {
     "inputs": [],
     "name": "AccessController__SignerIsZeroAddress",
     "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__InconsistentState",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__OnlyProtocolAdmin",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__ProtocolPaused",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "interfaceName",
+        "type": "string"
+      }
+    ],
+    "name": "Governance__UnsupportedInterface",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__ZeroAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newGovernance",
+        "type": "address"
+      }
+    ],
+    "name": "GovernanceUpdated",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -111,11 +209,18 @@
       }
     ],
     "name": "checkPermission",
+    "outputs": [],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getGovernance",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "address",
         "name": "",
-        "type": "bool"
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -125,22 +230,22 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "ipAccount_",
+        "name": "ipAccount",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "signer_",
+        "name": "signer",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "to_",
+        "name": "to",
         "type": "address"
       },
       {
         "internalType": "bytes4",
-        "name": "func_",
+        "name": "func",
         "type": "bytes4"
       }
     ],
@@ -156,15 +261,28 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "governance",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
-        "name": "ipAccountRegistry_",
+        "name": "ipAccountRegistry",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "moduleRegistry_",
+        "name": "moduleRegistry",
         "type": "address"
       }
     ],
@@ -176,24 +294,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "bytes32",
         "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes4",
-        "name": "",
-        "type": "bytes4"
+        "type": "bytes32"
       }
     ],
     "name": "permissions",
@@ -205,6 +308,46 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "ipAccount",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "signer",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes4",
+            "name": "func",
+            "type": "bytes4"
+          },
+          {
+            "internalType": "uint8",
+            "name": "permission",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct AccessPermission.Permission[]",
+        "name": "permissions_",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "setBatchPermissions",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -231,6 +374,19 @@
       }
     ],
     "name": "setGlobalPermission",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newGovernance",
+        "type": "address"
+      }
+    ],
+    "name": "setGovernance",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
