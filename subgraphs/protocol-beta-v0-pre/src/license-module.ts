@@ -133,12 +133,35 @@ export function handleIpIdLinkedToParents(
     }
 
     let parentIpIds : Bytes[] = [];
+    let rootIpIds : Bytes[] = [];
 
     for (let i = 0; i < event.params.parentIpIds.length; i++) {
+        // Add parentIpId to childs parentIpId array
         parentIpIds.push(event.params.parentIpIds[i])
         entity.parentIpIds = parentIpIds
 
+        // Add childIpId to parents childIpId array
+        let parentEntity = IPAsset.load(event.params.parentIpIds[i])
+        if (parentEntity == null) {
+            return;
+        }
+        
+        let childIpIds : Bytes[] = []
+        if (parentEntity.childIpIds !== null) {
+            childIpIds = parentEntity.childIpIds
+        }
+        childIpIds.push(event.params.ipId)
+        parentEntity.save()
+
+        // Copy rootAddress from parent to child
+        if (parentEntity.rootAncestors !== null) {
+            for (let i = 0; i < parentEntity.rootAncestors.length; i ++) {
+                rootIpIds.push(parentEntity.rootAncestors[i])
+            }
+        }
     }
+
+    entity.rootAncestors = rootIpIds
     
     entity.save()
 }
