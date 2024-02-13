@@ -17,7 +17,7 @@ type IPAsset @entity(immutable: false) {
   blockTimestamp: BigInt!
   childIpIds: [Bytes!]
   parentIpIds: [Bytes!]
-  rootAncestors: [Bytes!]
+  rootIpIds: [Bytes!]
   ancestorRoyaltyAddresses: [Bytes!]
   ancestorRoyaltyPercentages: [String!]
 }

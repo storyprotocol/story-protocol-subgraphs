@@ -145,23 +145,31 @@ export function handleIpIdLinkedToParents(
         if (parentEntity == null) {
             return;
         }
-        
-        let childIpIds : Bytes[] = []
-        if (parentEntity.childIpIds !== null) {
-            childIpIds = parentEntity.childIpIds
+
+
+
+        let childIpIds = parentEntity.childIpIds
+        if (childIpIds != null) {
+            childIpIds.push(event.params.ipId)
+        } else {
+            let newChildIpIds : Bytes[] = []
+            newChildIpIds.push(event.params.ipId)
+            childIpIds = newChildIpIds
         }
-        childIpIds.push(event.params.ipId)
+
+        parentEntity.childIpIds = childIpIds
         parentEntity.save()
 
         // Copy rootAddress from parent to child
-        if (parentEntity.rootAncestors !== null) {
-            for (let i = 0; i < parentEntity.rootAncestors.length; i ++) {
-                rootIpIds.push(parentEntity.rootAncestors[i])
+        let parentRootAncestors = parentEntity.rootIpIds
+        if (parentRootAncestors != null) {
+            for (let i = 0; i < parentRootAncestors.length; i ++) {
+                rootIpIds.push(parentRootAncestors[i])
             }
         }
     }
 
-    entity.rootAncestors = rootIpIds
+    entity.rootIpIds = rootIpIds
     
     entity.save()
 }
