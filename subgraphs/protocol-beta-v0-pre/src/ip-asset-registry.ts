@@ -55,6 +55,11 @@ export function handleIPRegistered(
   if (currentCollection == null) {
     let collectionEntity = new Collection(entity.tokenContract)
     collectionEntity.assetCount = BigInt.fromI64(1)
+    collectionEntity.licensesCount = BigInt.fromI64(0)
+    collectionEntity.resolvedDisputeCount = BigInt.fromI64(0)
+    collectionEntity.raisedDisputeCount = BigInt.fromI64(0)
+    collectionEntity.cancelledDisputeCount = BigInt.fromI64(0)
+    collectionEntity.judgedDisputeCount = BigInt.fromI64(0)
     collectionEntity.blockNumber = event.block.number
     collectionEntity.blockTimestamp = event.block.timestamp
     collectionEntity.save()

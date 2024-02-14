@@ -5,8 +5,12 @@ import {
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import { 
     License,
-    LicenseOwner, Transaction } from "../generated/schema";
-import { Bytes } from "@graphprotocol/graph-ts"
+    LicenseOwner, 
+    Transaction,
+    IPAsset,
+    Collection
+} from "../generated/schema";
+import { Bytes, BigInt } from "@graphprotocol/graph-ts"
 
 export function handleLicenseTransferSingle(event: TransferSingle): void {
     let contract = LicenseRegistry.bind(event.address)
@@ -20,6 +24,15 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
 
     entity.save();
 
+    let ipAsset = IPAsset.load(licenseData.licensorIpId)
+    if (ipAsset != null) {
+        let collection = Collection.load(ipAsset.tokenContract)
+        if (collection != null) {
+            collection.licensesCount = collection.licensesCount.plus(BigInt.fromI64(1))
+            collection.save()
+        }
+    }
+    
     let trx = new Transaction(event.transaction.hash.toHexString())
 
     trx.txHash = event.transaction.hash.toHexString()

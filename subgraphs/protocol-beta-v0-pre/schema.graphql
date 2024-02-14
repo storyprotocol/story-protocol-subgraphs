@@ -1,6 +1,11 @@
 type Collection @entity(immutable: false) {
   id: Bytes!
   assetCount: BigInt!
+  raisedDisputeCount: BigInt!
+  cancelledDisputeCount: BigInt!
+  resolvedDisputeCount: BigInt!
+  judgedDisputeCount: BigInt!
+  licensesCount: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
 }
