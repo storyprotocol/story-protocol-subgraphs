@@ -3,7 +3,7 @@ import {
     TransferBatch,
     LicenseRegistry
 } from "../generated/LicenseRegistry/LicenseRegistry"
-import { 
+import {
     License,
     LicenseOwner, Transaction } from "../generated/schema";
 import { Bytes } from "@graphprotocol/graph-ts"
@@ -25,7 +25,7 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
     trx.txHash = event.transaction.hash.toHexString()
     trx.initiator = event.transaction.from
     trx.createdAt = event.block.timestamp
-    trx.ipId = new Bytes(0)
+    trx.ipId = licenseData.licensorIpId
     trx.resourceId = event.address
     trx.actionType = "Create"
     trx.resourceType = "License"
@@ -48,7 +48,7 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
         trx.txHash = event.transaction.hash.toHexString()
         trx.initiator = event.transaction.from
         trx.createdAt = event.block.timestamp
-        trx.ipId = new Bytes(0)
+        trx.ipId = Bytes.fromHexString(entity.licensorIpId)
         trx.resourceId = event.address
         trx.actionType = "Remove"
         trx.resourceType = "License"
