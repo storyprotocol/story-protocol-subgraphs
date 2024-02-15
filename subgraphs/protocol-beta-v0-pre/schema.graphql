@@ -214,6 +214,8 @@ type Transaction @entity(immutable: true) {
   resourceType: ResourceType!
   actionType: ActionType!
   createdAt: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 
 enum ResourceType {

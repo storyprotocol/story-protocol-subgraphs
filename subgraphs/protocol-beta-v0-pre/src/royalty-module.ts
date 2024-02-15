@@ -25,6 +25,8 @@ export function handleRoyaltyPaid(event: RoyaltyPaid): void {
   trx.resourceId = event.address
   trx.actionType = "Pay"
   trx.resourceType = "Royalty"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -51,6 +53,8 @@ export function handleRoyaltyPolicySet(event: RoyaltyPolicySet): void {
   trx.resourceId = event.address
   trx.actionType = "Set"
   trx.resourceType = "Royalty"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

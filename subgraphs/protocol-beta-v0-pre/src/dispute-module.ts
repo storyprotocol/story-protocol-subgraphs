@@ -42,6 +42,8 @@ export function handleDisputeRaised(event: DisputeRaised): void {
   trx.resourceId = event.address
   trx.actionType = "Create"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 
@@ -78,6 +80,8 @@ export function handleDisputeCancelled(event: DisputeCancelled): void {
   trx.resourceId = event.address
   trx.actionType = "Cancel"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -116,6 +120,8 @@ export function handleDisputeJudgement(event: DisputeJudgementSet): void {
   trx.resourceId = event.address
   trx.actionType = "Set"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -150,6 +156,8 @@ export function handleDisputeResolved(event: DisputeResolved): void {
   trx.resourceId = event.address
   trx.actionType = "Resolve"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

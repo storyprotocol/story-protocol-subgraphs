@@ -25,6 +25,8 @@ export function handleTagSet(event: TagSet): void {
   trx.resourceId = event.address
   trx.actionType = "Set"
   trx.resourceType = "Tag"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -52,6 +54,8 @@ export function handleTagRemoved(event: TagRemoved): void {
   trx.resourceId = event.address
   trx.actionType = "Remove"
   trx.resourceType = "Tag"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

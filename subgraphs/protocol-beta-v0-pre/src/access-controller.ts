@@ -34,6 +34,8 @@ export function handlePermissionSet(event: PermissionSet): void {
   trx.resourceId = event.params.ipAccount
   trx.actionType = "Set"
   trx.resourceType = "Permission"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

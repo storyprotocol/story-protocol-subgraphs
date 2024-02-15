@@ -28,6 +28,8 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
   trx.resourceId = event.address
   trx.actionType = "Create"
   trx.resourceType = "Module"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -51,6 +53,8 @@ export function handleModuleRemoved(event: ModuleRemovedEvent): void {
   trx.resourceId = event.address
   trx.actionType = "Remove"
   trx.resourceType = "Module"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

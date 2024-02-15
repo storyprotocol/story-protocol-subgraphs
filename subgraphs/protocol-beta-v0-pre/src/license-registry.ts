@@ -42,6 +42,8 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
     trx.resourceId = event.address
     trx.actionType = "Create"
     trx.resourceType = "License"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -65,6 +67,8 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
         trx.resourceId = event.address
         trx.actionType = "Remove"
         trx.resourceType = "License"
+        trx.blockNumber = event.block.number;
+        trx.blockTimestamp = event.block.timestamp;
 
         trx.save()
     }

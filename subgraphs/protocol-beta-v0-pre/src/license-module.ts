@@ -62,6 +62,8 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     trx.resourceId = event.address
     trx.actionType = "Register"
     trx.resourceType = "Policy"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -88,6 +90,8 @@ export function handlePolicyFrameworkRegistered(event: PolicyFrameworkRegistered
     trx.resourceId = event.address
     trx.actionType = "Register"
     trx.resourceType = "Policy"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -120,6 +124,8 @@ export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
     trx.resourceId = event.address
     trx.actionType = "Link"
     trx.resourceType = "Policy"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }

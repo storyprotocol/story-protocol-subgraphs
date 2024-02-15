@@ -77,6 +77,8 @@ export function handleIPRegistered(
   trx.resourceId = event.address
   trx.actionType = "Register"
   trx.resourceType = "IPAsset"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -105,6 +107,8 @@ export function handleIPResolverSet(
   trx.resourceType = "IPAsset"
   trx.actionType = "Set"
   trx.createdAt = event.block.timestamp
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
