@@ -31,7 +31,7 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
 
-    if (entity.policyFrameworkManager.toHexString().toLowerCase() == "0xDEc23819025c761FAAbA391AC7dBB3FEDB3CDDF7".toLowerCase()) {
+    if (entity.policyFrameworkManager.toHexString().toLowerCase() == "0x49cF5C5523011F8B4A0489969096Eb68C571C197".toLowerCase()) {
         let contract = PILPolicyFrameworkManager.bind(event.params.policyFrameworkManager)
         let umlData = contract.getPILPolicy(entity.policyId)
 

@@ -10,7 +10,7 @@ export function handleIPRegistered(
       event.params.ipId
   )
 
-  let contract = MetadataProviderV1.bind(Address.fromString("0x2F11b29C0fC7BbaF40Be6c6B2c0Bb4cADB93328d"));
+  let contract = MetadataProviderV1.bind(Address.fromString("0xfcD468A72F76e89F2Df517274063ef7210a32e2A"));
   if (contract == null) {
     return;
   }
@@ -27,7 +27,7 @@ export function handleIPRegistered(
   // ADDRESS ARRAY OF ROOT ANCESTORS
   // check LicenseModule to see if ipid has parents
   // if it does not, its root - set entity.rootAddresses to self
-  let licenseModule = LicenseModule.bind(Address.fromString("0xC7FB0655bf248633235B79c961Ee033b34146BB2"))
+  let licenseModule = LicenseModule.bind(Address.fromString("0x0C72b24067a15994f91D92Fd9bA23eB5ebcF8378"))
   if (contract == null) {
     return;
   }
@@ -50,7 +50,7 @@ export function handleIPRegistered(
   entity.metadata = metadataEntity.id
 
   entity.save()
-  
+
   let currentCollection = Collection.load(entity.tokenContract)
   if (currentCollection == null) {
     let collectionEntity = new Collection(entity.tokenContract)

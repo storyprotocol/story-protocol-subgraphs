@@ -15,6 +15,8 @@ export function handlePermissionSet(event: PermissionSet): void {
 
   const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
 
+  // call address.name() to get module name
+  // call openchain to get the function name
   entity.uuid = hash;
   entity.ipAccount = event.params.ipAccount
   entity.ipAccountOwner = event.params.ipAccountOwner

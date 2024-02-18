@@ -13,10 +13,15 @@ export function handleRoyaltyPolicyInitialized(event: PolicyInitialized): void {
     entity.splitClone = event.params.splitClone
     entity.ancestorsVault = event.params.ancestorsVault
     entity.royaltyStack = event.params.royaltyStack
-    entity.targetAncestors = event.params.targetAncestors
     entity.targetRoyaltyAmount = event.params.targetRoyaltyAmount
     entity.blockNumber = event.block.number;
     entity.blockTimestamp = event.block.timestamp;
+
+    let targetAncestors : Bytes[] = [];
+    for (let i = 0; i < event.params.targetAncestors.length; i++) {
+        targetAncestors.push(Bytes.fromByteArray(event.params.targetAncestors[i]))
+    }
+    entity.targetAncestors = targetAncestors
 
     entity.save();
 

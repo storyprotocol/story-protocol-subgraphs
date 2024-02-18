@@ -20,9 +20,9 @@ type IPAsset @entity(immutable: false) {
   metadata: Metadata @embedded
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  childIpIds: [Bytes!]
-  parentIpIds: [Bytes!]
-  rootIpIds: [Bytes!]
+  childIpIds: [IPAsset!]
+  parentIpIds: [IPAsset!]
+  rootIpIds: [IPAsset!]
   ancestorRoyaltyAddresses: [Bytes!]
   ancestorRoyaltyPercentages: [String!]
 }
