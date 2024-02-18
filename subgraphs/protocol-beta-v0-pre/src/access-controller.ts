@@ -16,6 +16,8 @@ export function handlePermissionSet(event: PermissionSet): void {
   const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
 
   entity.uuid = hash;
+  entity.ipAccount = event.params.ipAccount
+  entity.ipAccountOwner = event.params.ipAccountOwner
   entity.to = event.params.to;
   entity.func = event.params.func;
   entity.signer = event.params.signer;

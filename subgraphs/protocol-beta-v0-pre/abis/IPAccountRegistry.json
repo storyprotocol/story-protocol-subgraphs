@@ -3,17 +3,12 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "erc6551Registry_",
+        "name": "erc6551Registry",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "accessController_",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "ipAccountImpl_",
+        "name": "ipAccountImpl",
         "type": "address"
       }
     ],
@@ -61,19 +56,6 @@
     ],
     "name": "IPAccountRegistered",
     "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "ACCESS_CONTROLLER",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
   },
   {
     "inputs": [],
@@ -131,17 +113,17 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "chainId_",
+        "name": "chainId",
         "type": "uint256"
       },
       {
         "internalType": "address",
-        "name": "tokenContract_",
+        "name": "tokenContract",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "tokenId_",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],
@@ -160,17 +142,17 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "chainId_",
+        "name": "chainId",
         "type": "uint256"
       },
       {
         "internalType": "address",
-        "name": "tokenContract_",
+        "name": "tokenContract",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "tokenId_",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],

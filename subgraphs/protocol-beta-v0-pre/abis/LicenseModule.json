@@ -20,6 +20,11 @@
         "internalType": "address",
         "name": "registry",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "disputeModule",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -48,12 +53,12 @@
   },
   {
     "inputs": [],
-    "name": "LicensingModule__DerivativeRevShareSumExceedsMaxRNFTSupply",
+    "name": "LicensingModule__DerivativesCannotAddPolicy",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicensingModule__DerivativesCannotAddPolicy",
+    "name": "LicensingModule__DisputedIpId",
     "type": "error"
   },
   {
@@ -73,16 +78,6 @@
   },
   {
     "inputs": [],
-    "name": "LicensingModule__IncompatibleRoyaltyPolicyAddress",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "LicensingModule__IncompatibleRoyaltyPolicyDerivativeRevShare",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "LicensingModule__InvalidPolicyFramework",
     "type": "error"
   },
@@ -98,17 +93,17 @@
   },
   {
     "inputs": [],
+    "name": "LicensingModule__LinkingRevokedLicense",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "LicensingModule__MintLicenseParamFailed",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "LicensingModule__MismatchBetweenCommercialRevenueShareAndMinRoyalty",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "LicensingModule__MismatchBetweenRoyaltyPolicy",
+    "name": "LicensingModule__MintingFeeTokenNotWhitelisted",
     "type": "error"
   },
   {
@@ -123,17 +118,27 @@
   },
   {
     "inputs": [],
-    "name": "LicensingModule__PolicyAlreadyAdded",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "LicensingModule__PolicyAlreadySetForIpId",
     "type": "error"
   },
   {
     "inputs": [],
     "name": "LicensingModule__PolicyNotFound",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__RegisterPolicyFrameworkMismatch",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LicensingModule__RoyaltyPolicyNotWhitelisted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReentrancyGuardReentrantCall",
     "type": "error"
   },
   {
@@ -228,21 +233,45 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "address",
-        "name": "policyFrameworkManager",
-        "type": "address"
-      },
-      {
-        "indexed": true,
         "internalType": "uint256",
         "name": "policyId",
         "type": "uint256"
       },
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "policyFrameworkManager",
+        "type": "address"
+      },
+      {
         "indexed": false,
         "internalType": "bytes",
-        "name": "policy",
+        "name": "frameworkData",
         "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "royaltyPolicy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "royaltyData",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "mintingFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "mintingFeeToken",
+        "type": "address"
       }
     ],
     "name": "PolicyRegistered",
@@ -254,6 +283,19 @@
     "outputs": [
       {
         "internalType": "contract IAccessController",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DISPUTE_MODULE",
+    "outputs": [
+      {
+        "internalType": "contract IDisputeModule",
         "name": "",
         "type": "address"
       }
@@ -322,6 +364,62 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "isLicenseTransferable",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "policyFramework",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "frameworkData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "royaltyPolicy",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "royaltyData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint256",
+            "name": "mintingFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "mintingFeeToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Licensing.Policy",
+        "name": "pol",
+        "type": "tuple"
+      }
+    ],
+    "name": "getPolicyId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "policyId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -440,19 +538,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "licenseRegistry",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256[]",
@@ -465,9 +550,9 @@
         "type": "address"
       },
       {
-        "internalType": "uint32",
-        "name": "minRoyalty",
-        "type": "uint32"
+        "internalType": "bytes",
+        "name": "royaltyContext",
+        "type": "bytes"
       }
     ],
     "name": "linkIpToParents",
@@ -484,7 +569,7 @@
       },
       {
         "internalType": "address",
-        "name": "licensorIp",
+        "name": "licensorIpId",
         "type": "address"
       },
       {
@@ -496,6 +581,11 @@
         "internalType": "address",
         "name": "receiver",
         "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "royaltyContext",
+        "type": "bytes"
       }
     ],
     "name": "mintLicense",
@@ -554,19 +644,39 @@
       {
         "components": [
           {
-            "internalType": "address",
-            "name": "policyFramework",
-            "type": "address"
-          },
-          {
             "internalType": "bool",
             "name": "isLicenseTransferable",
             "type": "bool"
           },
           {
+            "internalType": "address",
+            "name": "policyFramework",
+            "type": "address"
+          },
+          {
             "internalType": "bytes",
-            "name": "data",
+            "name": "frameworkData",
             "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "royaltyPolicy",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "royaltyData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint256",
+            "name": "mintingFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "mintingFeeToken",
+            "type": "address"
           }
         ],
         "internalType": "struct Licensing.Policy",
@@ -624,19 +734,39 @@
       {
         "components": [
           {
-            "internalType": "address",
-            "name": "policyFramework",
-            "type": "address"
-          },
-          {
             "internalType": "bool",
             "name": "isLicenseTransferable",
             "type": "bool"
           },
           {
+            "internalType": "address",
+            "name": "policyFramework",
+            "type": "address"
+          },
+          {
             "internalType": "bytes",
-            "name": "data",
+            "name": "frameworkData",
             "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "royaltyPolicy",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "royaltyData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint256",
+            "name": "mintingFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "mintingFeeToken",
+            "type": "address"
           }
         ],
         "internalType": "struct Licensing.Policy",
@@ -737,14 +867,46 @@
   {
     "inputs": [
       {
-        "internalType": "bool",
-        "name": "isLicenseTransferable",
-        "type": "bool"
-      },
-      {
-        "internalType": "bytes",
-        "name": "data",
-        "type": "bytes"
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "isLicenseTransferable",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "policyFramework",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "frameworkData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "royaltyPolicy",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "royaltyData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint256",
+            "name": "mintingFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "mintingFeeToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Licensing.Policy",
+        "name": "pol",
+        "type": "tuple"
       }
     ],
     "name": "registerPolicy",
@@ -769,6 +931,25 @@
     "name": "registerPolicyFrameworkManager",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

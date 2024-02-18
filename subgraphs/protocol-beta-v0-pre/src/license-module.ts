@@ -6,14 +6,14 @@ import {
     IpIdLinkedToParents
 } from "../generated/LicenseModule/LicenseModule"
 import {
-    UMLPolicyFrameworkManager
-} from "../generated/LicenseModule/UMLPolicyFrameworkManager"
-import { 
+    PILPolicyFrameworkManager
+} from "../generated/LicenseModule/PILPolicyFrameworkManager"
+import {
     PolicyFrameworkManager,
     IPAPolicy,
     Transaction,
     Policy,
-    UMLPolicy,
+    PILPolicy,
     IPAsset } from "../generated/schema";
 import { Bytes } from "@graphprotocol/graph-ts"
 
@@ -21,35 +21,39 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     let entity = new Policy(event.params.policyId.toString())
 
     entity.policyId = event.params.policyId
-    entity.policy = event.params.policy
     entity.policyFrameworkManager = event.params.policyFrameworkManager
+    entity.frameworkData = event.params.frameworkData
+    entity.royaltyPolicy = event.params.royaltyPolicy
+    entity.royaltyData = event.params.royaltyData
+    entity.mintingFee = event.params.mintingFee
+    entity.mintingFeeToken = event.params.mintingFeeToken
+
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
 
     if (entity.policyFrameworkManager.toHexString().toLowerCase() == "0xDEc23819025c761FAAbA391AC7dBB3FEDB3CDDF7".toLowerCase()) {
-        let contract = UMLPolicyFrameworkManager.bind(event.params.policyFrameworkManager)
-        let umlData = contract.getPolicy(entity.policyId)
+        let contract = PILPolicyFrameworkManager.bind(event.params.policyFrameworkManager)
+        let umlData = contract.getPILPolicy(entity.policyId)
 
         const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
-        let umlEntity = new UMLPolicy(hash)
+        let umlEntity = new PILPolicy(hash)
         umlEntity.attribution = umlData.attribution
-        umlEntity.transferable = umlData.transferable
         umlEntity.commercialUse = umlData.commercialUse
         umlEntity.commercialAttribution = umlData.commercialAttribution
-        umlEntity.commercializers = umlData.commercializers
+        umlEntity.commercialRevShare = umlData.commercialRevShare
+        umlEntity.commercializerChecker = umlData.commercializerChecker
+        umlEntity.commercializerCheckerData = umlData.commercializerCheckerData
         umlEntity.commercialRevShare = umlData.commercialRevShare
         umlEntity.derivativesAllowed = umlData.derivativesAllowed
         umlEntity.derivativesAttribution = umlData.derivativesAttribution
         umlEntity.derivativesApproval = umlData.derivativesApproval
         umlEntity.derivativesReciprocal = umlData.derivativesReciprocal
-        umlEntity.derivativesRevShare = umlData.derivativesRevShare
         umlEntity.territories = umlData.territories
         umlEntity.distributionChannels = umlData.distributionChannels
         umlEntity.contentRestrictions = umlData.contentRestrictions
-        umlEntity.royaltyPolicy = umlData.royaltyPolicy
-        
+
         umlEntity.save()
-        entity.uml = umlEntity.id
+        entity.pil = umlEntity.id
     }
     entity.save()
 
@@ -176,7 +180,7 @@ export function handleIpIdLinkedToParents(
     }
 
     entity.rootIpIds = rootIpIds
-    
+
     entity.save()
 }
 

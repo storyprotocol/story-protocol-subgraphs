@@ -391,7 +391,7 @@
     "name": "IP_ASSET_REGISTRY",
     "outputs": [
       {
-        "internalType": "contract IPAssetRegistry",
+        "internalType": "contract IIPAssetRegistry",
         "name": "",
         "type": "address"
       }
@@ -435,12 +435,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_disputeId",
+        "name": "disputeId",
         "type": "uint256"
       },
       {
         "internalType": "bytes",
-        "name": "_data",
+        "name": "data",
         "type": "bytes"
       }
     ],
@@ -451,7 +451,7 @@
   },
   {
     "inputs": [],
-    "name": "disputeId",
+    "name": "disputeCounter",
     "outputs": [
       {
         "internalType": "uint256",
@@ -536,6 +536,25 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "ipId",
+        "type": "address"
+      }
+    ],
+    "name": "isIpTagged",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "arbitrationPolicy",
         "type": "address"
       }
@@ -604,29 +623,29 @@
         "type": "string"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
       {
         "internalType": "address",
-        "name": "_targetIpId",
+        "name": "targetIpId",
         "type": "address"
       },
       {
         "internalType": "string",
-        "name": "_linkToDisputeEvidence",
+        "name": "linkToDisputeEvidence",
         "type": "string"
       },
       {
         "internalType": "bytes32",
-        "name": "_targetTag",
+        "name": "targetTag",
         "type": "bytes32"
       },
       {
         "internalType": "bytes",
-        "name": "_data",
+        "name": "data",
         "type": "bytes"
       }
     ],
@@ -645,7 +664,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_disputeId",
+        "name": "disputeId",
         "type": "uint256"
       }
     ],
@@ -658,12 +677,12 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_ipId",
+        "name": "ipId",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_arbitrationPolicy",
+        "name": "arbitrationPolicy",
         "type": "address"
       }
     ],
@@ -676,7 +695,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_arbitrationPolicy",
+        "name": "arbitrationPolicy",
         "type": "address"
       }
     ],
@@ -689,17 +708,17 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_disputeId",
+        "name": "disputeId",
         "type": "uint256"
       },
       {
         "internalType": "bool",
-        "name": "_decision",
+        "name": "decision",
         "type": "bool"
       },
       {
         "internalType": "bytes",
-        "name": "_data",
+        "name": "data",
         "type": "bytes"
       }
     ],
@@ -724,13 +743,32 @@
   {
     "inputs": [
       {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
-        "name": "_arbitrationPolicy",
+        "name": "arbitrationPolicy",
         "type": "address"
       },
       {
         "internalType": "bool",
-        "name": "_allowed",
+        "name": "allowed",
         "type": "bool"
       }
     ],
@@ -743,17 +781,17 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_arbitrationPolicy",
+        "name": "arbitrationPolicy",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_arbPolicyRelayer",
+        "name": "arbPolicyRelayer",
         "type": "address"
       },
       {
         "internalType": "bool",
-        "name": "_allowed",
+        "name": "allowed",
         "type": "bool"
       }
     ],
@@ -766,12 +804,12 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "_tag",
+        "name": "tag",
         "type": "bytes32"
       },
       {
         "internalType": "bool",
-        "name": "_allowed",
+        "name": "allowed",
         "type": "bool"
       }
     ],

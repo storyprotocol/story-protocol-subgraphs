@@ -39,6 +39,8 @@ type Metadata @entity {
 type Permission @entity(immutable: true) {
   id: String!
   uuid: String!
+  ipAccountOwner: Bytes!
+  ipAccount: Bytes!
   signer: Bytes!
   to: Bytes!
   func: Bytes!
@@ -51,6 +53,8 @@ type Module @entity(immutable: false) {
   id: Bytes!
   name: String! # string
   module: Bytes! # address
+  moduleTypeInterfaceId: Bytes!
+  moduleType: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -71,29 +75,31 @@ type Policy @entity(immutable: true) {
   id: String!
   policyFrameworkManager: Bytes! # address
   policyId: BigInt!
-  policy: Bytes!
+  frameworkData: Bytes!
+  royaltyPolicy: Bytes!
+  royaltyData: Bytes!
+  mintingFee: BigInt!
+  mintingFeeToken: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  uml: UMLPolicy @embedded
+  pil: PILPolicy @embedded
 }
 
-type UMLPolicy @entity {
+type PILPolicy @entity {
   id: String!
   attribution: Boolean!
-  transferable: Boolean!
   commercialUse: Boolean!
   commercialAttribution: Boolean!
-  commercializers: [String!]!
+  commercializerChecker: Bytes!
+  commercializerCheckerData: Bytes!
   commercialRevShare: BigInt!
   derivativesAllowed: Boolean!
   derivativesAttribution: Boolean!
   derivativesApproval: Boolean!
   derivativesReciprocal: Boolean!
-  derivativesRevShare: BigInt!
   territories: [String!]!
   distributionChannels: [String!]!
   contentRestrictions: [String!]!
-  royaltyPolicy: Bytes!
 }
 
 type PolicyData @entity{
@@ -164,11 +170,32 @@ type IPRoyalty @entity(immutable: false) {
   blockTimestamp: BigInt!
 }
 
+type RoyaltyPolicy @entity(immutable: false) {
+    id: String!
+    splitClone: Bytes
+    ancestorsVault: Bytes
+    royaltyStack: BigInt
+    targetAncestors: [Bytes!]
+    targetRoyaltyAmount: [BigInt!]
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+}
+
 type RoyaltyPay @entity(immutable: false) {
   id: String!
   payerIpId: Bytes!
   receiverIpId: Bytes!
   sender: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type LicenseMintingFeePaidEntity @entity(immutable: false) {
+  id: String!
+  receiverIpId: Bytes!
+  payer: Bytes!
   token: Bytes!
   amount: BigInt!
   blockNumber: BigInt!
@@ -229,6 +256,7 @@ enum ResourceType {
   Dispute
   Module
   Hook
+  RoyaltyPolicy
 }
 
 enum ActionType {

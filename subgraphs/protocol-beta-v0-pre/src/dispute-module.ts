@@ -33,17 +33,18 @@ export function handleDisputeRaised(event: DisputeRaised): void {
       collection.save()
     }
   }
+
   let trx = new Transaction(event.transaction.hash.toHexString())
 
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
+  trx.ipId = event.params.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Create"
   trx.resourceType = "Dispute"
-  trx.blockNumber = event.block.number;
-  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 
@@ -76,7 +77,7 @@ export function handleDisputeCancelled(event: DisputeCancelled): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = entity.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Cancel"
   trx.resourceType = "Dispute"
@@ -116,7 +117,7 @@ export function handleDisputeJudgement(event: DisputeJudgementSet): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = entity.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Set"
   trx.resourceType = "Dispute"
@@ -152,7 +153,7 @@ export function handleDisputeResolved(event: DisputeResolved): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = entity.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Resolve"
   trx.resourceType = "Dispute"

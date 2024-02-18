@@ -12,6 +12,8 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
 
   entity2.name = event.params.name
   entity2.module = event.params.module
+  entity2.moduleType = event.params.moduleType
+  entity2.moduleTypeInterfaceId = event.params.moduleTypeInterfaceId
 
   entity2.blockNumber = event.block.number
   entity2.blockTimestamp = event.block.timestamp
