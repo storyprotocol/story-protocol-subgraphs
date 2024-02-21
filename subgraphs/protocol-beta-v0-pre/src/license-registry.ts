@@ -5,7 +5,7 @@ import {
 } from "../generated/LicenseRegistry/LicenseRegistry"
 import {
     License,
-    LicenseOwner, 
+    LicenseOwner,
     Transaction,
     IPAsset,
     Collection
@@ -17,6 +17,7 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
     let licenseData = contract.license(event.params.id)
 
     let entity = new License(event.params.id.toString());
+
     entity.policyId = licenseData.policyId.toString();
     entity.licensorIpId = licenseData.licensorIpId.toHexString();
     entity.blockNumber = event.block.number;
@@ -32,7 +33,7 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
             collection.save()
         }
     }
-    
+
     let trx = new Transaction(event.transaction.hash.toHexString())
 
     trx.txHash = event.transaction.hash.toHexString()

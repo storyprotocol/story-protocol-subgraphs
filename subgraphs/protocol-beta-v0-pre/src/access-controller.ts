@@ -21,7 +21,11 @@ export function handlePermissionSet(event: PermissionSet): void {
   entity.ipAccount = event.params.ipAccount
   entity.ipAccountOwner = event.params.ipAccountOwner
   entity.to = event.params.to;
-  entity.func = event.params.func;
+  if (event.params.func.toHexString() == "0x00000000") {
+    entity.func = "*";
+  } else {
+    entity.func = event.params.func.toHexString();
+  }
   entity.signer = event.params.signer;
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;

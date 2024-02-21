@@ -3,9 +3,8 @@ import { RoyaltyPolicy, Transaction } from "../generated/schema";
 import { Bytes } from "@graphprotocol/graph-ts"
 
 export function handleRoyaltyPolicyInitialized(event: PolicyInitialized): void {
-    const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
 
-    let entity = RoyaltyPolicy.load(hash);
+    let entity = new RoyaltyPolicy(event.params.ipId);
     if (entity == null) {
         return;
     }

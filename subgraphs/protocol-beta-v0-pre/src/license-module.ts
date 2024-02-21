@@ -110,7 +110,7 @@ export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
     let licenseData = contract.policyStatus(event.params.ipId, event.params.policyId)
 
     entity.ipId = event.params.ipId.toHexString()
-    entity.policyId = event.params.policyId.toHexString()
+    entity.policyId = event.params.policyId.toString()
     entity.index = licenseData.getIndex()
     entity.active = licenseData.getActive()
     entity.inherited = licenseData.getIsInherited()

@@ -36,14 +36,14 @@ type Metadata @entity {
   uri: String!
 }
 
-type Permission @entity(immutable: true) {
+type Permission @entity(immutable: false) {
   id: String!
   uuid: String!
   ipAccountOwner: Bytes!
   ipAccount: Bytes!
   signer: Bytes!
   to: Bytes!
-  func: Bytes!
+  func: String!
   permission: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -114,7 +114,8 @@ type PolicyData @entity{
 type License @entity(immutable: false) {
   id: String!
   policyId: String!
-  licensorIpId: String! # uint256
+  #licensorIpId: [Bytes!]! # addresses
+  licensorIpId:  String!# addresses
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   deletedAt: BigInt
@@ -171,7 +172,7 @@ type IPRoyalty @entity(immutable: false) {
 }
 
 type RoyaltyPolicy @entity(immutable: false) {
-    id: String!
+    id: Bytes!
     splitClone: Bytes
     ancestorsVault: Bytes
     royaltyStack: BigInt
