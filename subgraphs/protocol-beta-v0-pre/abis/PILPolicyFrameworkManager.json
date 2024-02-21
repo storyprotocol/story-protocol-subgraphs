@@ -53,87 +53,109 @@
   },
   {
     "inputs": [],
-    "name": "PolicyFrameworkManager__GettingPolicyWrongFramework",
+    "name": "PILPolicyFrameworkManager__CommercialDisabled_CantAddAttribution",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommecialDisabled_CantAddAttribution",
+    "name": "PILPolicyFrameworkManager__CommercialDisabled_CantAddCommercializers",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommecialDisabled_CantAddDerivRevShare",
+    "name": "PILPolicyFrameworkManager__CommercialDisabled_CantAddMintingFee",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommecialDisabled_CantAddRevShare",
+    "name": "PILPolicyFrameworkManager__CommercialDisabled_CantAddMintingFeeToken",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommecialEnabled_RoyaltyPolicyRequired",
+    "name": "PILPolicyFrameworkManager__CommercialDisabled_CantAddRevShare",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommercialDisabled_CantAddCommercializers",
+    "name": "PILPolicyFrameworkManager__CommercialDisabled_CantAddRoyaltyPolicy",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommercialDisabled_CantAddRoyaltyPolicy",
+    "name": "PILPolicyFrameworkManager__CommercialEnabled_RoyaltyPolicyRequired",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__CommercialValueMismatch",
+    "name": "PILPolicyFrameworkManager__CommercialValueMismatch",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__DerivativesDisabled_CantAddApproval",
+    "name": "PILPolicyFrameworkManager__DerivativesDisabled_CantAddApproval",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__DerivativesDisabled_CantAddAttribution",
+    "name": "PILPolicyFrameworkManager__DerivativesDisabled_CantAddAttribution",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__DerivativesDisabled_CantAddReciprocal",
+    "name": "PILPolicyFrameworkManager__DerivativesDisabled_CantAddReciprocal",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__DerivativesDisabled_CantAddRevShare",
+    "name": "PILPolicyFrameworkManager__ReciprocalButDifferentPolicyIds",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__DerivativesValueMismatch",
+    "name": "PILPolicyFrameworkManager__ReciprocalValueMismatch",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__ReciprocalButDifferentPolicyIds",
+    "name": "PILPolicyFrameworkManager__RightsNotFound",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__ReciprocalValueMismatch",
+    "name": "PILPolicyFrameworkManager__StringArrayMismatch",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "commercializer",
+        "type": "address"
+      }
+    ],
+    "name": "PolicyFrameworkManager__CommercializerCheckerDoesNotSupportHook",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "UMLPolicyFrameworkManager__RightsNotFound",
+    "name": "ReentrancyGuardReentrantCall",
     "type": "error"
   },
   {
-    "inputs": [],
-    "name": "UMLPolicyFrameworkManager__StringArrayMismatch",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "length",
+        "type": "uint256"
+      }
+    ],
+    "name": "StringsInsufficientHexLength",
     "type": "error"
   },
   {
@@ -238,11 +260,6 @@
           },
           {
             "internalType": "bool",
-            "name": "derivatives",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
             "name": "derivativesReciprocal",
             "type": "bool"
           },
@@ -267,7 +284,7 @@
             "type": "bytes32"
           }
         ],
-        "internalType": "struct UMLAggregator",
+        "internalType": "struct PILAggregator",
         "name": "rights",
         "type": "tuple"
       }
@@ -283,34 +300,10 @@
         "type": "uint256"
       }
     ],
-    "name": "getCommercialRevenueShare",
-    "outputs": [
-      {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "policyId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPolicy",
+    "name": "getPILPolicy",
     "outputs": [
       {
         "components": [
-          {
-            "internalType": "bool",
-            "name": "transferable",
-            "type": "bool"
-          },
           {
             "internalType": "bool",
             "name": "attribution",
@@ -327,9 +320,14 @@
             "type": "bool"
           },
           {
-            "internalType": "string[]",
-            "name": "commercializers",
-            "type": "string[]"
+            "internalType": "address",
+            "name": "commercializerChecker",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes",
+            "name": "commercializerCheckerData",
+            "type": "bytes"
           },
           {
             "internalType": "uint32",
@@ -357,11 +355,6 @@
             "type": "bool"
           },
           {
-            "internalType": "uint32",
-            "name": "derivativesRevShare",
-            "type": "uint32"
-          },
-          {
             "internalType": "string[]",
             "name": "territories",
             "type": "string[]"
@@ -375,35 +368,11 @@
             "internalType": "string[]",
             "name": "contentRestrictions",
             "type": "string[]"
-          },
-          {
-            "internalType": "address",
-            "name": "royaltyPolicy",
-            "type": "address"
           }
         ],
-        "internalType": "struct UMLPolicy",
+        "internalType": "struct PILPolicy",
         "name": "policy",
         "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "policyId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getRoyaltyPolicy",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -434,25 +403,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "policyId",
-        "type": "uint256"
-      }
-    ],
-    "name": "isPolicyCommercial",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "licenseTextUrl",
     "outputs": [
@@ -460,19 +410,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "licensingModule",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -507,7 +444,7 @@
         "type": "string"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -554,78 +491,95 @@
             "type": "bool"
           },
           {
-            "internalType": "bool",
-            "name": "attribution",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "commercialUse",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "commercialAttribution",
-            "type": "bool"
-          },
-          {
-            "internalType": "string[]",
-            "name": "commercializers",
-            "type": "string[]"
-          },
-          {
-            "internalType": "uint32",
-            "name": "commercialRevShare",
-            "type": "uint32"
-          },
-          {
-            "internalType": "bool",
-            "name": "derivativesAllowed",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "derivativesAttribution",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "derivativesApproval",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "derivativesReciprocal",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint32",
-            "name": "derivativesRevShare",
-            "type": "uint32"
-          },
-          {
-            "internalType": "string[]",
-            "name": "territories",
-            "type": "string[]"
-          },
-          {
-            "internalType": "string[]",
-            "name": "distributionChannels",
-            "type": "string[]"
-          },
-          {
-            "internalType": "string[]",
-            "name": "contentRestrictions",
-            "type": "string[]"
-          },
-          {
             "internalType": "address",
             "name": "royaltyPolicy",
             "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "mintingFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "mintingFeeToken",
+            "type": "address"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "attribution",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "commercialUse",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "commercialAttribution",
+                "type": "bool"
+              },
+              {
+                "internalType": "address",
+                "name": "commercializerChecker",
+                "type": "address"
+              },
+              {
+                "internalType": "bytes",
+                "name": "commercializerCheckerData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "uint32",
+                "name": "commercialRevShare",
+                "type": "uint32"
+              },
+              {
+                "internalType": "bool",
+                "name": "derivativesAllowed",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "derivativesAttribution",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "derivativesApproval",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "derivativesReciprocal",
+                "type": "bool"
+              },
+              {
+                "internalType": "string[]",
+                "name": "territories",
+                "type": "string[]"
+              },
+              {
+                "internalType": "string[]",
+                "name": "distributionChannels",
+                "type": "string[]"
+              },
+              {
+                "internalType": "string[]",
+                "name": "contentRestrictions",
+                "type": "string[]"
+              }
+            ],
+            "internalType": "struct PILPolicy",
+            "name": "policy",
+            "type": "tuple"
           }
         ],
-        "internalType": "struct UMLPolicy",
-        "name": "umlPolicy",
+        "internalType": "struct RegisterPILPolicyParams",
+        "name": "params",
         "type": "tuple"
       }
     ],
@@ -691,7 +645,7 @@
       },
       {
         "internalType": "address",
-        "name": "",
+        "name": "caller",
         "type": "address"
       },
       {
@@ -701,7 +655,7 @@
       },
       {
         "internalType": "address",
-        "name": "",
+        "name": "parentIpId",
         "type": "address"
       },
       {
@@ -713,31 +667,9 @@
     "name": "verifyLink",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "bool",
-            "name": "isLinkingAllowed",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "isRoyaltyRequired",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "royaltyPolicy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint32",
-            "name": "royaltyDerivativeRevShare",
-            "type": "uint32"
-          }
-        ],
-        "internalType": "struct IPolicyFrameworkManager.VerifyLinkResponse",
+        "internalType": "bool",
         "name": "",
-        "type": "tuple"
+        "type": "bool"
       }
     ],
     "stateMutability": "nonpayable",
@@ -747,27 +679,27 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "caller",
         "type": "address"
       },
       {
         "internalType": "bool",
-        "name": "policyWasInherited",
+        "name": "mintingFromADerivative",
         "type": "bool"
       },
       {
         "internalType": "address",
-        "name": "",
+        "name": "licensorIpId",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "",
+        "name": "receiver",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "mintAmount",
         "type": "uint256"
       },
       {

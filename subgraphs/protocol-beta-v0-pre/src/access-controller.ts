@@ -15,9 +15,17 @@ export function handlePermissionSet(event: PermissionSet): void {
 
   const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
 
+  // call address.name() to get module name
+  // call openchain to get the function name
   entity.uuid = hash;
+  entity.ipAccount = event.params.ipAccount
+  entity.ipAccountOwner = event.params.ipAccountOwner
   entity.to = event.params.to;
-  entity.func = event.params.func;
+  if (event.params.func.toHexString() == "0x00000000") {
+    entity.func = "*";
+  } else {
+    entity.func = event.params.func.toHexString();
+  }
   entity.signer = event.params.signer;
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;
@@ -34,6 +42,8 @@ export function handlePermissionSet(event: PermissionSet): void {
   trx.resourceId = event.params.ipAccount
   trx.actionType = "Set"
   trx.resourceType = "Permission"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

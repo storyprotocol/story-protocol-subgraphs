@@ -1,6 +1,11 @@
 type Collection @entity(immutable: false) {
   id: Bytes!
   assetCount: BigInt!
+  raisedDisputeCount: BigInt!
+  cancelledDisputeCount: BigInt!
+  resolvedDisputeCount: BigInt!
+  judgedDisputeCount: BigInt!
+  licensesCount: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
 }
@@ -15,7 +20,11 @@ type IPAsset @entity(immutable: false) {
   metadata: Metadata @embedded
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  parentIpIds: [Bytes!]
+  childIpIds: [IPAsset!]
+  parentIpIds: [IPAsset!]
+  rootIpIds: [IPAsset!]
+  ancestorRoyaltyAddresses: [Bytes!]
+  ancestorRoyaltyPercentages: [String!]
 }
 
 type Metadata @entity {
@@ -27,12 +36,14 @@ type Metadata @entity {
   uri: String!
 }
 
-type Permission @entity(immutable: true) {
+type Permission @entity(immutable: false) {
   id: String!
   uuid: String!
+  ipAccountOwner: Bytes!
+  ipAccount: Bytes!
   signer: Bytes!
   to: Bytes!
-  func: Bytes!
+  func: String!
   permission: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -42,6 +53,8 @@ type Module @entity(immutable: false) {
   id: Bytes!
   name: String! # string
   module: Bytes! # address
+  moduleTypeInterfaceId: Bytes!
+  moduleType: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -62,29 +75,31 @@ type Policy @entity(immutable: true) {
   id: String!
   policyFrameworkManager: Bytes! # address
   policyId: BigInt!
-  policy: Bytes!
+  frameworkData: Bytes!
+  royaltyPolicy: Bytes!
+  royaltyData: Bytes!
+  mintingFee: BigInt!
+  mintingFeeToken: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  uml: UMLPolicy @embedded
+  pil: PILPolicy @embedded
 }
 
-type UMLPolicy @entity {
+type PILPolicy @entity {
   id: String!
   attribution: Boolean!
-  transferable: Boolean!
   commercialUse: Boolean!
   commercialAttribution: Boolean!
-  commercializers: [String!]!
+  commercializerChecker: Bytes!
+  commercializerCheckerData: Bytes!
   commercialRevShare: BigInt!
   derivativesAllowed: Boolean!
   derivativesAttribution: Boolean!
   derivativesApproval: Boolean!
   derivativesReciprocal: Boolean!
-  derivativesRevShare: BigInt!
   territories: [String!]!
   distributionChannels: [String!]!
   contentRestrictions: [String!]!
-  royaltyPolicy: Bytes!
 }
 
 type PolicyData @entity{
@@ -99,11 +114,12 @@ type PolicyData @entity{
 type License @entity(immutable: false) {
   id: String!
   policyId: String!
-  licensorIpId: String! # uint256
+  licensorIpId:  String!
+  transferable:  Boolean!
+  amount:  BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   deletedAt: BigInt
-  #  licenseData: LicenseData!
 }
 
 type LicenseData @entity{
@@ -155,11 +171,32 @@ type IPRoyalty @entity(immutable: false) {
   blockTimestamp: BigInt!
 }
 
+type RoyaltyPolicy @entity(immutable: false) {
+    id: Bytes!
+    splitClone: Bytes
+    ancestorsVault: Bytes
+    royaltyStack: BigInt
+    targetAncestors: [Bytes!]
+    targetRoyaltyAmount: [BigInt!]
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+}
+
 type RoyaltyPay @entity(immutable: false) {
   id: String!
   payerIpId: Bytes!
   receiverIpId: Bytes!
   sender: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type LicenseMintingFeePaidEntity @entity(immutable: false) {
+  id: String!
+  receiverIpId: Bytes!
+  payer: Bytes!
   token: Bytes!
   amount: BigInt!
   blockNumber: BigInt!
@@ -205,6 +242,8 @@ type Transaction @entity(immutable: true) {
   resourceType: ResourceType!
   actionType: ActionType!
   createdAt: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 
 enum ResourceType {
@@ -218,6 +257,7 @@ enum ResourceType {
   Dispute
   Module
   Hook
+  RoyaltyPolicy
 }
 
 enum ActionType {

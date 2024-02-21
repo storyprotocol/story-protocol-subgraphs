@@ -21,10 +21,12 @@ export function handleTagSet(event: TagSet): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = event.params.ipId
   trx.resourceId = event.address
   trx.actionType = "Set"
   trx.resourceType = "Tag"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -48,10 +50,12 @@ export function handleTagRemoved(event: TagRemoved): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = event.params.ipId
   trx.resourceId = event.address
   trx.actionType = "Remove"
   trx.resourceType = "Tag"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

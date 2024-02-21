@@ -6,14 +6,14 @@ import {
     IpIdLinkedToParents
 } from "../generated/LicenseModule/LicenseModule"
 import {
-    UMLPolicyFrameworkManager
-} from "../generated/LicenseModule/UMLPolicyFrameworkManager"
-import { 
+    PILPolicyFrameworkManager
+} from "../generated/LicenseModule/PILPolicyFrameworkManager"
+import {
     PolicyFrameworkManager,
     IPAPolicy,
     Transaction,
     Policy,
-    UMLPolicy,
+    PILPolicy,
     IPAsset } from "../generated/schema";
 import { Bytes } from "@graphprotocol/graph-ts"
 
@@ -21,35 +21,39 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     let entity = new Policy(event.params.policyId.toString())
 
     entity.policyId = event.params.policyId
-    entity.policy = event.params.policy
     entity.policyFrameworkManager = event.params.policyFrameworkManager
+    entity.frameworkData = event.params.frameworkData
+    entity.royaltyPolicy = event.params.royaltyPolicy
+    entity.royaltyData = event.params.royaltyData
+    entity.mintingFee = event.params.mintingFee
+    entity.mintingFeeToken = event.params.mintingFeeToken
+
     entity.blockNumber = event.block.number
     entity.blockTimestamp = event.block.timestamp
 
-    if (entity.policyFrameworkManager.toHexString().toLowerCase() == "0xDEc23819025c761FAAbA391AC7dBB3FEDB3CDDF7".toLowerCase()) {
-        let contract = UMLPolicyFrameworkManager.bind(event.params.policyFrameworkManager)
-        let umlData = contract.getPolicy(entity.policyId)
+    if (entity.policyFrameworkManager.toHexString().toLowerCase() == "0x49cF5C5523011F8B4A0489969096Eb68C571C197".toLowerCase()) {
+        let contract = PILPolicyFrameworkManager.bind(event.params.policyFrameworkManager)
+        let umlData = contract.getPILPolicy(entity.policyId)
 
         const hash = takeFirst15Chars(event.transaction.hash.toHexString()) + takeFirst15Chars(event.logIndex.toHexString())
-        let umlEntity = new UMLPolicy(hash)
+        let umlEntity = new PILPolicy(hash)
         umlEntity.attribution = umlData.attribution
-        umlEntity.transferable = umlData.transferable
         umlEntity.commercialUse = umlData.commercialUse
         umlEntity.commercialAttribution = umlData.commercialAttribution
-        umlEntity.commercializers = umlData.commercializers
+        umlEntity.commercialRevShare = umlData.commercialRevShare
+        umlEntity.commercializerChecker = umlData.commercializerChecker
+        umlEntity.commercializerCheckerData = umlData.commercializerCheckerData
         umlEntity.commercialRevShare = umlData.commercialRevShare
         umlEntity.derivativesAllowed = umlData.derivativesAllowed
         umlEntity.derivativesAttribution = umlData.derivativesAttribution
         umlEntity.derivativesApproval = umlData.derivativesApproval
         umlEntity.derivativesReciprocal = umlData.derivativesReciprocal
-        umlEntity.derivativesRevShare = umlData.derivativesRevShare
         umlEntity.territories = umlData.territories
         umlEntity.distributionChannels = umlData.distributionChannels
         umlEntity.contentRestrictions = umlData.contentRestrictions
-        umlEntity.royaltyPolicy = umlData.royaltyPolicy
-        
+
         umlEntity.save()
-        entity.uml = umlEntity.id
+        entity.pil = umlEntity.id
     }
     entity.save()
 
@@ -62,6 +66,8 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     trx.resourceId = event.address
     trx.actionType = "Register"
     trx.resourceType = "Policy"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -88,6 +94,8 @@ export function handlePolicyFrameworkRegistered(event: PolicyFrameworkRegistered
     trx.resourceId = event.address
     trx.actionType = "Register"
     trx.resourceType = "Policy"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -102,7 +110,7 @@ export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
     let licenseData = contract.policyStatus(event.params.ipId, event.params.policyId)
 
     entity.ipId = event.params.ipId.toHexString()
-    entity.policyId = event.params.policyId.toHexString()
+    entity.policyId = event.params.policyId.toString()
     entity.index = licenseData.getIndex()
     entity.active = licenseData.getActive()
     entity.inherited = licenseData.getIsInherited()
@@ -120,6 +128,8 @@ export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
     trx.resourceId = event.address
     trx.actionType = "Link"
     trx.resourceType = "Policy"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -133,13 +143,44 @@ export function handleIpIdLinkedToParents(
     }
 
     let parentIpIds : Bytes[] = [];
+    let rootIpIds : Bytes[] = [];
 
     for (let i = 0; i < event.params.parentIpIds.length; i++) {
+        // Add parentIpId to childs parentIpId array
         parentIpIds.push(event.params.parentIpIds[i])
         entity.parentIpIds = parentIpIds
 
+        // Add childIpId to parents childIpId array
+        let parentEntity = IPAsset.load(event.params.parentIpIds[i])
+        if (parentEntity == null) {
+            return;
+        }
+
+
+
+        let childIpIds = parentEntity.childIpIds
+        if (childIpIds != null) {
+            childIpIds.push(event.params.ipId)
+        } else {
+            let newChildIpIds : Bytes[] = []
+            newChildIpIds.push(event.params.ipId)
+            childIpIds = newChildIpIds
+        }
+
+        parentEntity.childIpIds = childIpIds
+        parentEntity.save()
+
+        // Copy rootAddress from parent to child
+        let parentRootAncestors = parentEntity.rootIpIds
+        if (parentRootAncestors != null) {
+            for (let i = 0; i < parentRootAncestors.length; i ++) {
+                rootIpIds.push(parentRootAncestors[i])
+            }
+        }
     }
-    
+
+    entity.rootIpIds = rootIpIds
+
     entity.save()
 }
 

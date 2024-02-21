@@ -64,7 +64,7 @@
     "name": "IP_ASSET_REGISTRY",
     "outputs": [
       {
-        "internalType": "contract IPAssetRegistry",
+        "internalType": "contract IIPAssetRegistry",
         "name": "",
         "type": "address"
       }
@@ -222,7 +222,7 @@
       },
       {
         "internalType": "bytes",
-        "name": "data",
+        "name": "metadata",
         "type": "bytes"
       }
     ],

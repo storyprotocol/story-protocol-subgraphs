@@ -7,8 +7,8 @@ import {
   ArbitrationRelayerWhitelistUpdated,
   ArbitrationPolicyWhitelistUpdated
 } from "../generated/DisputeModule/DisputeModule";
-import { Dispute, Transaction } from "../generated/schema";
-import { Bytes } from "@graphprotocol/graph-ts"
+import {Collection, Dispute, IPAsset, Transaction} from "../generated/schema";
+import { Bytes, BigInt } from "@graphprotocol/graph-ts"
 
 export function handleDisputeRaised(event: DisputeRaised): void {
   let entity = new Dispute(event.params.disputeId.toString());
@@ -25,17 +25,28 @@ export function handleDisputeRaised(event: DisputeRaised): void {
 
   entity.save();
 
-  // let trx = new Transaction(event.transaction.hash.toHexString())
-  //
-  // trx.txHash = event.transaction.hash.toHexString()
-  // trx.initiator = event.transaction.from
-  // trx.createdAt = event.block.timestamp
-  // trx.ipId = new Bytes(0)
-  // trx.resourceId = event.address
-  // trx.actionType = "Create"
-  // trx.resourceType = "Dispute"
-  //
-  // trx.save()
+  let ipAsset = IPAsset.load(event.params.targetIpId)
+  if (ipAsset != null) {
+    let collection = Collection.load(ipAsset.tokenContract)
+    if (collection != null) {
+      collection.raisedDisputeCount = collection.raisedDisputeCount.plus(BigInt.fromI64(1))
+      collection.save()
+    }
+  }
+
+  let trx = new Transaction(event.transaction.hash.toHexString())
+
+  trx.txHash = event.transaction.hash.toHexString()
+  trx.initiator = event.transaction.from
+  trx.createdAt = event.block.timestamp
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
+  trx.ipId = event.params.targetIpId
+  trx.resourceId = event.address
+  trx.actionType = "Create"
+  trx.resourceType = "Dispute"
+
+  trx.save()
 
 }
 
@@ -52,15 +63,26 @@ export function handleDisputeCancelled(event: DisputeCancelled): void {
 
   entity.save();
 
+  let ipAsset = IPAsset.load(entity.targetIpId)
+  if (ipAsset != null) {
+    let collection = Collection.load(ipAsset.tokenContract)
+    if (collection != null) {
+      collection.cancelledDisputeCount = collection.cancelledDisputeCount.plus(BigInt.fromI64(1))
+      collection.save()
+    }
+  }
+
   let trx = new Transaction(event.transaction.hash.toHexString())
 
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = entity.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Cancel"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -81,15 +103,26 @@ export function handleDisputeJudgement(event: DisputeJudgementSet): void {
 
   entity.save();
 
+  let ipAsset = IPAsset.load(entity.targetIpId)
+  if (ipAsset != null) {
+    let collection = Collection.load(ipAsset.tokenContract)
+    if (collection != null) {
+      collection.judgedDisputeCount = collection.judgedDisputeCount.plus(BigInt.fromI64(1))
+      collection.save()
+    }
+  }
+
   let trx = new Transaction(event.transaction.hash.toHexString())
 
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = entity.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Set"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -106,15 +139,26 @@ export function handleDisputeResolved(event: DisputeResolved): void {
 
   entity.save();
 
+  let ipAsset = IPAsset.load(entity.targetIpId)
+  if (ipAsset != null) {
+    let collection = Collection.load(ipAsset.tokenContract)
+    if (collection != null) {
+      collection.resolvedDisputeCount = collection.resolvedDisputeCount.plus(BigInt.fromI64(1))
+      collection.save()
+    }
+  }
+
   let trx = new Transaction(event.transaction.hash.toHexString())
 
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  trx.ipId = entity.targetIpId
   trx.resourceId = event.address
   trx.actionType = "Resolve"
   trx.resourceType = "Dispute"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

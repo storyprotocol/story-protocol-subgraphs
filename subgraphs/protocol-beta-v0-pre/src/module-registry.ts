@@ -12,6 +12,8 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
 
   entity2.name = event.params.name
   entity2.module = event.params.module
+  entity2.moduleType = event.params.moduleType
+  entity2.moduleTypeInterfaceId = event.params.moduleTypeInterfaceId
 
   entity2.blockNumber = event.block.number
   entity2.blockTimestamp = event.block.timestamp
@@ -28,6 +30,8 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
   trx.resourceId = event.address
   trx.actionType = "Create"
   trx.resourceType = "Module"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }
@@ -51,6 +55,8 @@ export function handleModuleRemoved(event: ModuleRemovedEvent): void {
   trx.resourceId = event.address
   trx.actionType = "Remove"
   trx.resourceType = "Module"
+  trx.blockNumber = event.block.number;
+  trx.blockTimestamp = event.block.timestamp;
 
   trx.save()
 }

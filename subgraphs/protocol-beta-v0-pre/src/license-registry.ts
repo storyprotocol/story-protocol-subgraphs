@@ -3,32 +3,57 @@ import {
     TransferBatch,
     LicenseRegistry
 } from "../generated/LicenseRegistry/LicenseRegistry"
-import { 
+import {
     License,
-    LicenseOwner, Transaction } from "../generated/schema";
-import { Bytes } from "@graphprotocol/graph-ts"
+    LicenseOwner,
+    Transaction,
+    IPAsset,
+    Collection
+} from "../generated/schema";
+import { Bytes, BigInt } from "@graphprotocol/graph-ts"
 
 export function handleLicenseTransferSingle(event: TransferSingle): void {
     let contract = LicenseRegistry.bind(event.address)
     let licenseData = contract.license(event.params.id)
 
-    let entity = new License(event.params.id.toString());
-    entity.policyId = licenseData.policyId.toString();
-    entity.licensorIpId = licenseData.licensorIpId.toHexString();
-    entity.blockNumber = event.block.number;
-    entity.blockTimestamp = event.block.timestamp;
+    // owner is event.params.from
+    let entity = License.load(event.params.id.toString())
+    if (entity == null) {
+        let entity = new License(event.params.id.toString());
+        entity.policyId = licenseData.policyId.toString();
+        entity.licensorIpId = licenseData.licensorIpId.toHexString();
+        entity.transferable = licenseData.transferable;
+        entity.blockNumber = event.block.number;
+        entity.blockTimestamp = event.block.timestamp;
+        entity.amount = BigInt.fromI64(1)
 
-    entity.save();
+        entity.save();
+    } else {
+        entity.amount = entity.amount.plus(BigInt.fromI64(1))
+        entity.save()
+    }
+
+
+    let ipAsset = IPAsset.load(licenseData.licensorIpId)
+    if (ipAsset != null) {
+        let collection = Collection.load(ipAsset.tokenContract)
+        if (collection != null) {
+            collection.licensesCount = collection.licensesCount.plus(BigInt.fromI64(1))
+            collection.save()
+        }
+    }
 
     let trx = new Transaction(event.transaction.hash.toHexString())
 
     trx.txHash = event.transaction.hash.toHexString()
     trx.initiator = event.transaction.from
     trx.createdAt = event.block.timestamp
-    trx.ipId = new Bytes(0)
+    trx.ipId = licenseData.licensorIpId
     trx.resourceId = event.address
     trx.actionType = "Create"
     trx.resourceType = "License"
+    trx.blockNumber = event.block.number;
+    trx.blockTimestamp = event.block.timestamp;
 
     trx.save()
 }
@@ -40,6 +65,7 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
             return;
         }
 
+        entity.amount = entity.amount.minus(BigInt.fromI64(1))
         entity.deletedAt = event.block.number;
         entity.save();
 
@@ -48,10 +74,12 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
         trx.txHash = event.transaction.hash.toHexString()
         trx.initiator = event.transaction.from
         trx.createdAt = event.block.timestamp
-        trx.ipId = new Bytes(0)
+        trx.ipId = Bytes.fromHexString(entity.licensorIpId)
         trx.resourceId = event.address
         trx.actionType = "Remove"
         trx.resourceType = "License"
+        trx.blockNumber = event.block.number;
+        trx.blockTimestamp = event.block.timestamp;
 
         trx.save()
     }

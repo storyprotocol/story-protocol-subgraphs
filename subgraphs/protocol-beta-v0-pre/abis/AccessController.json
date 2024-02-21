@@ -126,6 +126,12 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address",
+        "name": "ipAccountOwner",
+        "type": "address"
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "ipAccount",
@@ -189,22 +195,22 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "ipAccount_",
+        "name": "ipAccount",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "signer_",
+        "name": "signer",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "to_",
+        "name": "to",
         "type": "address"
       },
       {
         "internalType": "bytes4",
-        "name": "func_",
+        "name": "func",
         "type": "bytes4"
       }
     ],
@@ -294,25 +300,6 @@
   {
     "inputs": [
       {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "name": "permissions",
-    "outputs": [
-      {
-        "internalType": "uint8",
-        "name": "",
-        "type": "uint8"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "components": [
           {
             "internalType": "address",
@@ -341,7 +328,7 @@
           }
         ],
         "internalType": "struct AccessPermission.Permission[]",
-        "name": "permissions_",
+        "name": "permissions",
         "type": "tuple[]"
       }
     ],
@@ -354,22 +341,22 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "signer_",
+        "name": "signer",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "to_",
+        "name": "to",
         "type": "address"
       },
       {
         "internalType": "bytes4",
-        "name": "func_",
+        "name": "func",
         "type": "bytes4"
       },
       {
         "internalType": "uint8",
-        "name": "permission_",
+        "name": "permission",
         "type": "uint8"
       }
     ],
@@ -395,27 +382,27 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "ipAccount_",
+        "name": "ipAccount",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "signer_",
+        "name": "signer",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "to_",
+        "name": "to",
         "type": "address"
       },
       {
         "internalType": "bytes4",
-        "name": "func_",
+        "name": "func",
         "type": "bytes4"
       },
       {
         "internalType": "uint8",
-        "name": "permission_",
+        "name": "permission",
         "type": "uint8"
       }
     ],
