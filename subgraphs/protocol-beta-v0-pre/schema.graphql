@@ -114,12 +114,12 @@ type PolicyData @entity{
 type License @entity(immutable: false) {
   id: String!
   policyId: String!
-  #licensorIpId: [Bytes!]! # addresses
-  licensorIpId:  String!# addresses
+  licensorIpId:  String!
+  transferable:  Boolean!
+  amount:  BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   deletedAt: BigInt
-  #  licenseData: LicenseData!
 }
 
 type LicenseData @entity{

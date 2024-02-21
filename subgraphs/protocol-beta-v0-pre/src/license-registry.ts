@@ -16,14 +16,23 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
     let contract = LicenseRegistry.bind(event.address)
     let licenseData = contract.license(event.params.id)
 
-    let entity = new License(event.params.id.toString());
+    // owner is event.params.from
+    let entity = License.load(event.params.id.toString())
+    if (entity == null) {
+        let entity = new License(event.params.id.toString());
+        entity.policyId = licenseData.policyId.toString();
+        entity.licensorIpId = licenseData.licensorIpId.toHexString();
+        entity.transferable = licenseData.transferable;
+        entity.blockNumber = event.block.number;
+        entity.blockTimestamp = event.block.timestamp;
+        entity.amount = BigInt.fromI64(1)
 
-    entity.policyId = licenseData.policyId.toString();
-    entity.licensorIpId = licenseData.licensorIpId.toHexString();
-    entity.blockNumber = event.block.number;
-    entity.blockTimestamp = event.block.timestamp;
+        entity.save();
+    } else {
+        entity.amount = entity.amount.plus(BigInt.fromI64(1))
+        entity.save()
+    }
 
-    entity.save();
 
     let ipAsset = IPAsset.load(licenseData.licensorIpId)
     if (ipAsset != null) {
@@ -56,6 +65,7 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
             return;
         }
 
+        entity.amount = entity.amount.minus(BigInt.fromI64(1))
         entity.deletedAt = event.block.number;
         entity.save();
 
