@@ -1,0 +1,11 @@
+{
+  "sepolia": {
+    "IPAccountRegistry": {
+      "address": "0xCaEe8154905B9d609019548e7A9C6f10708236C9",
+      "startBlock": 5133315
+    },
+    "ModuleRegistry": {
+      "address": "0x47597e176b0cbDe42f90A628Edafe1C6692EDFFD"
+    }
+  }
+}

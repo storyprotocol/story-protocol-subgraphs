@@ -1,0 +1,750 @@
+[
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "royaltyModule",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "licensingModule",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "liquidSplitFactory",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "liquidSplitMain",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "governance",
+"type": "address"
+}
+],
+"stateMutability": "nonpayable",
+"type": "constructor"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "target",
+"type": "address"
+}
+],
+"name": "AddressEmptyCode",
+"type": "error"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "account",
+"type": "address"
+}
+],
+"name": "AddressInsufficientBalance",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "ERC1167FailedCreateClone",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "FailedInnerCall",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "Governance__InconsistentState",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "Governance__OnlyProtocolAdmin",
+"type": "error"
+},
+{
+"inputs": [
+{
+"internalType": "string",
+"name": "interfaceName",
+"type": "string"
+}
+],
+"name": "Governance__UnsupportedInterface",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "Governance__ZeroAddress",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "ReentrancyGuardReentrantCall",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__AboveAncestorsLimit",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__AboveParentLimit",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__AboveRoyaltyStackLimit",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__ImplementationAlreadySet",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__InvalidAncestors",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__InvalidAncestorsHash",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__InvalidAncestorsLength",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__InvalidAncestorsRoyalty",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__InvalidParentRoyaltiesLength",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__InvalidRoyaltyAmountLength",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__LastPositionNotAbleToMintLicense",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__NotFullOwnership",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__NotRoyaltyModule",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__TransferFailed",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__UnlinkableToParents",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__ZeroAncestorsVaultImpl",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__ZeroLicensingModule",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__ZeroLiquidSplitFactory",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__ZeroLiquidSplitMain",
+"type": "error"
+},
+{
+"inputs": [],
+"name": "RoyaltyPolicyLAP__ZeroRoyaltyModule",
+"type": "error"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "token",
+"type": "address"
+}
+],
+"name": "SafeERC20FailedOperation",
+"type": "error"
+},
+{
+"anonymous": false,
+"inputs": [
+{
+"indexed": true,
+"internalType": "address",
+"name": "newGovernance",
+"type": "address"
+}
+],
+"name": "GovernanceUpdated",
+"type": "event"
+},
+{
+"anonymous": false,
+"inputs": [
+{
+"indexed": false,
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"indexed": false,
+"internalType": "address",
+"name": "splitClone",
+"type": "address"
+},
+{
+"indexed": false,
+"internalType": "address",
+"name": "ancestorsVault",
+"type": "address"
+},
+{
+"indexed": false,
+"internalType": "uint32",
+"name": "royaltyStack",
+"type": "uint32"
+},
+{
+"indexed": false,
+"internalType": "address[]",
+"name": "targetAncestors",
+"type": "address[]"
+},
+{
+"indexed": false,
+"internalType": "uint32[]",
+"name": "targetRoyaltyAmount",
+"type": "uint32[]"
+}
+],
+"name": "PolicyInitialized",
+"type": "event"
+},
+{
+"inputs": [],
+"name": "ANCESTORS_VAULT_IMPL",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "LICENSING_MODULE",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "LIQUID_SPLIT_FACTORY",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "LIQUID_SPLIT_MAIN",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "MAX_ANCESTORS",
+"outputs": [
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "MAX_PARENTS",
+"outputs": [
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "ROYALTY_MODULE",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "TOTAL_RNFT_SUPPLY",
+"outputs": [
+{
+"internalType": "uint32",
+"name": "",
+"type": "uint32"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "claimerIpId",
+"type": "address"
+},
+{
+"internalType": "address[]",
+"name": "ancestors",
+"type": "address[]"
+},
+{
+"internalType": "uint32[]",
+"name": "ancestorsRoyalties",
+"type": "uint32[]"
+},
+{
+"internalType": "bool",
+"name": "withdrawETH",
+"type": "bool"
+},
+{
+"internalType": "contract ERC20[]",
+"name": "tokens",
+"type": "address[]"
+}
+],
+"name": "claimFromAncestorsVault",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "account",
+"type": "address"
+},
+{
+"internalType": "uint256",
+"name": "withdrawETH",
+"type": "uint256"
+},
+{
+"internalType": "contract ERC20[]",
+"name": "tokens",
+"type": "address[]"
+}
+],
+"name": "claimFromIpPool",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"internalType": "uint256",
+"name": "withdrawETH",
+"type": "uint256"
+},
+{
+"internalType": "address",
+"name": "token",
+"type": "address"
+}
+],
+"name": "claimFromIpPoolAsTotalRnftOwner",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "token",
+"type": "address"
+},
+{
+"internalType": "address[]",
+"name": "accounts",
+"type": "address[]"
+},
+{
+"internalType": "address",
+"name": "distributorAddress",
+"type": "address"
+}
+],
+"name": "distributeIpPoolFunds",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "getGovernance",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "governance",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+},
+{
+"internalType": "uint256[]",
+"name": "",
+"type": "uint256[]"
+},
+{
+"internalType": "uint256[]",
+"name": "",
+"type": "uint256[]"
+},
+{
+"internalType": "bytes",
+"name": "",
+"type": "bytes"
+}
+],
+"name": "onERC1155BatchReceived",
+"outputs": [
+{
+"internalType": "bytes4",
+"name": "",
+"type": "bytes4"
+}
+],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+},
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+},
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+},
+{
+"internalType": "bytes",
+"name": "",
+"type": "bytes"
+}
+],
+"name": "onERC1155Received",
+"outputs": [
+{
+"internalType": "bytes4",
+"name": "",
+"type": "bytes4"
+}
+],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"internalType": "bytes",
+"name": "licenseData",
+"type": "bytes"
+},
+{
+"internalType": "bytes",
+"name": "externalData",
+"type": "bytes"
+}
+],
+"name": "onLicenseMinting",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"internalType": "address[]",
+"name": "parentIpIds",
+"type": "address[]"
+},
+{
+"internalType": "bytes[]",
+"name": "licenseData",
+"type": "bytes[]"
+},
+{
+"internalType": "bytes",
+"name": "externalData",
+"type": "bytes"
+}
+],
+"name": "onLinkToParents",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "caller",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "token",
+"type": "address"
+},
+{
+"internalType": "uint256",
+"name": "amount",
+"type": "uint256"
+}
+],
+"name": "onRoyaltyPayment",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ipId",
+"type": "address"
+}
+],
+"name": "royaltyData",
+"outputs": [
+{
+"internalType": "bool",
+"name": "isUnlinkableToParents",
+"type": "bool"
+},
+{
+"internalType": "address",
+"name": "splitClone",
+"type": "address"
+},
+{
+"internalType": "address",
+"name": "ancestorsVault",
+"type": "address"
+},
+{
+"internalType": "uint32",
+"name": "royaltyStack",
+"type": "uint32"
+},
+{
+"internalType": "bytes32",
+"name": "ancestorsHash",
+"type": "bytes32"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "ancestorsVaultImpl",
+"type": "address"
+}
+],
+"name": "setAncestorsVaultImplementation",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "newGovernance",
+"type": "address"
+}
+],
+"name": "setGovernance",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "bytes4",
+"name": "interfaceId",
+"type": "bytes4"
+}
+],
+"name": "supportsInterface",
+"outputs": [
+{
+"internalType": "bool",
+"name": "",
+"type": "bool"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"stateMutability": "payable",
+"type": "receive"
+}
+]

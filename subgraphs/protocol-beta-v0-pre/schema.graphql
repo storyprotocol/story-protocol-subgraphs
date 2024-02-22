@@ -1,0 +1,269 @@
+type Collection @entity(immutable: false) {
+  id: Bytes!
+  assetCount: BigInt!
+  raisedDisputeCount: BigInt!
+  cancelledDisputeCount: BigInt!
+  resolvedDisputeCount: BigInt!
+  judgedDisputeCount: BigInt!
+  licensesCount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type IPAsset @entity(immutable: false) {
+  id: Bytes!
+  ipId: Bytes!
+  chainId: BigInt!
+  tokenContract: Bytes!
+  tokenId: BigInt!
+  metadataResolverAddress: Bytes!
+  metadata: Metadata @embedded
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  childIpIds: [IPAsset!]
+  parentIpIds: [IPAsset!]
+  rootIpIds: [IPAsset!]
+  ancestorRoyaltyAddresses: [Bytes!]
+  ancestorRoyaltyPercentages: [String!]
+}
+
+type Metadata @entity {
+  id: Bytes!
+  name: String!
+  hash: Bytes!
+  registrationDate: BigInt!
+  registrant: Bytes!
+  uri: String!
+}
+
+type Permission @entity(immutable: false) {
+  id: String!
+  uuid: String!
+  ipAccountOwner: Bytes!
+  ipAccount: Bytes!
+  signer: Bytes!
+  to: Bytes!
+  func: String!
+  permission: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type Module @entity(immutable: false) {
+  id: Bytes!
+  name: String! # string
+  module: Bytes! # address
+  moduleTypeInterfaceId: Bytes!
+  moduleType: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  deletedAt: BigInt
+}
+
+type Tag @entity(immutable: false) {
+  id: String!
+  uuid: String!
+  ipId: Bytes!
+  tag: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  deletedAt: BigInt
+}
+
+type Policy @entity(immutable: true) {
+  id: String!
+  policyFrameworkManager: Bytes! # address
+  policyId: BigInt!
+  frameworkData: Bytes!
+  royaltyPolicy: Bytes!
+  royaltyData: Bytes!
+  mintingFee: BigInt!
+  mintingFeeToken: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  pil: PILPolicy @embedded
+}
+
+type PILPolicy @entity {
+  id: String!
+  attribution: Boolean!
+  commercialUse: Boolean!
+  commercialAttribution: Boolean!
+  commercializerChecker: Bytes!
+  commercializerCheckerData: Bytes!
+  commercialRevShare: BigInt!
+  derivativesAllowed: Boolean!
+  derivativesAttribution: Boolean!
+  derivativesApproval: Boolean!
+  derivativesReciprocal: Boolean!
+  territories: [String!]!
+  distributionChannels: [String!]!
+  contentRestrictions: [String!]!
+}
+
+type PolicyData @entity{
+  id: String!
+  frameworkId: BigInt!
+  mintingParamValues: [Bytes!]!
+  activationParamValues: [Bytes!]!
+  needsActivation: Boolean!
+  linkParentParamValues: [Bytes!]!
+}
+
+type License @entity(immutable: false) {
+  id: String!
+  policyId: String!
+  licensorIpId:  String!
+  transferable:  Boolean!
+  amount:  BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  deletedAt: BigInt
+}
+
+type LicenseOwner @entity(immutable: false){
+  id: String!
+  owner: Bytes!
+  policyId: String!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type IPAPolicy @entity(immutable: false) {
+  id: String!
+  ipId: String!
+  policyId: String!
+  index: BigInt!
+  active: Boolean!
+  inherited: Boolean!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type Dispute @entity(immutable: false) {
+  id: String!
+  targetIpId: Bytes!
+  targetTag: Bytes!
+  currentTag: Bytes
+  arbitrationPolicy: Bytes!
+  evidenceLink: Bytes!
+  initiator: Bytes!
+  data: Bytes!
+  deletedAt: BigInt
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type IPRoyalty @entity(immutable: false) {
+  id: String!
+  ipId: Bytes!
+  royaltyPolicy: Bytes!
+  data: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type RoyaltyPolicy @entity(immutable: false) {
+    id: Bytes!
+    splitClone: Bytes
+    ancestorsVault: Bytes
+    royaltyStack: BigInt
+    targetAncestors: [Bytes!]
+    targetRoyaltyAmount: [BigInt!]
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+}
+
+type RoyaltyPay @entity(immutable: false) {
+  id: String!
+  payerIpId: Bytes!
+  receiverIpId: Bytes!
+  sender: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type LicenseMintingFeePaidEntity @entity(immutable: false) {
+  id: String!
+  receiverIpId: Bytes!
+  payer: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type PolicyFrameworkManager @entity(immutable: true) {
+  id: String!
+  address: Bytes! # address
+  name: String! # address
+  licenseUrl: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  frameworkCreationParams: FrameworkCreationParams!
+}
+
+type LicenseFramework @entity(immutable: true) {
+  id: String!
+  creator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  #  frameworkCreationParams: FrameworkCreationParams!
+}
+
+type FrameworkCreationParams @entity{
+  id: String!
+  mintingParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  mintingParamDefaultValues: [Bytes!]!
+  activationParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  activationParamDefaultValues: [Bytes!]!
+  defaultNeedsActivation: Boolean!
+  linkParentParamVerifiers: [Bytes!]! # Assuming Bytes type for address
+  linkParentParamDefaultValues: [Bytes!]!
+  licenseUrl: String!
+}
+
+type Transaction @entity(immutable: true) {
+  id: String!
+  txHash: String!
+  initiator: Bytes!
+  ipId: Bytes
+  resourceId: Bytes
+  resourceType: ResourceType!
+  actionType: ActionType!
+  createdAt: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+enum ResourceType {
+  Unspecified
+  IPAsset
+  License
+  Policy
+  Royalty
+  Permission
+  Tag
+  Dispute
+  Module
+  Hook
+  RoyaltyPolicy
+}
+
+enum ActionType {
+  Unspecified
+  Register
+  Unregister
+  Set
+  Create
+  Remove
+  Link
+  Claim
+  Pay
+  Cancel
+  Resolve
+}
