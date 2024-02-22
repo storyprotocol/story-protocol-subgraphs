@@ -62,7 +62,7 @@ export function handlePolicyRegistered(event: PolicyRegistered): void {
     trx.txHash = event.transaction.hash.toHexString()
     trx.initiator = event.transaction.from
     trx.createdAt = event.block.timestamp
-    trx.ipId = new Bytes(0)
+
     trx.resourceId = event.address
     trx.actionType = "Register"
     trx.resourceType = "Policy"
@@ -90,7 +90,7 @@ export function handlePolicyFrameworkRegistered(event: PolicyFrameworkRegistered
     trx.txHash = event.transaction.hash.toHexString()
     trx.initiator = event.transaction.from
     trx.createdAt = event.block.timestamp
-    trx.ipId = new Bytes(0)
+
     trx.resourceId = event.address
     trx.actionType = "Register"
     trx.resourceType = "Policy"
@@ -124,7 +124,7 @@ export function handlePolicyAddedToIpId(event: PolicyAddedToIpId): void {
     trx.txHash = event.transaction.hash.toHexString()
     trx.initiator = event.transaction.from
     trx.createdAt = event.block.timestamp
-    trx.ipId = new Bytes(0)
+
     trx.resourceId = event.address
     trx.actionType = "Link"
     trx.resourceType = "Policy"
@@ -174,6 +174,8 @@ export function handleIpIdLinkedToParents(
             for (let i = 0; i < parentRootAncestors.length; i ++) {
                 rootIpIds.push(parentRootAncestors[i])
             }
+        } else {
+            rootIpIds.push(parentEntity.ipId)
         }
     }
 

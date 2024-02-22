@@ -38,7 +38,7 @@ export function handlePermissionSet(event: PermissionSet): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  
   trx.resourceId = event.params.ipAccount
   trx.actionType = "Set"
   trx.resourceType = "Permission"

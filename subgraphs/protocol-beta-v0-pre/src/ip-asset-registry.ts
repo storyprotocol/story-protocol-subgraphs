@@ -34,9 +34,9 @@ export function handleIPRegistered(
 
   let parentIpIds = licenseModule.parentIpIds(event.params.ipId)
   if (parentIpIds.length == 0) {
-    let rootIpIds : Bytes[] = []
-    rootIpIds.push(event.params.ipId)
-    entity.rootIpIds = rootIpIds
+    // let rootIpIds : Bytes[] = []
+    // rootIpIds.push(event.params.ipId)
+    // entity.rootIpIds = rootIpIds
   }
   // ADDRESS ARRAY OF ALL ANCESTORS
   // ROYALTY ARRAY OF ALL ANCESTORS

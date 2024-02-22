@@ -26,7 +26,7 @@ export function handleModuleAdded(event: ModuleAddedEvent): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  
   trx.resourceId = event.address
   trx.actionType = "Create"
   trx.resourceType = "Module"
@@ -51,7 +51,7 @@ export function handleModuleRemoved(event: ModuleRemovedEvent): void {
   trx.txHash = event.transaction.hash.toHexString()
   trx.initiator = event.transaction.from
   trx.createdAt = event.block.timestamp
-  trx.ipId = new Bytes(0)
+  
   trx.resourceId = event.address
   trx.actionType = "Remove"
   trx.resourceType = "Module"
