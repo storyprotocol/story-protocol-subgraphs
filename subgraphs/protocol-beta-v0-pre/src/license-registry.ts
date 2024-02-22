@@ -31,10 +31,10 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
 
         let lowner = new LicenseOwner(licenseData.licensorIpId.toHexString() + "-" + licenseData.policyId.toString())
         lowner.amount = BigInt.fromI64(1)
-        lowner.licenseId = entity.policyId
+        lowner.policyId = licenseData.policyId.toString();
         lowner.owner = licenseData.licensorIpId
-        lowner.blockNumber = lowner.blockNumber
-        lowner.blockTimestamp = lowner.blockTimestamp
+        lowner.blockNumber = event.block.number
+        lowner.blockTimestamp = event.block.timestamp
         lowner.save()
     } else {
         entity.amount = entity.amount.plus(BigInt.fromI64(1))

@@ -125,7 +125,7 @@ type License @entity(immutable: false) {
 type LicenseOwner @entity(immutable: false){
   id: String!
   owner: Bytes!
-  licenseId: String!
+  policyId: String!
   amount: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
