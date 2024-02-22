@@ -156,8 +156,6 @@ export function handleIpIdLinkedToParents(
             return;
         }
 
-
-
         let childIpIds = parentEntity.childIpIds
         if (childIpIds != null) {
             childIpIds.push(event.params.ipId)

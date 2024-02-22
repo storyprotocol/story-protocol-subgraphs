@@ -28,9 +28,23 @@ export function handleLicenseTransferSingle(event: TransferSingle): void {
         entity.amount = BigInt.fromI64(1)
 
         entity.save();
+
+        let lowner = new LicenseOwner(licenseData.licensorIpId.toHexString() + "-" + licenseData.policyId.toString())
+        lowner.amount = BigInt.fromI64(1)
+        lowner.licenseId = entity.policyId
+        lowner.owner = licenseData.licensorIpId
+        lowner.blockNumber = lowner.blockNumber
+        lowner.blockTimestamp = lowner.blockTimestamp
+        lowner.save()
     } else {
         entity.amount = entity.amount.plus(BigInt.fromI64(1))
         entity.save()
+
+        let lowner = LicenseOwner.load(licenseData.licensorIpId.toHexString() + "-" + licenseData.policyId.toString())
+        if (lowner != null) {
+            lowner.amount = lowner.amount.plus(BigInt.fromI64(1))
+            lowner.save()
+        }
     }
 
 
@@ -68,6 +82,12 @@ export function handleLicenseTransferBatch(event: TransferBatch): void {
         entity.amount = entity.amount.minus(BigInt.fromI64(1))
         entity.deletedAt = event.block.number;
         entity.save();
+
+        let lowner = LicenseOwner.load(entity.licensorIpId.toString() + "-" + entity.policyId.toString())
+        if (lowner != null) {
+            lowner.amount = lowner.amount.minus(BigInt.fromI64(1))
+            lowner.save()
+        }
 
         let trx = new Transaction(event.transaction.hash.toHexString())
 

@@ -122,10 +122,13 @@ type License @entity(immutable: false) {
   deletedAt: BigInt
 }
 
-type LicenseData @entity{
+type LicenseOwner @entity(immutable: false){
   id: String!
-  policyId: BigInt!
-  licensorIpIds: [Bytes!]!
+  owner: Bytes!
+  licenseId: String!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 
 type IPAPolicy @entity(immutable: false) {
@@ -135,15 +138,6 @@ type IPAPolicy @entity(immutable: false) {
   index: BigInt!
   active: Boolean!
   inherited: Boolean!
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-}
-
-type LicenseOwner @entity(immutable:false) {
-  id: Bytes!
-  licenseId: String!
-  owner: String!
-  amount: String!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
 }
