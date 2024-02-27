@@ -1,6 +1,6 @@
 import { PolicyInitialized } from "../generated/RoyaltyPolicyLAP/RoyaltyPolicyLAP";
 import { RoyaltyPolicy, Transaction } from "../generated/schema";
-import { Bytes } from "@graphprotocol/graph-ts"
+import {Address, Bytes} from "@graphprotocol/graph-ts"
 
 export function handleRoyaltyPolicyInitialized(event: PolicyInitialized): void {
 
@@ -9,8 +9,13 @@ export function handleRoyaltyPolicyInitialized(event: PolicyInitialized): void {
         return;
     }
 
+    let ancestorsVault : Address = event.params.ancestorsVault
+    if (ancestorsVault.toHexString() != "0x16eF58e959522727588921A92e9084d36E5d3855"){
+        entity.ancestorsVault = ancestorsVault
+    }
+
+
     entity.splitClone = event.params.splitClone
-    entity.ancestorsVault = event.params.ancestorsVault
     entity.royaltyStack = event.params.royaltyStack
     entity.targetRoyaltyAmount = event.params.targetRoyaltyAmount
     entity.blockNumber = event.block.number;
