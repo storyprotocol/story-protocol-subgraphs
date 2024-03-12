@@ -10,7 +10,7 @@ export function handleIPRegistered(
       event.params.ipId
   )
 
-  let contract = MetadataProviderV1.bind(Address.fromString("0xfcD468A72F76e89F2Df517274063ef7210a32e2A"));
+  let contract = MetadataProviderV1.bind(Address.fromString("0x31c65C12A6A3889cd08A055914931E2Fbe773dD6"));
   if (contract == null) {
     return;
   }
@@ -27,7 +27,7 @@ export function handleIPRegistered(
   // ADDRESS ARRAY OF ROOT ANCESTORS
   // check LicenseModule to see if ipid has parents
   // if it does not, its root - set entity.rootAddresses to self
-  let licenseModule = LicenseModule.bind(Address.fromString("0x0C72b24067a15994f91D92Fd9bA23eB5ebcF8378"))
+  let licenseModule = LicenseModule.bind(Address.fromString("0x950d766A1a0afDc33c3e653C861A8765cb42DbdC"))
   if (contract == null) {
     return;
   }
