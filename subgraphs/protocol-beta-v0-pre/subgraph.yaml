@@ -1,0 +1,269 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  # IPAsset Registry
+  - kind: ethereum
+    name: IPAssetRegistry
+    network: sepolia
+    source:
+      address: "0x292639452A975630802C17c9267169D93BD5a793"
+      abi: IPAssetRegistry
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPAsset
+        - Collection
+      abis:
+        - name: IPAssetRegistry
+          file: ./abis/IPAssetRegistry.json
+        - name: MetadataProviderV1
+          file: ./abis/MetadataProviderV1.json
+        - name: LicenseModule
+          file: ./abis/LicenseModule.json
+      eventHandlers:
+        - event: IPRegistered(address,indexed uint256,indexed address,indexed uint256,address,address,bytes)
+          handler: handleIPRegistered
+        #        - event: IPAccountRegistered(indexed address,indexed address,indexed uint256,address,uint256)
+        #          handler: handleIPRegistered
+        - event: IPResolverSet(address,address)
+          handler: handleIPResolverSet
+      file: ./src/ip-asset-registry.ts
+
+  # MODULE REGISTRY
+  - kind: ethereum
+    name: ModuleRegistry
+    network: sepolia
+    source:
+      address: "0x5Aac3177F496F503Ac724A0D0A697f6ba9dA2C27"
+      abi: ModuleRegistry
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Module
+        - ModuleAdded
+        - ModuleRemoved
+      abis:
+        - name: ModuleRegistry
+          file: ./abis/ModuleRegistry.json
+      eventHandlers:
+        - event: ModuleAdded(string,indexed address,indexed bytes4,string)
+          handler: handleModuleAdded
+        - event: ModuleRemoved(string,indexed address)
+          handler: handleModuleRemoved
+      file: ./src/module-registry.ts
+
+  # ACCESS CONTROLLER
+  - kind: ethereum
+    name: AccessController
+    network: sepolia
+    source:
+      address: "0xad64a4b2e18FF7D2f97aF083E7b193d7Dd141735"
+      abi: AccessController
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Permission
+      abis:
+        - name: AccessController
+          file: ./abis/AccessController.json
+      eventHandlers:
+        - event: PermissionSet(address,indexed address,indexed address,indexed address,bytes4,uint8)
+          handler: handlePermissionSet
+      file: ./src/access-controller.ts
+#
+#  # TAGGING MODULE
+#  - kind: ethereum
+#    name: TaggingModule
+#    network: sepolia
+#    source:
+#      address: "0xED445f1DeE74Cf470Aab47F4b63734653C4C9537"
+#      abi: TaggingModule
+#      startBlock: 5311040
+#    mapping:
+#      kind: ethereum/events
+#      apiVersion: 0.0.7
+#      language: wasm/assemblyscript
+#      entities:
+#        - Tag
+#      abis:
+#        - name: TaggingModule
+#          file: ./abis/TaggingModule.json
+#      eventHandlers:
+#        - event: TagSet(string,address)
+#          handler: handleTagSet
+#        - event: TagRemoved(string,address)
+#          handler: handleTagRemoved
+#      file: ./src/tagging-module.ts
+
+  # DISPUTE MODULE
+  - kind: ethereum
+    name: DisputeModule
+    network: sepolia
+    source:
+      address: "0x6157B19CBc151af2b36e0a2581001d32a22b2661"
+      abi: DisputeModule
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Dispute
+      abis:
+        - name: DisputeModule
+          file: ./abis/DisputeModule.json
+      eventHandlers:
+        - event: DisputeRaised(uint256,address,address,address,bytes32,bytes32,bytes)
+          handler: handleDisputeRaised
+
+        - event: DisputeJudgementSet(uint256,bool,bytes)
+          handler: handleDisputeJudgement
+
+        - event: DisputeCancelled(uint256,bytes)
+          handler: handleDisputeCancelled
+
+        - event: DisputeResolved(uint256)
+          handler: handleDisputeResolved
+
+        - event: TagWhitelistUpdated(bytes32,bool)
+          handler: handleTagWhitelistUpdated
+
+        - event: ArbitrationPolicyWhitelistUpdated(address,bool)
+          handler: handleWhitelistArbitrationPolicy
+
+        - event: ArbitrationRelayerWhitelistUpdated(address,address,bool)
+          handler: handleWhitelistArbitrationRelayer
+
+      file: ./src/dispute-module.ts
+
+
+  # ROYALTY MODULE
+  - kind: ethereum
+    name: RoyaltyModule
+    network: sepolia
+    source:
+      address: "0xA6bEf9CC650A16939566c1da5d5088f3F028a865"
+      abi: RoyaltyModule
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPRoyalty
+        - RoyaltyPay
+        - LicenseMintingFeePaid
+      abis:
+        - name: RoyaltyModule
+          file: ./abis/RoyaltyModule.json
+      eventHandlers:
+        - event: RoyaltyPolicyWhitelistUpdated(address,bool)
+          handler: handleRoyaltyPolicyWhitelistUpdated
+        - event: RoyaltyTokenWhitelistUpdated(address,bool)
+          handler: handleRoyaltyTokenWhitelistUpdated
+        - event: RoyaltyPolicySet(address,address,bytes)
+          handler: handleRoyaltyPolicySet
+        - event: RoyaltyPaid(address,address,address,address,uint256)
+          handler: handleRoyaltyPaid
+        - event: LicenseMintingFeePaid(address,address,address,uint256)
+          handler: handleLicenseMintingFeePaid
+
+      file: ./src/royalty-module.ts
+
+  # Royalty Policy LAP
+  - kind: ethereum
+    name: RoyaltyPolicyLAP
+    network: sepolia
+    source:
+      address: "0x16eF58e959522727588921A92e9084d36E5d3855"
+      abi: RoyaltyPolicyLAP
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - RoyaltyPolicy
+      abis:
+        - name: RoyaltyPolicyLAP
+          file: ./abis/RoyaltyPolicyLAP.json
+      eventHandlers:
+        - event: PolicyInitialized(address,address,address,uint32,address[],uint32[])
+          handler: handleRoyaltyPolicyInitialized
+
+      file: ./src/royalty-policy-lap.ts
+
+  # LICENSE REGISTRY
+  - kind: ethereum
+    name: LicenseRegistry
+    network: sepolia
+    source:
+      address: "0xc2BC7a2d5784768BDEd98436f2522A4931e2FBb4"
+      abi: LicenseRegistry
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - License
+        - LicenseOwner
+      abis:
+        - name: LicenseRegistry
+          file: ./abis/LicenseRegistry.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleLicenseTransferSingle
+
+        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+          handler: handleLicenseTransferBatch
+
+      file: ./src/license-registry.ts
+
+  # LICENSE MODULE
+  - kind: ethereum
+    name: LicenseModule
+    network: sepolia
+    source:
+      address: "0x950d766A1a0afDc33c3e653C861A8765cb42DbdC"
+      abi: LicenseModule
+      startBlock: 5311040
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - IPAPolicy
+        - PolicyFrameworkManager
+        - Policy
+        - IPAsset
+      abis:
+        - name: LicenseModule
+          file: ./abis/LicenseModule.json
+        - name: PILPolicyFrameworkManager
+          file: ./abis/PILPolicyFrameworkManager.json
+      eventHandlers:
+        - event: PolicyAddedToIpId(indexed address,indexed address,indexed uint256,uint256,bool)
+          handler: handlePolicyAddedToIpId
+        - event: PolicyFrameworkRegistered(indexed address,string,string)
+          handler: handlePolicyFrameworkRegistered
+        - event: PolicyRegistered(indexed uint256,indexed address,bytes,address,bytes,uint256,address)
+          handler: handlePolicyRegistered
+        - event: IpIdLinkedToParents(indexed address,indexed address,address[])
+          handler: handleIpIdLinkedToParents
+
+      file: ./src/license-module.ts
+
+
