@@ -1,0 +1,362 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "governance",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__InconsistentState",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__OnlyProtocolAdmin",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "interfaceName",
+        "type": "string"
+      }
+    ],
+    "name": "Governance__UnsupportedInterface",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Governance__ZeroAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__InterfaceIdZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleAddressNotContract",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleAddressZeroAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleAlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleNotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleNotSupportExpectedModuleTypeInterfaceId",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleTypeAlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleTypeEmptyString",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__ModuleTypeNotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__NameAlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__NameDoesNotMatch",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleRegistry__NameEmptyString",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newGovernance",
+        "type": "address"
+      }
+    ],
+    "name": "GovernanceUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "module",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes4",
+        "name": "moduleTypeInterfaceId",
+        "type": "bytes4"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "moduleType",
+        "type": "string"
+      }
+    ],
+    "name": "ModuleAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "module",
+        "type": "address"
+      }
+    ],
+    "name": "ModuleRemoved",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "getGovernance",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "getModule",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "moduleAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getModuleType",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "moduleType",
+        "type": "string"
+      }
+    ],
+    "name": "getModuleTypeInterfaceId",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "governance",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "moduleAddress",
+        "type": "address"
+      }
+    ],
+    "name": "isRegistered",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "moduleAddress",
+        "type": "address"
+      }
+    ],
+    "name": "registerModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "moduleAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "moduleType",
+        "type": "string"
+      }
+    ],
+    "name": "registerModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "registerModuleType",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "removeModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "removeModuleType",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newGovernance",
+        "type": "address"
+      }
+    ],
+    "name": "setGovernance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
